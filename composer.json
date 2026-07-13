@@ -1,0 +1,48 @@
+{
+    "name": "WhoisFreaks/whoisfreaks-php",
+    "version": "0.17.0",
+    "description": "Complete WhoisFreaks API \u2014 WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com",
+    "keywords": [
+        "openapitools",
+        "openapi-generator",
+        "openapi",
+        "php",
+        "sdk",
+        "rest",
+        "api"
+    ],
+    "homepage": "https://github.com/WhoisFreaks/whoisfreaks-php",
+    "license": "unlicense",
+    "authors": [
+        {
+            "name": "OpenAPI",
+            "homepage": "https://openapi-generator.tech"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^1.7 || ^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "friendsofphp/php-cs-fixer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "WhoisFreaks\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WhoisFreaks\\Test\\": "test/"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/WhoisFreaks/whoisfreaks-php/issues",
+        "source": "https://github.com/WhoisFreaks/whoisfreaks-php"
+    }
+}
