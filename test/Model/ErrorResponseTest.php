@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * ErrorResponseTest Class Doc Comment
  *
  * @category    Class
- * @description ErrorResponse
+ * @description Error response. &#x60;status&#x60; may be an integer (e.g. 401), boolean, or string depending on the endpoint, so it is intentionally untyped to avoid deserialization failures.
  * @package     WhoisFreaks
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

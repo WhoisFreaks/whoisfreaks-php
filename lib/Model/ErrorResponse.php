@@ -36,6 +36,7 @@ use \WhoisFreaks\ObjectSerializer;
  * ErrorResponse Class Doc Comment
  *
  * @category Class
+ * @description Error response. &#x60;status&#x60; may be an integer (e.g. 401), boolean, or string depending on the endpoint, so it is intentionally untyped to avoid deserialization failures.
  * @package  WhoisFreaks
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -60,7 +61,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'timestamp' => 'string',
         'path' => 'string',
-        'status' => 'int',
+        'status' => 'mixed',
         'error' => 'string',
         'message' => 'string',
         'code' => 'int'
@@ -90,7 +91,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'timestamp' => false,
         'path' => false,
-        'status' => false,
+        'status' => true,
         'error' => false,
         'message' => false,
         'code' => false
@@ -382,7 +383,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status
      *
-     * @return int|null
+     * @return mixed|null
      */
     public function getStatus()
     {
@@ -392,14 +393,21 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param int|null $status status
+     * @param mixed|null $status status
      *
      * @return self
      */
     public function setStatus($status)
     {
         if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'status');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('status', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['status'] = $status;
 
