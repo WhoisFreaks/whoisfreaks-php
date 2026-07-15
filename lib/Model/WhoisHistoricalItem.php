@@ -62,6 +62,10 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'status' => 'bool',
         'domainName' => 'string',
         'queryTime' => 'string',
+        'whoisServer' => 'string',
+        'domainRegistered' => 'string',
+        'secureDns' => 'bool',
+        'domainHandle' => 'string',
         'createDate' => 'string',
         'updateDate' => 'string',
         'expiryDate' => 'string',
@@ -71,9 +75,12 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'administrativeContact' => '\WhoisFreaks\Model\PersonalInformation',
         'technicalContact' => '\WhoisFreaks\Model\PersonalInformation',
         'billingContact' => '\WhoisFreaks\Model\PersonalInformation',
+        'eligibilityInfo' => '\WhoisFreaks\Model\EligibilityInfo',
+        'abuseContact' => '\WhoisFreaks\Model\RegistrarInformation',
         'nameServers' => 'string[]',
         'domainStatus' => 'string[]',
-        'whoisRawDomain' => 'string'
+        'whoisRawDomain' => 'string',
+        'registryData' => '\WhoisFreaks\Model\RegistryData'
     ];
 
     /**
@@ -88,6 +95,10 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'status' => null,
         'domainName' => null,
         'queryTime' => null,
+        'whoisServer' => null,
+        'domainRegistered' => null,
+        'secureDns' => null,
+        'domainHandle' => null,
         'createDate' => null,
         'updateDate' => null,
         'expiryDate' => null,
@@ -97,9 +108,12 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'administrativeContact' => null,
         'technicalContact' => null,
         'billingContact' => null,
+        'eligibilityInfo' => null,
+        'abuseContact' => null,
         'nameServers' => null,
         'domainStatus' => null,
-        'whoisRawDomain' => null
+        'whoisRawDomain' => null,
+        'registryData' => null
     ];
 
     /**
@@ -112,6 +126,10 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'status' => false,
         'domainName' => false,
         'queryTime' => false,
+        'whoisServer' => false,
+        'domainRegistered' => false,
+        'secureDns' => false,
+        'domainHandle' => false,
         'createDate' => false,
         'updateDate' => false,
         'expiryDate' => false,
@@ -121,9 +139,12 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'administrativeContact' => false,
         'technicalContact' => false,
         'billingContact' => false,
+        'eligibilityInfo' => false,
+        'abuseContact' => false,
         'nameServers' => false,
         'domainStatus' => false,
-        'whoisRawDomain' => false
+        'whoisRawDomain' => false,
+        'registryData' => false
     ];
 
     /**
@@ -216,6 +237,10 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'status' => 'status',
         'domainName' => 'domain_name',
         'queryTime' => 'query_time',
+        'whoisServer' => 'whois_server',
+        'domainRegistered' => 'domain_registered',
+        'secureDns' => 'secure_dns',
+        'domainHandle' => 'domain_handle',
         'createDate' => 'create_date',
         'updateDate' => 'update_date',
         'expiryDate' => 'expiry_date',
@@ -225,9 +250,12 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'administrativeContact' => 'administrative_contact',
         'technicalContact' => 'technical_contact',
         'billingContact' => 'billing_contact',
+        'eligibilityInfo' => 'eligibility_info',
+        'abuseContact' => 'abuse_contact',
         'nameServers' => 'name_servers',
         'domainStatus' => 'domain_status',
-        'whoisRawDomain' => 'whois_raw_domain'
+        'whoisRawDomain' => 'whois_raw_domain',
+        'registryData' => 'registry_data'
     ];
 
     /**
@@ -240,6 +268,10 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'status' => 'setStatus',
         'domainName' => 'setDomainName',
         'queryTime' => 'setQueryTime',
+        'whoisServer' => 'setWhoisServer',
+        'domainRegistered' => 'setDomainRegistered',
+        'secureDns' => 'setSecureDns',
+        'domainHandle' => 'setDomainHandle',
         'createDate' => 'setCreateDate',
         'updateDate' => 'setUpdateDate',
         'expiryDate' => 'setExpiryDate',
@@ -249,9 +281,12 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'administrativeContact' => 'setAdministrativeContact',
         'technicalContact' => 'setTechnicalContact',
         'billingContact' => 'setBillingContact',
+        'eligibilityInfo' => 'setEligibilityInfo',
+        'abuseContact' => 'setAbuseContact',
         'nameServers' => 'setNameServers',
         'domainStatus' => 'setDomainStatus',
-        'whoisRawDomain' => 'setWhoisRawDomain'
+        'whoisRawDomain' => 'setWhoisRawDomain',
+        'registryData' => 'setRegistryData'
     ];
 
     /**
@@ -264,6 +299,10 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'status' => 'getStatus',
         'domainName' => 'getDomainName',
         'queryTime' => 'getQueryTime',
+        'whoisServer' => 'getWhoisServer',
+        'domainRegistered' => 'getDomainRegistered',
+        'secureDns' => 'getSecureDns',
+        'domainHandle' => 'getDomainHandle',
         'createDate' => 'getCreateDate',
         'updateDate' => 'getUpdateDate',
         'expiryDate' => 'getExpiryDate',
@@ -273,9 +312,12 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         'administrativeContact' => 'getAdministrativeContact',
         'technicalContact' => 'getTechnicalContact',
         'billingContact' => 'getBillingContact',
+        'eligibilityInfo' => 'getEligibilityInfo',
+        'abuseContact' => 'getAbuseContact',
         'nameServers' => 'getNameServers',
         'domainStatus' => 'getDomainStatus',
-        'whoisRawDomain' => 'getWhoisRawDomain'
+        'whoisRawDomain' => 'getWhoisRawDomain',
+        'registryData' => 'getRegistryData'
     ];
 
     /**
@@ -339,6 +381,10 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('domainName', $data ?? [], null);
         $this->setIfExists('queryTime', $data ?? [], null);
+        $this->setIfExists('whoisServer', $data ?? [], null);
+        $this->setIfExists('domainRegistered', $data ?? [], null);
+        $this->setIfExists('secureDns', $data ?? [], null);
+        $this->setIfExists('domainHandle', $data ?? [], null);
         $this->setIfExists('createDate', $data ?? [], null);
         $this->setIfExists('updateDate', $data ?? [], null);
         $this->setIfExists('expiryDate', $data ?? [], null);
@@ -348,9 +394,12 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('administrativeContact', $data ?? [], null);
         $this->setIfExists('technicalContact', $data ?? [], null);
         $this->setIfExists('billingContact', $data ?? [], null);
+        $this->setIfExists('eligibilityInfo', $data ?? [], null);
+        $this->setIfExists('abuseContact', $data ?? [], null);
         $this->setIfExists('nameServers', $data ?? [], null);
         $this->setIfExists('domainStatus', $data ?? [], null);
         $this->setIfExists('whoisRawDomain', $data ?? [], null);
+        $this->setIfExists('registryData', $data ?? [], null);
     }
 
     /**
@@ -499,6 +548,114 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable queryTime cannot be null');
         }
         $this->container['queryTime'] = $queryTime;
+
+        return $this;
+    }
+
+    /**
+     * Gets whoisServer
+     *
+     * @return string|null
+     */
+    public function getWhoisServer()
+    {
+        return $this->container['whoisServer'];
+    }
+
+    /**
+     * Sets whoisServer
+     *
+     * @param string|null $whoisServer whoisServer
+     *
+     * @return self
+     */
+    public function setWhoisServer($whoisServer)
+    {
+        if (is_null($whoisServer)) {
+            throw new \InvalidArgumentException('non-nullable whoisServer cannot be null');
+        }
+        $this->container['whoisServer'] = $whoisServer;
+
+        return $this;
+    }
+
+    /**
+     * Gets domainRegistered
+     *
+     * @return string|null
+     */
+    public function getDomainRegistered()
+    {
+        return $this->container['domainRegistered'];
+    }
+
+    /**
+     * Sets domainRegistered
+     *
+     * @param string|null $domainRegistered domainRegistered
+     *
+     * @return self
+     */
+    public function setDomainRegistered($domainRegistered)
+    {
+        if (is_null($domainRegistered)) {
+            throw new \InvalidArgumentException('non-nullable domainRegistered cannot be null');
+        }
+        $this->container['domainRegistered'] = $domainRegistered;
+
+        return $this;
+    }
+
+    /**
+     * Gets secureDns
+     *
+     * @return bool|null
+     */
+    public function getSecureDns()
+    {
+        return $this->container['secureDns'];
+    }
+
+    /**
+     * Sets secureDns
+     *
+     * @param bool|null $secureDns secureDns
+     *
+     * @return self
+     */
+    public function setSecureDns($secureDns)
+    {
+        if (is_null($secureDns)) {
+            throw new \InvalidArgumentException('non-nullable secureDns cannot be null');
+        }
+        $this->container['secureDns'] = $secureDns;
+
+        return $this;
+    }
+
+    /**
+     * Gets domainHandle
+     *
+     * @return string|null
+     */
+    public function getDomainHandle()
+    {
+        return $this->container['domainHandle'];
+    }
+
+    /**
+     * Sets domainHandle
+     *
+     * @param string|null $domainHandle domainHandle
+     *
+     * @return self
+     */
+    public function setDomainHandle($domainHandle)
+    {
+        if (is_null($domainHandle)) {
+            throw new \InvalidArgumentException('non-nullable domainHandle cannot be null');
+        }
+        $this->container['domainHandle'] = $domainHandle;
 
         return $this;
     }
@@ -747,6 +904,60 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
     }
 
     /**
+     * Gets eligibilityInfo
+     *
+     * @return \WhoisFreaks\Model\EligibilityInfo|null
+     */
+    public function getEligibilityInfo()
+    {
+        return $this->container['eligibilityInfo'];
+    }
+
+    /**
+     * Sets eligibilityInfo
+     *
+     * @param \WhoisFreaks\Model\EligibilityInfo|null $eligibilityInfo eligibilityInfo
+     *
+     * @return self
+     */
+    public function setEligibilityInfo($eligibilityInfo)
+    {
+        if (is_null($eligibilityInfo)) {
+            throw new \InvalidArgumentException('non-nullable eligibilityInfo cannot be null');
+        }
+        $this->container['eligibilityInfo'] = $eligibilityInfo;
+
+        return $this;
+    }
+
+    /**
+     * Gets abuseContact
+     *
+     * @return \WhoisFreaks\Model\RegistrarInformation|null
+     */
+    public function getAbuseContact()
+    {
+        return $this->container['abuseContact'];
+    }
+
+    /**
+     * Sets abuseContact
+     *
+     * @param \WhoisFreaks\Model\RegistrarInformation|null $abuseContact abuseContact
+     *
+     * @return self
+     */
+    public function setAbuseContact($abuseContact)
+    {
+        if (is_null($abuseContact)) {
+            throw new \InvalidArgumentException('non-nullable abuseContact cannot be null');
+        }
+        $this->container['abuseContact'] = $abuseContact;
+
+        return $this;
+    }
+
+    /**
      * Gets nameServers
      *
      * @return string[]|null
@@ -823,6 +1034,33 @@ class WhoisHistoricalItem implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable whoisRawDomain cannot be null');
         }
         $this->container['whoisRawDomain'] = $whoisRawDomain;
+
+        return $this;
+    }
+
+    /**
+     * Gets registryData
+     *
+     * @return \WhoisFreaks\Model\RegistryData|null
+     */
+    public function getRegistryData()
+    {
+        return $this->container['registryData'];
+    }
+
+    /**
+     * Sets registryData
+     *
+     * @param \WhoisFreaks\Model\RegistryData|null $registryData registryData
+     *
+     * @return self
+     */
+    public function setRegistryData($registryData)
+    {
+        if (is_null($registryData)) {
+            throw new \InvalidArgumentException('non-nullable registryData cannot be null');
+        }
+        $this->container['registryData'] = $registryData;
 
         return $this;
     }

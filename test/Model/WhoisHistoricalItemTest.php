@@ -117,6 +117,42 @@ class WhoisHistoricalItemTest extends TestCase
     }
 
     /**
+     * Test attribute "whoisServer"
+     */
+    public function testPropertyWhoisServer()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "domainRegistered"
+     */
+    public function testPropertyDomainRegistered()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "secureDns"
+     */
+    public function testPropertySecureDns()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "domainHandle"
+     */
+    public function testPropertyDomainHandle()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "createDate"
      */
     public function testPropertyCreateDate()
@@ -198,6 +234,24 @@ class WhoisHistoricalItemTest extends TestCase
     }
 
     /**
+     * Test attribute "eligibilityInfo"
+     */
+    public function testPropertyEligibilityInfo()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "abuseContact"
+     */
+    public function testPropertyAbuseContact()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "nameServers"
      */
     public function testPropertyNameServers()
@@ -219,6 +273,15 @@ class WhoisHistoricalItemTest extends TestCase
      * Test attribute "whoisRawDomain"
      */
     public function testPropertyWhoisRawDomain()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "registryData"
+     */
+    public function testPropertyRegistryData()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

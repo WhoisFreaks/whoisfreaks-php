@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * ReverseWhoisResponseTest Class Doc Comment
  *
  * @category    Class
- * @description ReverseWhoisResponse
+ * @description Reverse WHOIS response. Pagination keys are capitalized (Total_Result/Total_Pages/Current_Page) as returned by the API.
  * @package     WhoisFreaks
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

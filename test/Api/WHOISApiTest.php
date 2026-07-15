@@ -97,12 +97,36 @@ class WHOISApiTest extends TestCase
     }
 
     /**
+     * Test case for whoisHistory
+     *
+     * Historical WHOIS records for a domain.
+     *
+     */
+    public function testWhoisHistory()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for whoisLive
      *
      * Live WHOIS Lookup.
      *
      */
     public function testWhoisLive()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for whoisReverse
+     *
+     * Reverse WHOIS lookup by keyword.
+     *
+     */
+    public function testWhoisReverse()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

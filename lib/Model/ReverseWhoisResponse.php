@@ -36,6 +36,7 @@ use \WhoisFreaks\ObjectSerializer;
  * ReverseWhoisResponse Class Doc Comment
  *
  * @category Class
+ * @description Reverse WHOIS response. Pagination keys are capitalized (Total_Result/Total_Pages/Current_Page) as returned by the API.
  * @package  WhoisFreaks
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -176,9 +177,9 @@ class ReverseWhoisResponse implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $attributeMap = [
-        'totalResult' => 'total_Result',
-        'totalPages' => 'total_Pages',
-        'currentPage' => 'current_Page',
+        'totalResult' => 'Total_Result',
+        'totalPages' => 'Total_Pages',
+        'currentPage' => 'Current_Page',
         'whoisDomainsHistorical' => 'whois_domains_historical'
     ];
 
