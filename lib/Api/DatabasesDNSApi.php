@@ -138,7 +138,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -148,9 +147,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbDnsDaily($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
+    public function dbDnsDaily($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
     {
-        list($response) = $this->dbDnsDailyWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbDnsDailyWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -163,7 +162,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -173,9 +171,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbDnsDailyWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
+    public function dbDnsDailyWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
     {
-        $request = $this->dbDnsDailyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDnsDailyRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -297,7 +295,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -306,9 +303,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDnsDailyAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
+    public function dbDnsDailyAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
     {
-        return $this->dbDnsDailyAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbDnsDailyAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -325,7 +322,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -334,10 +330,10 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDnsDailyAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
+    public function dbDnsDailyAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbDnsDailyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDnsDailyRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -382,7 +378,6 @@ class DatabasesDNSApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -391,15 +386,8 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbDnsDailyRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
+    public function dbDnsDailyRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsDaily'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbDnsDaily'
-            );
-        }
 
 
 
@@ -410,15 +398,6 @@ class DatabasesDNSApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -524,7 +503,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -534,9 +512,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbDnsMonthly($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
+    public function dbDnsMonthly($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
     {
-        list($response) = $this->dbDnsMonthlyWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbDnsMonthlyWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -549,7 +527,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -559,9 +536,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbDnsMonthlyWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
+    public function dbDnsMonthlyWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
     {
-        $request = $this->dbDnsMonthlyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDnsMonthlyRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -683,7 +660,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -692,9 +668,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDnsMonthlyAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
+    public function dbDnsMonthlyAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
     {
-        return $this->dbDnsMonthlyAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbDnsMonthlyAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -711,7 +687,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -720,10 +695,10 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDnsMonthlyAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
+    public function dbDnsMonthlyAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbDnsMonthlyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDnsMonthlyRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -768,7 +743,6 @@ class DatabasesDNSApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -777,15 +751,8 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbDnsMonthlyRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
+    public function dbDnsMonthlyRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsMonthly'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbDnsMonthly'
-            );
-        }
 
 
 
@@ -796,15 +763,6 @@ class DatabasesDNSApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -910,7 +868,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -920,9 +877,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbDnsWeekly($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
+    public function dbDnsWeekly($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
     {
-        list($response) = $this->dbDnsWeeklyWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbDnsWeeklyWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -935,7 +892,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -945,9 +901,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbDnsWeeklyWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
+    public function dbDnsWeeklyWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
     {
-        $request = $this->dbDnsWeeklyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDnsWeeklyRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1069,7 +1025,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1078,9 +1033,9 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDnsWeeklyAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
+    public function dbDnsWeeklyAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
     {
-        return $this->dbDnsWeeklyAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbDnsWeeklyAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1097,7 +1052,6 @@ class DatabasesDNSApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1106,10 +1060,10 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDnsWeeklyAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
+    public function dbDnsWeeklyAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbDnsWeeklyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDnsWeeklyRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1154,7 +1108,6 @@ class DatabasesDNSApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1163,15 +1116,8 @@ class DatabasesDNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbDnsWeeklyRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
+    public function dbDnsWeeklyRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDnsWeekly'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbDnsWeekly'
-            );
-        }
 
 
 
@@ -1182,15 +1128,6 @@ class DatabasesDNSApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,

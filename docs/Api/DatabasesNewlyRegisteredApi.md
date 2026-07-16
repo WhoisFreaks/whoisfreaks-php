@@ -16,7 +16,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `dbNewlyCctld()`
 
 ```php
-dbNewlyCctld($apiKey, $whois, $date, $tlds): \SplFileObject
+dbNewlyCctld($whois, $date, $tlds): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -43,7 +43,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $whois = True; // bool
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 $tlds = 'tlds_example'; // string
@@ -53,7 +52,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbNewlyCctld($apiKey, $whois, $date, $tlds, $hostIndex, $variables);
+    $result = $apiInstance->dbNewlyCctld($whois, $date, $tlds, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesNewlyRegisteredApi->dbNewlyCctld: ', $e->getMessage(), PHP_EOL;
@@ -64,7 +63,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **whois** | **bool**|  | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | **tlds** | **string**|  | [optional] |
@@ -91,7 +89,7 @@ try {
 ## `dbNewlyCctldCleaned()`
 
 ```php
-dbNewlyCctldCleaned($apiKey, $date): \SplFileObject
+dbNewlyCctldCleaned($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -118,7 +116,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
@@ -126,7 +123,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbNewlyCctldCleaned($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbNewlyCctldCleaned($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesNewlyRegisteredApi->dbNewlyCctldCleaned: ', $e->getMessage(), PHP_EOL;
@@ -137,7 +134,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -162,7 +158,7 @@ try {
 ## `dbNewlyCctldJson()`
 
 ```php
-dbNewlyCctldJson($apiKey, $date, $tlds): string[]
+dbNewlyCctldJson($date, $tlds): string[]
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -189,7 +185,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 $tlds = 'tlds_example'; // string
 
@@ -198,7 +193,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbNewlyCctldJson($apiKey, $date, $tlds, $hostIndex, $variables);
+    $result = $apiInstance->dbNewlyCctldJson($date, $tlds, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesNewlyRegisteredApi->dbNewlyCctldJson: ', $e->getMessage(), PHP_EOL;
@@ -209,7 +204,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | **tlds** | **string**|  | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
@@ -235,7 +229,7 @@ try {
 ## `dbNewlyDns()`
 
 ```php
-dbNewlyDns($apiKey, $date): \SplFileObject
+dbNewlyDns($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -262,7 +256,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
@@ -270,7 +263,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbNewlyDns($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbNewlyDns($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesNewlyRegisteredApi->dbNewlyDns: ', $e->getMessage(), PHP_EOL;
@@ -281,7 +274,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -306,7 +298,7 @@ try {
 ## `dbNewlyGtld()`
 
 ```php
-dbNewlyGtld($apiKey, $whois, $date, $tlds): \SplFileObject
+dbNewlyGtld($whois, $date, $tlds): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -333,7 +325,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $whois = True; // bool
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 $tlds = 'tlds_example'; // string
@@ -343,7 +334,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbNewlyGtld($apiKey, $whois, $date, $tlds, $hostIndex, $variables);
+    $result = $apiInstance->dbNewlyGtld($whois, $date, $tlds, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesNewlyRegisteredApi->dbNewlyGtld: ', $e->getMessage(), PHP_EOL;
@@ -354,7 +345,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **whois** | **bool**|  | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | **tlds** | **string**|  | [optional] |
@@ -381,7 +371,7 @@ try {
 ## `dbNewlyGtldCleaned()`
 
 ```php
-dbNewlyGtldCleaned($apiKey, $date): \SplFileObject
+dbNewlyGtldCleaned($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -408,7 +398,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
@@ -416,7 +405,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbNewlyGtldCleaned($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbNewlyGtldCleaned($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesNewlyRegisteredApi->dbNewlyGtldCleaned: ', $e->getMessage(), PHP_EOL;
@@ -427,7 +416,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -452,7 +440,7 @@ try {
 ## `dbNewlyGtldJson()`
 
 ```php
-dbNewlyGtldJson($apiKey, $date, $tlds): string[]
+dbNewlyGtldJson($date, $tlds): string[]
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -479,7 +467,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 $tlds = 'tlds_example'; // string
 
@@ -488,7 +475,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbNewlyGtldJson($apiKey, $date, $tlds, $hostIndex, $variables);
+    $result = $apiInstance->dbNewlyGtldJson($date, $tlds, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesNewlyRegisteredApi->dbNewlyGtldJson: ', $e->getMessage(), PHP_EOL;
@@ -499,7 +486,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | **tlds** | **string**|  | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |

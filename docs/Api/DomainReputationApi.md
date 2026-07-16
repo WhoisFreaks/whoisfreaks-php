@@ -10,7 +10,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `domainReputation()`
 
 ```php
-domainReputation($apiKey, $domainName, $format): \WhoisFreaks\Model\DomainReputationResponse
+domainReputation($domainName, $format): \WhoisFreaks\Model\DomainReputationResponse
 ```
 
 Domain Reputation Lookup
@@ -36,12 +36,11 @@ $apiInstance = new WhoisFreaks\Api\DomainReputationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $domainName = amazon.com; // string | The domain name to assess
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->domainReputation($apiKey, $domainName, $format);
+    $result = $apiInstance->domainReputation($domainName, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DomainReputationApi->domainReputation: ', $e->getMessage(), PHP_EOL;
@@ -52,7 +51,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **domainName** | **string**| The domain name to assess | |
 | **format** | **string**|  | [optional] [default to &#39;json&#39;] |
 

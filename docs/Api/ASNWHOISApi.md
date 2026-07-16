@@ -10,7 +10,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `asnWhois()`
 
 ```php
-asnWhois($apiKey, $asn, $format): \WhoisFreaks\Model\AsnWhoisResponse
+asnWhois($asn, $format): \WhoisFreaks\Model\AsnWhoisResponse
 ```
 
 ASN WHOIS Lookup
@@ -36,12 +36,11 @@ $apiInstance = new WhoisFreaks\Api\ASNWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $asn = as15169; // string
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->asnWhois($apiKey, $asn, $format);
+    $result = $apiInstance->asnWhois($asn, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ASNWHOISApi->asnWhois: ', $e->getMessage(), PHP_EOL;
@@ -52,7 +51,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **asn** | **string**|  | |
 | **format** | **string**|  | [optional] [default to &#39;json&#39;] |
 

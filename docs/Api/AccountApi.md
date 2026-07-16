@@ -12,7 +12,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `accountUsage()`
 
 ```php
-accountUsage($apiKey): \WhoisFreaks\Model\AccountUsageResponse
+accountUsage(): \WhoisFreaks\Model\AccountUsageResponse
 ```
 
 Account Usage
@@ -38,10 +38,9 @@ $apiInstance = new WhoisFreaks\Api\AccountApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 
 try {
-    $result = $apiInstance->accountUsage($apiKey);
+    $result = $apiInstance->accountUsage();
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling AccountApi->accountUsage: ', $e->getMessage(), PHP_EOL;
@@ -50,9 +49,7 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -134,7 +131,7 @@ No authorization required
 ## `rotateApiKey()`
 
 ```php
-rotateApiKey($apiKey): string
+rotateApiKey(): string
 ```
 
 Rotate API Key
@@ -160,10 +157,9 @@ $apiInstance = new WhoisFreaks\Api\AccountApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 
 try {
-    $result = $apiInstance->rotateApiKey($apiKey);
+    $result = $apiInstance->rotateApiKey();
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling AccountApi->rotateApiKey: ', $e->getMessage(), PHP_EOL;
@@ -172,9 +168,7 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
+This endpoint does not need any parameter.
 
 ### Return type
 

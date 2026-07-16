@@ -13,7 +13,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `dbIpCity()`
 
 ```php
-dbIpCity($apiKey, $date): \SplFileObject
+dbIpCity($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -40,7 +40,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesIPGeolocationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
 
 $hostIndex = 0;
@@ -48,7 +47,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbIpCity($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbIpCity($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesIPGeolocationApi->dbIpCity: ', $e->getMessage(), PHP_EOL;
@@ -59,7 +58,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**|  | |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -84,7 +82,7 @@ try {
 ## `dbIpCityStatus()`
 
 ```php
-dbIpCityStatus($apiKey): \WhoisFreaks\Model\SnapshotStatus
+dbIpCityStatus(): \WhoisFreaks\Model\SnapshotStatus
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -111,14 +109,13 @@ $apiInstance = new WhoisFreaks\Api\DatabasesIPGeolocationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 
 $hostIndex = 0;
 $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbIpCityStatus($apiKey, $hostIndex, $variables);
+    $result = $apiInstance->dbIpCityStatus($hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesIPGeolocationApi->dbIpCityStatus: ', $e->getMessage(), PHP_EOL;
@@ -127,9 +124,7 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
+This endpoint does not need any parameter.
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
@@ -153,7 +148,7 @@ try {
 ## `dbIpCountry()`
 
 ```php
-dbIpCountry($apiKey, $date): \SplFileObject
+dbIpCountry($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -180,7 +175,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesIPGeolocationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
 
 $hostIndex = 0;
@@ -188,7 +182,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbIpCountry($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbIpCountry($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesIPGeolocationApi->dbIpCountry: ', $e->getMessage(), PHP_EOL;
@@ -199,7 +193,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**|  | |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -224,7 +217,7 @@ try {
 ## `dbIpCountryStatus()`
 
 ```php
-dbIpCountryStatus($apiKey): \WhoisFreaks\Model\SnapshotStatus
+dbIpCountryStatus(): \WhoisFreaks\Model\SnapshotStatus
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -251,14 +244,13 @@ $apiInstance = new WhoisFreaks\Api\DatabasesIPGeolocationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 
 $hostIndex = 0;
 $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbIpCountryStatus($apiKey, $hostIndex, $variables);
+    $result = $apiInstance->dbIpCountryStatus($hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesIPGeolocationApi->dbIpCountryStatus: ', $e->getMessage(), PHP_EOL;
@@ -267,9 +259,7 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
+This endpoint does not need any parameter.
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 

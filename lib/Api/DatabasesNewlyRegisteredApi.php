@@ -150,7 +150,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds tlds (optional)
@@ -162,9 +161,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbNewlyCctld($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
+    public function dbNewlyCctld($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
     {
-        list($response) = $this->dbNewlyCctldWithHttpInfo($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbNewlyCctldWithHttpInfo($whois, $date, $tlds, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -177,7 +176,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -189,9 +187,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbNewlyCctldWithHttpInfo($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
+    public function dbNewlyCctldWithHttpInfo($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
     {
-        $request = $this->dbNewlyCctldRequest($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyCctldRequest($whois, $date, $tlds, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -313,7 +311,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -324,9 +321,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyCctldAsync($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
+    public function dbNewlyCctldAsync($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
     {
-        return $this->dbNewlyCctldAsyncWithHttpInfo($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType)
+        return $this->dbNewlyCctldAsyncWithHttpInfo($whois, $date, $tlds, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -343,7 +340,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -354,10 +350,10 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyCctldAsyncWithHttpInfo($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
+    public function dbNewlyCctldAsyncWithHttpInfo($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbNewlyCctldRequest($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyCctldRequest($whois, $date, $tlds, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -402,7 +398,6 @@ class DatabasesNewlyRegisteredApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -413,15 +408,8 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbNewlyCctldRequest($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
+    public function dbNewlyCctldRequest($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctld'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbNewlyCctld'
-            );
-        }
 
         // verify the required parameter 'whois' is set
         if ($whois === null || (is_array($whois) && count($whois) === 0)) {
@@ -440,15 +428,6 @@ class DatabasesNewlyRegisteredApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $whois,
@@ -572,7 +551,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -582,9 +560,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbNewlyCctldCleaned($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
+    public function dbNewlyCctldCleaned($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
     {
-        list($response) = $this->dbNewlyCctldCleanedWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbNewlyCctldCleanedWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -597,7 +575,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -607,9 +584,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbNewlyCctldCleanedWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
+    public function dbNewlyCctldCleanedWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
     {
-        $request = $this->dbNewlyCctldCleanedRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyCctldCleanedRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -731,7 +708,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -740,9 +716,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyCctldCleanedAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
+    public function dbNewlyCctldCleanedAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
     {
-        return $this->dbNewlyCctldCleanedAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbNewlyCctldCleanedAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -759,7 +735,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -768,10 +743,10 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyCctldCleanedAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
+    public function dbNewlyCctldCleanedAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbNewlyCctldCleanedRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyCctldCleanedRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -816,7 +791,6 @@ class DatabasesNewlyRegisteredApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -825,15 +799,8 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbNewlyCctldCleanedRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
+    public function dbNewlyCctldCleanedRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldCleaned'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbNewlyCctldCleaned'
-            );
-        }
 
 
 
@@ -844,15 +811,6 @@ class DatabasesNewlyRegisteredApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -958,7 +916,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -969,9 +926,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return string[]|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbNewlyCctldJson($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
+    public function dbNewlyCctldJson($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
     {
-        list($response) = $this->dbNewlyCctldJsonWithHttpInfo($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbNewlyCctldJsonWithHttpInfo($date, $tlds, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -984,7 +941,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -995,9 +951,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return array of string[]|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbNewlyCctldJsonWithHttpInfo($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
+    public function dbNewlyCctldJsonWithHttpInfo($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
     {
-        $request = $this->dbNewlyCctldJsonRequest($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyCctldJsonRequest($date, $tlds, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1119,7 +1075,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1129,9 +1084,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyCctldJsonAsync($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
+    public function dbNewlyCctldJsonAsync($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
     {
-        return $this->dbNewlyCctldJsonAsyncWithHttpInfo($apiKey, $date, $tlds, $hostIndex, $variables, $contentType)
+        return $this->dbNewlyCctldJsonAsyncWithHttpInfo($date, $tlds, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1148,7 +1103,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1158,10 +1112,10 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyCctldJsonAsyncWithHttpInfo($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
+    public function dbNewlyCctldJsonAsyncWithHttpInfo($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
     {
         $returnType = 'string[]';
-        $request = $this->dbNewlyCctldJsonRequest($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyCctldJsonRequest($date, $tlds, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1206,7 +1160,6 @@ class DatabasesNewlyRegisteredApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1216,15 +1169,8 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbNewlyCctldJsonRequest($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
+    public function dbNewlyCctldJsonRequest($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyCctldJson'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbNewlyCctldJson'
-            );
-        }
 
 
 
@@ -1236,15 +1182,6 @@ class DatabasesNewlyRegisteredApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -1359,7 +1296,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1369,9 +1305,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbNewlyDns($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
+    public function dbNewlyDns($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
     {
-        list($response) = $this->dbNewlyDnsWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbNewlyDnsWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1384,7 +1320,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1394,9 +1329,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbNewlyDnsWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
+    public function dbNewlyDnsWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
     {
-        $request = $this->dbNewlyDnsRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyDnsRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1518,7 +1453,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1527,9 +1461,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyDnsAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
+    public function dbNewlyDnsAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
     {
-        return $this->dbNewlyDnsAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbNewlyDnsAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1546,7 +1480,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1555,10 +1488,10 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyDnsAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
+    public function dbNewlyDnsAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbNewlyDnsRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyDnsRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1603,7 +1536,6 @@ class DatabasesNewlyRegisteredApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1612,15 +1544,8 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbNewlyDnsRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
+    public function dbNewlyDnsRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyDns'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbNewlyDns'
-            );
-        }
 
 
 
@@ -1631,15 +1556,6 @@ class DatabasesNewlyRegisteredApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -1745,7 +1661,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds tlds (optional)
@@ -1757,9 +1672,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbNewlyGtld($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
+    public function dbNewlyGtld($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
     {
-        list($response) = $this->dbNewlyGtldWithHttpInfo($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbNewlyGtldWithHttpInfo($whois, $date, $tlds, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1772,7 +1687,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -1784,9 +1698,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbNewlyGtldWithHttpInfo($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
+    public function dbNewlyGtldWithHttpInfo($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
     {
-        $request = $this->dbNewlyGtldRequest($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyGtldRequest($whois, $date, $tlds, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1908,7 +1822,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -1919,9 +1832,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyGtldAsync($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
+    public function dbNewlyGtldAsync($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
     {
-        return $this->dbNewlyGtldAsyncWithHttpInfo($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType)
+        return $this->dbNewlyGtldAsyncWithHttpInfo($whois, $date, $tlds, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1938,7 +1851,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -1949,10 +1861,10 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyGtldAsyncWithHttpInfo($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
+    public function dbNewlyGtldAsyncWithHttpInfo($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbNewlyGtldRequest($apiKey, $whois, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyGtldRequest($whois, $date, $tlds, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1997,7 +1909,6 @@ class DatabasesNewlyRegisteredApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
@@ -2008,15 +1919,8 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbNewlyGtldRequest($apiKey, $whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
+    public function dbNewlyGtldRequest($whois, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtld'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbNewlyGtld'
-            );
-        }
 
         // verify the required parameter 'whois' is set
         if ($whois === null || (is_array($whois) && count($whois) === 0)) {
@@ -2035,15 +1939,6 @@ class DatabasesNewlyRegisteredApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $whois,
@@ -2167,7 +2062,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -2177,9 +2071,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbNewlyGtldCleaned($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
+    public function dbNewlyGtldCleaned($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
     {
-        list($response) = $this->dbNewlyGtldCleanedWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbNewlyGtldCleanedWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -2192,7 +2086,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -2202,9 +2095,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbNewlyGtldCleanedWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
+    public function dbNewlyGtldCleanedWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
     {
-        $request = $this->dbNewlyGtldCleanedRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyGtldCleanedRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2326,7 +2219,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -2335,9 +2227,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyGtldCleanedAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
+    public function dbNewlyGtldCleanedAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
     {
-        return $this->dbNewlyGtldCleanedAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbNewlyGtldCleanedAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2354,7 +2246,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -2363,10 +2254,10 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyGtldCleanedAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
+    public function dbNewlyGtldCleanedAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbNewlyGtldCleanedRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyGtldCleanedRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2411,7 +2302,6 @@ class DatabasesNewlyRegisteredApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -2420,15 +2310,8 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbNewlyGtldCleanedRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
+    public function dbNewlyGtldCleanedRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldCleaned'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbNewlyGtldCleaned'
-            );
-        }
 
 
 
@@ -2439,15 +2322,6 @@ class DatabasesNewlyRegisteredApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -2553,7 +2427,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -2564,9 +2437,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return string[]|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbNewlyGtldJson($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
+    public function dbNewlyGtldJson($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
     {
-        list($response) = $this->dbNewlyGtldJsonWithHttpInfo($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbNewlyGtldJsonWithHttpInfo($date, $tlds, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -2579,7 +2452,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -2590,9 +2462,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return array of string[]|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbNewlyGtldJsonWithHttpInfo($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
+    public function dbNewlyGtldJsonWithHttpInfo($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
     {
-        $request = $this->dbNewlyGtldJsonRequest($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyGtldJsonRequest($date, $tlds, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2714,7 +2586,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -2724,9 +2595,9 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyGtldJsonAsync($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
+    public function dbNewlyGtldJsonAsync($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
     {
-        return $this->dbNewlyGtldJsonAsyncWithHttpInfo($apiKey, $date, $tlds, $hostIndex, $variables, $contentType)
+        return $this->dbNewlyGtldJsonAsyncWithHttpInfo($date, $tlds, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2743,7 +2614,6 @@ class DatabasesNewlyRegisteredApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -2753,10 +2623,10 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbNewlyGtldJsonAsyncWithHttpInfo($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
+    public function dbNewlyGtldJsonAsyncWithHttpInfo($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
     {
         $returnType = 'string[]';
-        $request = $this->dbNewlyGtldJsonRequest($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbNewlyGtldJsonRequest($date, $tlds, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2801,7 +2671,6 @@ class DatabasesNewlyRegisteredApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -2811,15 +2680,8 @@ class DatabasesNewlyRegisteredApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbNewlyGtldJsonRequest($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
+    public function dbNewlyGtldJsonRequest($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbNewlyGtldJson'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbNewlyGtldJson'
-            );
-        }
 
 
 
@@ -2831,15 +2693,6 @@ class DatabasesNewlyRegisteredApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,

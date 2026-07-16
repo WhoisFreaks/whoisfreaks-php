@@ -128,7 +128,6 @@ class SSLApi
      *
      * SSL Certificate Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName domainName (required)
      * @param  bool|null $chain chain (optional, default to false)
      * @param  bool|null $sslRaw sslRaw (optional, default to false)
@@ -139,9 +138,9 @@ class SSLApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\SslResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function sslLookup($apiKey, $domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
+    public function sslLookup($domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
     {
-        list($response) = $this->sslLookupWithHttpInfo($apiKey, $domainName, $chain, $sslRaw, $format, $contentType);
+        list($response) = $this->sslLookupWithHttpInfo($domainName, $chain, $sslRaw, $format, $contentType);
         return $response;
     }
 
@@ -150,7 +149,6 @@ class SSLApi
      *
      * SSL Certificate Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  bool|null $chain (optional, default to false)
      * @param  bool|null $sslRaw (optional, default to false)
@@ -161,9 +159,9 @@ class SSLApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\SslResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function sslLookupWithHttpInfo($apiKey, $domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
+    public function sslLookupWithHttpInfo($domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
     {
-        $request = $this->sslLookupRequest($apiKey, $domainName, $chain, $sslRaw, $format, $contentType);
+        $request = $this->sslLookupRequest($domainName, $chain, $sslRaw, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -281,7 +279,6 @@ class SSLApi
      *
      * SSL Certificate Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  bool|null $chain (optional, default to false)
      * @param  bool|null $sslRaw (optional, default to false)
@@ -291,9 +288,9 @@ class SSLApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sslLookupAsync($apiKey, $domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
+    public function sslLookupAsync($domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
     {
-        return $this->sslLookupAsyncWithHttpInfo($apiKey, $domainName, $chain, $sslRaw, $format, $contentType)
+        return $this->sslLookupAsyncWithHttpInfo($domainName, $chain, $sslRaw, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -306,7 +303,6 @@ class SSLApi
      *
      * SSL Certificate Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  bool|null $chain (optional, default to false)
      * @param  bool|null $sslRaw (optional, default to false)
@@ -316,10 +312,10 @@ class SSLApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function sslLookupAsyncWithHttpInfo($apiKey, $domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
+    public function sslLookupAsyncWithHttpInfo($domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
     {
         $returnType = '\WhoisFreaks\Model\SslResponse';
-        $request = $this->sslLookupRequest($apiKey, $domainName, $chain, $sslRaw, $format, $contentType);
+        $request = $this->sslLookupRequest($domainName, $chain, $sslRaw, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -360,7 +356,6 @@ class SSLApi
     /**
      * Create request for operation 'sslLookup'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  bool|null $chain (optional, default to false)
      * @param  bool|null $sslRaw (optional, default to false)
@@ -370,15 +365,8 @@ class SSLApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function sslLookupRequest($apiKey, $domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
+    public function sslLookupRequest($domainName, $chain = false, $sslRaw = false, $format = 'json', string $contentType = self::contentTypes['sslLookup'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling sslLookup'
-            );
-        }
 
         // verify the required parameter 'domainName' is set
         if ($domainName === null || (is_array($domainName) && count($domainName) === 0)) {
@@ -398,15 +386,6 @@ class SSLApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domainName,

@@ -128,7 +128,6 @@ class ASNWHOISApi
      *
      * ASN WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $asn asn (required)
      * @param  string|null $format format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['asnWhois'] to see the possible values for this operation
@@ -137,9 +136,9 @@ class ASNWHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\AsnWhoisResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function asnWhois($apiKey, $asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
+    public function asnWhois($asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
     {
-        list($response) = $this->asnWhoisWithHttpInfo($apiKey, $asn, $format, $contentType);
+        list($response) = $this->asnWhoisWithHttpInfo($asn, $format, $contentType);
         return $response;
     }
 
@@ -148,7 +147,6 @@ class ASNWHOISApi
      *
      * ASN WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $asn (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['asnWhois'] to see the possible values for this operation
@@ -157,9 +155,9 @@ class ASNWHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\AsnWhoisResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function asnWhoisWithHttpInfo($apiKey, $asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
+    public function asnWhoisWithHttpInfo($asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
     {
-        $request = $this->asnWhoisRequest($apiKey, $asn, $format, $contentType);
+        $request = $this->asnWhoisRequest($asn, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -277,7 +275,6 @@ class ASNWHOISApi
      *
      * ASN WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $asn (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['asnWhois'] to see the possible values for this operation
@@ -285,9 +282,9 @@ class ASNWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function asnWhoisAsync($apiKey, $asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
+    public function asnWhoisAsync($asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
     {
-        return $this->asnWhoisAsyncWithHttpInfo($apiKey, $asn, $format, $contentType)
+        return $this->asnWhoisAsyncWithHttpInfo($asn, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -300,7 +297,6 @@ class ASNWHOISApi
      *
      * ASN WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $asn (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['asnWhois'] to see the possible values for this operation
@@ -308,10 +304,10 @@ class ASNWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function asnWhoisAsyncWithHttpInfo($apiKey, $asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
+    public function asnWhoisAsyncWithHttpInfo($asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
     {
         $returnType = '\WhoisFreaks\Model\AsnWhoisResponse';
-        $request = $this->asnWhoisRequest($apiKey, $asn, $format, $contentType);
+        $request = $this->asnWhoisRequest($asn, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -352,7 +348,6 @@ class ASNWHOISApi
     /**
      * Create request for operation 'asnWhois'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $asn (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['asnWhois'] to see the possible values for this operation
@@ -360,15 +355,8 @@ class ASNWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function asnWhoisRequest($apiKey, $asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
+    public function asnWhoisRequest($asn, $format = 'json', string $contentType = self::contentTypes['asnWhois'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling asnWhois'
-            );
-        }
 
         // verify the required parameter 'asn' is set
         if ($asn === null || (is_array($asn) && count($asn) === 0)) {
@@ -386,15 +374,6 @@ class ASNWHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $asn,

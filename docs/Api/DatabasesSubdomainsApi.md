@@ -12,7 +12,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `dbSubdomainsDaily()`
 
 ```php
-dbSubdomainsDaily($apiKey, $date): \SplFileObject
+dbSubdomainsDaily($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -39,7 +39,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesSubdomainsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
@@ -47,7 +46,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbSubdomainsDaily($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbSubdomainsDaily($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesSubdomainsApi->dbSubdomainsDaily: ', $e->getMessage(), PHP_EOL;
@@ -58,7 +57,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -83,7 +81,7 @@ try {
 ## `dbSubdomainsMonthly()`
 
 ```php
-dbSubdomainsMonthly($apiKey, $date): \SplFileObject
+dbSubdomainsMonthly($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -110,7 +108,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesSubdomainsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
@@ -118,7 +115,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbSubdomainsMonthly($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbSubdomainsMonthly($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesSubdomainsApi->dbSubdomainsMonthly: ', $e->getMessage(), PHP_EOL;
@@ -129,7 +126,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -154,7 +150,7 @@ try {
 ## `dbSubdomainsWeekly()`
 
 ```php
-dbSubdomainsWeekly($apiKey, $date): \SplFileObject
+dbSubdomainsWeekly($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -181,7 +177,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesSubdomainsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
@@ -189,7 +184,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbSubdomainsWeekly($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbSubdomainsWeekly($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesSubdomainsApi->dbSubdomainsWeekly: ', $e->getMessage(), PHP_EOL;
@@ -200,7 +195,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |

@@ -75,9 +75,6 @@ class WHOISApi
         'bulkWhois' => [
             'application/json',
         ],
-        'whoisHistoricalOrReverse' => [
-            'application/json',
-        ],
         'whoisHistory' => [
             'application/json',
         ],
@@ -140,7 +137,6 @@ class WHOISApi
      *
      * Bulk WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkWhoisRequest $bulkWhoisRequest bulkWhoisRequest (required)
      * @param  string|null $format format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkWhois'] to see the possible values for this operation
@@ -149,9 +145,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\BulkWhoisResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function bulkWhois($apiKey, $bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
+    public function bulkWhois($bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
     {
-        list($response) = $this->bulkWhoisWithHttpInfo($apiKey, $bulkWhoisRequest, $format, $contentType);
+        list($response) = $this->bulkWhoisWithHttpInfo($bulkWhoisRequest, $format, $contentType);
         return $response;
     }
 
@@ -160,7 +156,6 @@ class WHOISApi
      *
      * Bulk WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkWhoisRequest $bulkWhoisRequest (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkWhois'] to see the possible values for this operation
@@ -169,9 +164,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\BulkWhoisResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function bulkWhoisWithHttpInfo($apiKey, $bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
+    public function bulkWhoisWithHttpInfo($bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
     {
-        $request = $this->bulkWhoisRequest($apiKey, $bulkWhoisRequest, $format, $contentType);
+        $request = $this->bulkWhoisRequest($bulkWhoisRequest, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -289,7 +284,6 @@ class WHOISApi
      *
      * Bulk WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkWhoisRequest $bulkWhoisRequest (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkWhois'] to see the possible values for this operation
@@ -297,9 +291,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkWhoisAsync($apiKey, $bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
+    public function bulkWhoisAsync($bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
     {
-        return $this->bulkWhoisAsyncWithHttpInfo($apiKey, $bulkWhoisRequest, $format, $contentType)
+        return $this->bulkWhoisAsyncWithHttpInfo($bulkWhoisRequest, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -312,7 +306,6 @@ class WHOISApi
      *
      * Bulk WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkWhoisRequest $bulkWhoisRequest (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkWhois'] to see the possible values for this operation
@@ -320,10 +313,10 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkWhoisAsyncWithHttpInfo($apiKey, $bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
+    public function bulkWhoisAsyncWithHttpInfo($bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
     {
         $returnType = '\WhoisFreaks\Model\BulkWhoisResponse';
-        $request = $this->bulkWhoisRequest($apiKey, $bulkWhoisRequest, $format, $contentType);
+        $request = $this->bulkWhoisRequest($bulkWhoisRequest, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -364,7 +357,6 @@ class WHOISApi
     /**
      * Create request for operation 'bulkWhois'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkWhoisRequest $bulkWhoisRequest (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkWhois'] to see the possible values for this operation
@@ -372,15 +364,8 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function bulkWhoisRequest($apiKey, $bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
+    public function bulkWhoisRequest($bulkWhoisRequest, $format = 'json', string $contentType = self::contentTypes['bulkWhois'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling bulkWhois'
-            );
-        }
 
         // verify the required parameter 'bulkWhoisRequest' is set
         if ($bulkWhoisRequest === null || (is_array($bulkWhoisRequest) && count($bulkWhoisRequest) === 0)) {
@@ -398,15 +383,6 @@ class WHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $format,
@@ -486,516 +462,10 @@ class WHOISApi
     }
 
     /**
-     * Operation whoisHistoricalOrReverse
-     *
-     * WHOIS Historical or Reverse Lookup
-     *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
-     * @param  string $whois whois (required)
-     * @param  string|null $domainName Required for historical lookup (optional)
-     * @param  string|null $keyword For reverse — domain keyword search (optional)
-     * @param  string|null $email For reverse — registrant email search (optional)
-     * @param  string|null $owner For reverse — registrant name search (optional)
-     * @param  string|null $company For reverse — company name search (optional)
-     * @param  string|null $mode mode (optional, default to 'default')
-     * @param  bool|null $exact exact (optional, default to true)
-     * @param  int|null $page page (optional, default to 1)
-     * @param  string|null $format format (optional, default to 'json')
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistoricalOrReverse'] to see the possible values for this operation
-     *
-     * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \WhoisFreaks\Model\WhoisHistoricalResponse|\WhoisFreaks\Model\ErrorResponse
-     */
-    public function whoisHistoricalOrReverse($apiKey, $whois, $domainName = null, $keyword = null, $email = null, $owner = null, $company = null, $mode = 'default', $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['whoisHistoricalOrReverse'][0])
-    {
-        list($response) = $this->whoisHistoricalOrReverseWithHttpInfo($apiKey, $whois, $domainName, $keyword, $email, $owner, $company, $mode, $exact, $page, $format, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation whoisHistoricalOrReverseWithHttpInfo
-     *
-     * WHOIS Historical or Reverse Lookup
-     *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
-     * @param  string $whois (required)
-     * @param  string|null $domainName Required for historical lookup (optional)
-     * @param  string|null $keyword For reverse — domain keyword search (optional)
-     * @param  string|null $email For reverse — registrant email search (optional)
-     * @param  string|null $owner For reverse — registrant name search (optional)
-     * @param  string|null $company For reverse — company name search (optional)
-     * @param  string|null $mode (optional, default to 'default')
-     * @param  bool|null $exact (optional, default to true)
-     * @param  int|null $page (optional, default to 1)
-     * @param  string|null $format (optional, default to 'json')
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistoricalOrReverse'] to see the possible values for this operation
-     *
-     * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \WhoisFreaks\Model\WhoisHistoricalResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function whoisHistoricalOrReverseWithHttpInfo($apiKey, $whois, $domainName = null, $keyword = null, $email = null, $owner = null, $company = null, $mode = 'default', $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['whoisHistoricalOrReverse'][0])
-    {
-        $request = $this->whoisHistoricalOrReverseRequest($apiKey, $whois, $domainName, $keyword, $email, $owner, $company, $mode, $exact, $page, $format, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    if ('\WhoisFreaks\Model\WhoisHistoricalResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\WhoisFreaks\Model\WhoisHistoricalResponse' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\WhoisFreaks\Model\WhoisHistoricalResponse', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                case 401:
-                    if ('\WhoisFreaks\Model\ErrorResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\WhoisFreaks\Model\ErrorResponse' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\WhoisFreaks\Model\ErrorResponse', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            $returnType = '\WhoisFreaks\Model\WhoisHistoricalResponse';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-                if ($returnType !== 'string') {
-                    try {
-                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                    } catch (\JsonException $exception) {
-                        throw new ApiException(
-                            sprintf(
-                                'Error JSON decoding server response (%s)',
-                                $request->getUri()
-                            ),
-                            $statusCode,
-                            $response->getHeaders(),
-                            $content
-                        );
-                    }
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\WhoisFreaks\Model\WhoisHistoricalResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\WhoisFreaks\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation whoisHistoricalOrReverseAsync
-     *
-     * WHOIS Historical or Reverse Lookup
-     *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
-     * @param  string $whois (required)
-     * @param  string|null $domainName Required for historical lookup (optional)
-     * @param  string|null $keyword For reverse — domain keyword search (optional)
-     * @param  string|null $email For reverse — registrant email search (optional)
-     * @param  string|null $owner For reverse — registrant name search (optional)
-     * @param  string|null $company For reverse — company name search (optional)
-     * @param  string|null $mode (optional, default to 'default')
-     * @param  bool|null $exact (optional, default to true)
-     * @param  int|null $page (optional, default to 1)
-     * @param  string|null $format (optional, default to 'json')
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistoricalOrReverse'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function whoisHistoricalOrReverseAsync($apiKey, $whois, $domainName = null, $keyword = null, $email = null, $owner = null, $company = null, $mode = 'default', $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['whoisHistoricalOrReverse'][0])
-    {
-        return $this->whoisHistoricalOrReverseAsyncWithHttpInfo($apiKey, $whois, $domainName, $keyword, $email, $owner, $company, $mode, $exact, $page, $format, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation whoisHistoricalOrReverseAsyncWithHttpInfo
-     *
-     * WHOIS Historical or Reverse Lookup
-     *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
-     * @param  string $whois (required)
-     * @param  string|null $domainName Required for historical lookup (optional)
-     * @param  string|null $keyword For reverse — domain keyword search (optional)
-     * @param  string|null $email For reverse — registrant email search (optional)
-     * @param  string|null $owner For reverse — registrant name search (optional)
-     * @param  string|null $company For reverse — company name search (optional)
-     * @param  string|null $mode (optional, default to 'default')
-     * @param  bool|null $exact (optional, default to true)
-     * @param  int|null $page (optional, default to 1)
-     * @param  string|null $format (optional, default to 'json')
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistoricalOrReverse'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function whoisHistoricalOrReverseAsyncWithHttpInfo($apiKey, $whois, $domainName = null, $keyword = null, $email = null, $owner = null, $company = null, $mode = 'default', $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['whoisHistoricalOrReverse'][0])
-    {
-        $returnType = '\WhoisFreaks\Model\WhoisHistoricalResponse';
-        $request = $this->whoisHistoricalOrReverseRequest($apiKey, $whois, $domainName, $keyword, $email, $owner, $company, $mode, $exact, $page, $format, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'whoisHistoricalOrReverse'
-     *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
-     * @param  string $whois (required)
-     * @param  string|null $domainName Required for historical lookup (optional)
-     * @param  string|null $keyword For reverse — domain keyword search (optional)
-     * @param  string|null $email For reverse — registrant email search (optional)
-     * @param  string|null $owner For reverse — registrant name search (optional)
-     * @param  string|null $company For reverse — company name search (optional)
-     * @param  string|null $mode (optional, default to 'default')
-     * @param  bool|null $exact (optional, default to true)
-     * @param  int|null $page (optional, default to 1)
-     * @param  string|null $format (optional, default to 'json')
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistoricalOrReverse'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function whoisHistoricalOrReverseRequest($apiKey, $whois, $domainName = null, $keyword = null, $email = null, $owner = null, $company = null, $mode = 'default', $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['whoisHistoricalOrReverse'][0])
-    {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling whoisHistoricalOrReverse'
-            );
-        }
-
-        // verify the required parameter 'whois' is set
-        if ($whois === null || (is_array($whois) && count($whois) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $whois when calling whoisHistoricalOrReverse'
-            );
-        }
-
-
-
-
-
-
-
-
-
-
-
-        $resourcePath = '/v1.0/whois';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $whois,
-            'whois', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $domainName,
-            'domainName', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $keyword,
-            'keyword', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $email,
-            'email', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $owner,
-            'owner', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $company,
-            'company', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $mode,
-            'mode', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $exact,
-            'exact', // param base name
-            'boolean', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $page,
-            'page', // param base name
-            'integer', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $format,
-            'format', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('apiKey');
-        if ($apiKey !== null) {
-            $queryParams['apiKey'] = $apiKey;
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation whoisHistory
      *
      * Historical WHOIS records for a domain
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format format (optional)
@@ -1005,9 +475,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\WhoisHistoricalResponse
      */
-    public function whoisHistory($apiKey, $domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistory($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
-        list($response) = $this->whoisHistoryWithHttpInfo($apiKey, $domainName, $page, $format, $contentType);
+        list($response) = $this->whoisHistoryWithHttpInfo($domainName, $page, $format, $contentType);
         return $response;
     }
 
@@ -1016,7 +486,6 @@ class WHOISApi
      *
      * Historical WHOIS records for a domain
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -1026,9 +495,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\WhoisHistoricalResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function whoisHistoryWithHttpInfo($apiKey, $domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryWithHttpInfo($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
-        $request = $this->whoisHistoryRequest($apiKey, $domainName, $page, $format, $contentType);
+        $request = $this->whoisHistoryRequest($domainName, $page, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1144,7 +613,6 @@ class WHOISApi
      *
      * Historical WHOIS records for a domain
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -1153,9 +621,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisHistoryAsync($apiKey, $domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryAsync($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
-        return $this->whoisHistoryAsyncWithHttpInfo($apiKey, $domainName, $page, $format, $contentType)
+        return $this->whoisHistoryAsyncWithHttpInfo($domainName, $page, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1168,7 +636,6 @@ class WHOISApi
      *
      * Historical WHOIS records for a domain
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -1177,10 +644,10 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisHistoryAsyncWithHttpInfo($apiKey, $domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryAsyncWithHttpInfo($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
         $returnType = '\WhoisFreaks\Model\WhoisHistoricalResponse';
-        $request = $this->whoisHistoryRequest($apiKey, $domainName, $page, $format, $contentType);
+        $request = $this->whoisHistoryRequest($domainName, $page, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1221,7 +688,6 @@ class WHOISApi
     /**
      * Create request for operation 'whoisHistory'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -1230,15 +696,8 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function whoisHistoryRequest($apiKey, $domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryRequest($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling whoisHistory'
-            );
-        }
 
         // verify the required parameter 'domainName' is set
         if ($domainName === null || (is_array($domainName) && count($domainName) === 0)) {
@@ -1257,15 +716,6 @@ class WHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domainName,
@@ -1360,7 +810,6 @@ class WHOISApi
      *
      * Live WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName domainName (required)
      * @param  string|null $format format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisLive'] to see the possible values for this operation
@@ -1369,9 +818,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\WhoisResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function whoisLive($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
+    public function whoisLive($domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
     {
-        list($response) = $this->whoisLiveWithHttpInfo($apiKey, $domainName, $format, $contentType);
+        list($response) = $this->whoisLiveWithHttpInfo($domainName, $format, $contentType);
         return $response;
     }
 
@@ -1380,7 +829,6 @@ class WHOISApi
      *
      * Live WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisLive'] to see the possible values for this operation
@@ -1389,9 +837,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\WhoisResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function whoisLiveWithHttpInfo($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
+    public function whoisLiveWithHttpInfo($domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
     {
-        $request = $this->whoisLiveRequest($apiKey, $domainName, $format, $contentType);
+        $request = $this->whoisLiveRequest($domainName, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1612,7 +1060,6 @@ class WHOISApi
      *
      * Live WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisLive'] to see the possible values for this operation
@@ -1620,9 +1067,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisLiveAsync($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
+    public function whoisLiveAsync($domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
     {
-        return $this->whoisLiveAsyncWithHttpInfo($apiKey, $domainName, $format, $contentType)
+        return $this->whoisLiveAsyncWithHttpInfo($domainName, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1635,7 +1082,6 @@ class WHOISApi
      *
      * Live WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisLive'] to see the possible values for this operation
@@ -1643,10 +1089,10 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisLiveAsyncWithHttpInfo($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
+    public function whoisLiveAsyncWithHttpInfo($domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
     {
         $returnType = '\WhoisFreaks\Model\WhoisResponse';
-        $request = $this->whoisLiveRequest($apiKey, $domainName, $format, $contentType);
+        $request = $this->whoisLiveRequest($domainName, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1687,7 +1133,6 @@ class WHOISApi
     /**
      * Create request for operation 'whoisLive'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisLive'] to see the possible values for this operation
@@ -1695,15 +1140,8 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function whoisLiveRequest($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
+    public function whoisLiveRequest($domainName, $format = 'json', string $contentType = self::contentTypes['whoisLive'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling whoisLive'
-            );
-        }
 
         // verify the required parameter 'domainName' is set
         if ($domainName === null || (is_array($domainName) && count($domainName) === 0)) {
@@ -1721,15 +1159,6 @@ class WHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domainName,
@@ -1815,7 +1244,6 @@ class WHOISApi
      *
      * Reverse WHOIS lookup by keyword
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $keyword Keyword to search across WHOIS records (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format format (optional)
@@ -1825,9 +1253,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\ReverseWhoisResponse
      */
-    public function whoisReverse($apiKey, $keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
+    public function whoisReverse($keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
     {
-        list($response) = $this->whoisReverseWithHttpInfo($apiKey, $keyword, $page, $format, $contentType);
+        list($response) = $this->whoisReverseWithHttpInfo($keyword, $page, $format, $contentType);
         return $response;
     }
 
@@ -1836,7 +1264,6 @@ class WHOISApi
      *
      * Reverse WHOIS lookup by keyword
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $keyword Keyword to search across WHOIS records (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -1846,9 +1273,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\ReverseWhoisResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function whoisReverseWithHttpInfo($apiKey, $keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
+    public function whoisReverseWithHttpInfo($keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
     {
-        $request = $this->whoisReverseRequest($apiKey, $keyword, $page, $format, $contentType);
+        $request = $this->whoisReverseRequest($keyword, $page, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1964,7 +1391,6 @@ class WHOISApi
      *
      * Reverse WHOIS lookup by keyword
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $keyword Keyword to search across WHOIS records (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -1973,9 +1399,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisReverseAsync($apiKey, $keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
+    public function whoisReverseAsync($keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
     {
-        return $this->whoisReverseAsyncWithHttpInfo($apiKey, $keyword, $page, $format, $contentType)
+        return $this->whoisReverseAsyncWithHttpInfo($keyword, $page, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1988,7 +1414,6 @@ class WHOISApi
      *
      * Reverse WHOIS lookup by keyword
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $keyword Keyword to search across WHOIS records (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -1997,10 +1422,10 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisReverseAsyncWithHttpInfo($apiKey, $keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
+    public function whoisReverseAsyncWithHttpInfo($keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
     {
         $returnType = '\WhoisFreaks\Model\ReverseWhoisResponse';
-        $request = $this->whoisReverseRequest($apiKey, $keyword, $page, $format, $contentType);
+        $request = $this->whoisReverseRequest($keyword, $page, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2041,7 +1466,6 @@ class WHOISApi
     /**
      * Create request for operation 'whoisReverse'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $keyword Keyword to search across WHOIS records (required)
      * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
@@ -2050,15 +1474,8 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function whoisReverseRequest($apiKey, $keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
+    public function whoisReverseRequest($keyword, $page = null, $format = null, string $contentType = self::contentTypes['whoisReverse'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling whoisReverse'
-            );
-        }
 
         // verify the required parameter 'keyword' is set
         if ($keyword === null || (is_array($keyword) && count($keyword) === 0)) {
@@ -2077,15 +1494,6 @@ class WHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $keyword,

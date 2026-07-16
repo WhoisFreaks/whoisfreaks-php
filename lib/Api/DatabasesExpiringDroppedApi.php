@@ -144,7 +144,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -155,9 +154,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbDropped($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
+    public function dbDropped($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
     {
-        list($response) = $this->dbDroppedWithHttpInfo($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbDroppedWithHttpInfo($whois, $date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -170,7 +169,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -181,9 +179,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbDroppedWithHttpInfo($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
+    public function dbDroppedWithHttpInfo($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
     {
-        $request = $this->dbDroppedRequest($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDroppedRequest($whois, $date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -305,7 +303,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -315,9 +312,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDroppedAsync($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
+    public function dbDroppedAsync($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
     {
-        return $this->dbDroppedAsyncWithHttpInfo($apiKey, $whois, $date, $hostIndex, $variables, $contentType)
+        return $this->dbDroppedAsyncWithHttpInfo($whois, $date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -334,7 +331,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -344,10 +340,10 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDroppedAsyncWithHttpInfo($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
+    public function dbDroppedAsyncWithHttpInfo($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbDroppedRequest($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDroppedRequest($whois, $date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -392,7 +388,6 @@ class DatabasesExpiringDroppedApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -402,15 +397,8 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbDroppedRequest($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
+    public function dbDroppedRequest($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDropped'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbDropped'
-            );
-        }
 
         // verify the required parameter 'whois' is set
         if ($whois === null || (is_array($whois) && count($whois) === 0)) {
@@ -428,15 +416,6 @@ class DatabasesExpiringDroppedApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $whois,
@@ -551,7 +530,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool|null $whois whois (optional)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -562,9 +540,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbDroppedBacklinks($apiKey, $whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
+    public function dbDroppedBacklinks($whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
     {
-        list($response) = $this->dbDroppedBacklinksWithHttpInfo($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbDroppedBacklinksWithHttpInfo($whois, $date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -577,7 +555,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool|null $whois (optional)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -588,9 +565,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbDroppedBacklinksWithHttpInfo($apiKey, $whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
+    public function dbDroppedBacklinksWithHttpInfo($whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
     {
-        $request = $this->dbDroppedBacklinksRequest($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDroppedBacklinksRequest($whois, $date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -712,7 +689,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool|null $whois (optional)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -722,9 +698,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDroppedBacklinksAsync($apiKey, $whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
+    public function dbDroppedBacklinksAsync($whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
     {
-        return $this->dbDroppedBacklinksAsyncWithHttpInfo($apiKey, $whois, $date, $hostIndex, $variables, $contentType)
+        return $this->dbDroppedBacklinksAsyncWithHttpInfo($whois, $date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -741,7 +717,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool|null $whois (optional)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -751,10 +726,10 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDroppedBacklinksAsyncWithHttpInfo($apiKey, $whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
+    public function dbDroppedBacklinksAsyncWithHttpInfo($whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbDroppedBacklinksRequest($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbDroppedBacklinksRequest($whois, $date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -799,7 +774,6 @@ class DatabasesExpiringDroppedApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool|null $whois (optional)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -809,15 +783,8 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbDroppedBacklinksRequest($apiKey, $whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
+    public function dbDroppedBacklinksRequest($whois = null, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedBacklinks'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbDroppedBacklinks'
-            );
-        }
 
 
 
@@ -829,15 +796,6 @@ class DatabasesExpiringDroppedApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $whois,
@@ -952,7 +910,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -963,9 +920,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return string[]|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbDroppedJson($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
+    public function dbDroppedJson($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
     {
-        list($response) = $this->dbDroppedJsonWithHttpInfo($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbDroppedJsonWithHttpInfo($date, $tlds, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -978,7 +935,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -989,9 +945,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return array of string[]|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbDroppedJsonWithHttpInfo($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
+    public function dbDroppedJsonWithHttpInfo($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
     {
-        $request = $this->dbDroppedJsonRequest($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbDroppedJsonRequest($date, $tlds, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1113,7 +1069,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1123,9 +1078,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDroppedJsonAsync($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
+    public function dbDroppedJsonAsync($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
     {
-        return $this->dbDroppedJsonAsyncWithHttpInfo($apiKey, $date, $tlds, $hostIndex, $variables, $contentType)
+        return $this->dbDroppedJsonAsyncWithHttpInfo($date, $tlds, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1142,7 +1097,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1152,10 +1106,10 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbDroppedJsonAsyncWithHttpInfo($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
+    public function dbDroppedJsonAsyncWithHttpInfo($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
     {
         $returnType = 'string[]';
-        $request = $this->dbDroppedJsonRequest($apiKey, $date, $tlds, $hostIndex, $variables, $contentType);
+        $request = $this->dbDroppedJsonRequest($date, $tlds, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1200,7 +1154,6 @@ class DatabasesExpiringDroppedApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  string|null $tlds (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1210,15 +1163,8 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbDroppedJsonRequest($apiKey, $date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
+    public function dbDroppedJsonRequest($date = null, $tlds = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbDroppedJson'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbDroppedJson'
-            );
-        }
 
 
 
@@ -1230,15 +1176,6 @@ class DatabasesExpiringDroppedApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -1353,7 +1290,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1364,9 +1300,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbExpired($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
+    public function dbExpired($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
     {
-        list($response) = $this->dbExpiredWithHttpInfo($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbExpiredWithHttpInfo($whois, $date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1379,7 +1315,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1390,9 +1325,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbExpiredWithHttpInfo($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
+    public function dbExpiredWithHttpInfo($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
     {
-        $request = $this->dbExpiredRequest($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbExpiredRequest($whois, $date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1514,7 +1449,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1524,9 +1458,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbExpiredAsync($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
+    public function dbExpiredAsync($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
     {
-        return $this->dbExpiredAsyncWithHttpInfo($apiKey, $whois, $date, $hostIndex, $variables, $contentType)
+        return $this->dbExpiredAsyncWithHttpInfo($whois, $date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1543,7 +1477,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1553,10 +1486,10 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbExpiredAsyncWithHttpInfo($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
+    public function dbExpiredAsyncWithHttpInfo($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbExpiredRequest($apiKey, $whois, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbExpiredRequest($whois, $date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1601,7 +1534,6 @@ class DatabasesExpiringDroppedApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  bool $whois (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
@@ -1611,15 +1543,8 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbExpiredRequest($apiKey, $whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
+    public function dbExpiredRequest($whois, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpired'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbExpired'
-            );
-        }
 
         // verify the required parameter 'whois' is set
         if ($whois === null || (is_array($whois) && count($whois) === 0)) {
@@ -1637,15 +1562,6 @@ class DatabasesExpiringDroppedApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $whois,
@@ -1760,7 +1676,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1770,9 +1685,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbExpiredCleaned($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
+    public function dbExpiredCleaned($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
     {
-        list($response) = $this->dbExpiredCleanedWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbExpiredCleanedWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1785,7 +1700,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1795,9 +1709,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbExpiredCleanedWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
+    public function dbExpiredCleanedWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
     {
-        $request = $this->dbExpiredCleanedRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbExpiredCleanedRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1919,7 +1833,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1928,9 +1841,9 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbExpiredCleanedAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
+    public function dbExpiredCleanedAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
     {
-        return $this->dbExpiredCleanedAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbExpiredCleanedAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1947,7 +1860,6 @@ class DatabasesExpiringDroppedApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1956,10 +1868,10 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbExpiredCleanedAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
+    public function dbExpiredCleanedAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbExpiredCleanedRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbExpiredCleanedRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2004,7 +1916,6 @@ class DatabasesExpiringDroppedApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -2013,15 +1924,8 @@ class DatabasesExpiringDroppedApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbExpiredCleanedRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
+    public function dbExpiredCleanedRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbExpiredCleaned'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbExpiredCleaned'
-            );
-        }
 
 
 
@@ -2032,15 +1936,6 @@ class DatabasesExpiringDroppedApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,

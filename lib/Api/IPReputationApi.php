@@ -131,7 +131,6 @@ class IPReputationApi
      *
      * Bulk IP Reputation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkIpReputation'] to see the possible values for this operation
      *
@@ -139,9 +138,9 @@ class IPReputationApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\IpReputationResponse[]|\WhoisFreaks\Model\ErrorResponse
      */
-    public function bulkIpReputation($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
+    public function bulkIpReputation($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
     {
-        list($response) = $this->bulkIpReputationWithHttpInfo($apiKey, $bulkGeolocationRequest, $contentType);
+        list($response) = $this->bulkIpReputationWithHttpInfo($bulkGeolocationRequest, $contentType);
         return $response;
     }
 
@@ -150,7 +149,6 @@ class IPReputationApi
      *
      * Bulk IP Reputation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkIpReputation'] to see the possible values for this operation
      *
@@ -158,9 +156,9 @@ class IPReputationApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\IpReputationResponse[]|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function bulkIpReputationWithHttpInfo($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
+    public function bulkIpReputationWithHttpInfo($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
     {
-        $request = $this->bulkIpReputationRequest($apiKey, $bulkGeolocationRequest, $contentType);
+        $request = $this->bulkIpReputationRequest($bulkGeolocationRequest, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -278,16 +276,15 @@ class IPReputationApi
      *
      * Bulk IP Reputation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkIpReputation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkIpReputationAsync($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
+    public function bulkIpReputationAsync($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
     {
-        return $this->bulkIpReputationAsyncWithHttpInfo($apiKey, $bulkGeolocationRequest, $contentType)
+        return $this->bulkIpReputationAsyncWithHttpInfo($bulkGeolocationRequest, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -300,17 +297,16 @@ class IPReputationApi
      *
      * Bulk IP Reputation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkIpReputation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkIpReputationAsyncWithHttpInfo($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
+    public function bulkIpReputationAsyncWithHttpInfo($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
     {
         $returnType = '\WhoisFreaks\Model\IpReputationResponse[]';
-        $request = $this->bulkIpReputationRequest($apiKey, $bulkGeolocationRequest, $contentType);
+        $request = $this->bulkIpReputationRequest($bulkGeolocationRequest, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -351,22 +347,14 @@ class IPReputationApi
     /**
      * Create request for operation 'bulkIpReputation'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkIpReputation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function bulkIpReputationRequest($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
+    public function bulkIpReputationRequest($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkIpReputation'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling bulkIpReputation'
-            );
-        }
 
         // verify the required parameter 'bulkGeolocationRequest' is set
         if ($bulkGeolocationRequest === null || (is_array($bulkGeolocationRequest) && count($bulkGeolocationRequest) === 0)) {
@@ -383,15 +371,6 @@ class IPReputationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 
@@ -466,7 +445,6 @@ class IPReputationApi
      *
      * IP Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipReputation'] to see the possible values for this operation
      *
@@ -474,9 +452,9 @@ class IPReputationApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\IpReputationResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function ipReputation($apiKey, $ip, string $contentType = self::contentTypes['ipReputation'][0])
+    public function ipReputation($ip, string $contentType = self::contentTypes['ipReputation'][0])
     {
-        list($response) = $this->ipReputationWithHttpInfo($apiKey, $ip, $contentType);
+        list($response) = $this->ipReputationWithHttpInfo($ip, $contentType);
         return $response;
     }
 
@@ -485,7 +463,6 @@ class IPReputationApi
      *
      * IP Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipReputation'] to see the possible values for this operation
      *
@@ -493,9 +470,9 @@ class IPReputationApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\IpReputationResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function ipReputationWithHttpInfo($apiKey, $ip, string $contentType = self::contentTypes['ipReputation'][0])
+    public function ipReputationWithHttpInfo($ip, string $contentType = self::contentTypes['ipReputation'][0])
     {
-        $request = $this->ipReputationRequest($apiKey, $ip, $contentType);
+        $request = $this->ipReputationRequest($ip, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -613,16 +590,15 @@ class IPReputationApi
      *
      * IP Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipReputation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function ipReputationAsync($apiKey, $ip, string $contentType = self::contentTypes['ipReputation'][0])
+    public function ipReputationAsync($ip, string $contentType = self::contentTypes['ipReputation'][0])
     {
-        return $this->ipReputationAsyncWithHttpInfo($apiKey, $ip, $contentType)
+        return $this->ipReputationAsyncWithHttpInfo($ip, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -635,17 +611,16 @@ class IPReputationApi
      *
      * IP Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipReputation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function ipReputationAsyncWithHttpInfo($apiKey, $ip, string $contentType = self::contentTypes['ipReputation'][0])
+    public function ipReputationAsyncWithHttpInfo($ip, string $contentType = self::contentTypes['ipReputation'][0])
     {
         $returnType = '\WhoisFreaks\Model\IpReputationResponse';
-        $request = $this->ipReputationRequest($apiKey, $ip, $contentType);
+        $request = $this->ipReputationRequest($ip, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -686,22 +661,14 @@ class IPReputationApi
     /**
      * Create request for operation 'ipReputation'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipReputation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function ipReputationRequest($apiKey, $ip, string $contentType = self::contentTypes['ipReputation'][0])
+    public function ipReputationRequest($ip, string $contentType = self::contentTypes['ipReputation'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling ipReputation'
-            );
-        }
 
         // verify the required parameter 'ip' is set
         if ($ip === null || (is_array($ip) && count($ip) === 0)) {
@@ -718,15 +685,6 @@ class IPReputationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $ip,

@@ -10,7 +10,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `ipWhois()`
 
 ```php
-ipWhois($apiKey, $ip, $format): \WhoisFreaks\Model\IpWhoisResponse
+ipWhois($ip, $format): \WhoisFreaks\Model\IpWhoisResponse
 ```
 
 IP WHOIS Lookup
@@ -36,12 +36,11 @@ $apiInstance = new WhoisFreaks\Api\IPWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $ip = 'ip_example'; // string
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->ipWhois($apiKey, $ip, $format);
+    $result = $apiInstance->ipWhois($ip, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling IPWHOISApi->ipWhois: ', $e->getMessage(), PHP_EOL;
@@ -52,7 +51,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **ip** | **string**|  | |
 | **format** | **string**|  | [optional] [default to &#39;json&#39;] |
 

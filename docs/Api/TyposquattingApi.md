@@ -10,7 +10,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `typosquatting()`
 
 ```php
-typosquatting($apiKey, $keyword, $pattern, $pageToken): \WhoisFreaks\Model\TyposquattingResponse
+typosquatting($keyword, $pattern, $pageToken): \WhoisFreaks\Model\TyposquattingResponse
 ```
 
 Typosquatting Lookup
@@ -36,13 +36,12 @@ $apiInstance = new WhoisFreaks\Api\TyposquattingApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $keyword = 'keyword_example'; // string
 $pattern = 'pattern_example'; // string
 $pageToken = 'pageToken_example'; // string
 
 try {
-    $result = $apiInstance->typosquatting($apiKey, $keyword, $pattern, $pageToken);
+    $result = $apiInstance->typosquatting($keyword, $pattern, $pageToken);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TyposquattingApi->typosquatting: ', $e->getMessage(), PHP_EOL;
@@ -53,7 +52,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **keyword** | **string**|  | [optional] |
 | **pattern** | **string**|  | [optional] |
 | **pageToken** | **string**|  | [optional] |

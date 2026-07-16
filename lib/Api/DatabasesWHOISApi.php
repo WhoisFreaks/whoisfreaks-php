@@ -138,7 +138,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -148,9 +147,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbWhoisDaily($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
+    public function dbWhoisDaily($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
     {
-        list($response) = $this->dbWhoisDailyWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbWhoisDailyWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -163,7 +162,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -173,9 +171,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbWhoisDailyWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
+    public function dbWhoisDailyWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
     {
-        $request = $this->dbWhoisDailyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbWhoisDailyRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -297,7 +295,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -306,9 +303,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbWhoisDailyAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
+    public function dbWhoisDailyAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
     {
-        return $this->dbWhoisDailyAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbWhoisDailyAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -325,7 +322,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -334,10 +330,10 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbWhoisDailyAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
+    public function dbWhoisDailyAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbWhoisDailyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbWhoisDailyRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -382,7 +378,6 @@ class DatabasesWHOISApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -391,15 +386,8 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbWhoisDailyRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
+    public function dbWhoisDailyRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisDaily'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbWhoisDaily'
-            );
-        }
 
 
 
@@ -410,15 +398,6 @@ class DatabasesWHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -524,7 +503,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -534,9 +512,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbWhoisMonthly($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
+    public function dbWhoisMonthly($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
     {
-        list($response) = $this->dbWhoisMonthlyWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbWhoisMonthlyWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -549,7 +527,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -559,9 +536,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbWhoisMonthlyWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
+    public function dbWhoisMonthlyWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
     {
-        $request = $this->dbWhoisMonthlyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbWhoisMonthlyRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -683,7 +660,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -692,9 +668,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbWhoisMonthlyAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
+    public function dbWhoisMonthlyAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
     {
-        return $this->dbWhoisMonthlyAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbWhoisMonthlyAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -711,7 +687,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -720,10 +695,10 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbWhoisMonthlyAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
+    public function dbWhoisMonthlyAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbWhoisMonthlyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbWhoisMonthlyRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -768,7 +743,6 @@ class DatabasesWHOISApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -777,15 +751,8 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbWhoisMonthlyRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
+    public function dbWhoisMonthlyRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisMonthly'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbWhoisMonthly'
-            );
-        }
 
 
 
@@ -796,15 +763,6 @@ class DatabasesWHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -910,7 +868,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -920,9 +877,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbWhoisWeekly($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
+    public function dbWhoisWeekly($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
     {
-        list($response) = $this->dbWhoisWeeklyWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbWhoisWeeklyWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -935,7 +892,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -945,9 +901,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbWhoisWeeklyWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
+    public function dbWhoisWeeklyWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
     {
-        $request = $this->dbWhoisWeeklyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbWhoisWeeklyRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1069,7 +1025,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1078,9 +1033,9 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbWhoisWeeklyAsync($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
+    public function dbWhoisWeeklyAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
     {
-        return $this->dbWhoisWeeklyAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbWhoisWeeklyAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1097,7 +1052,6 @@ class DatabasesWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1106,10 +1060,10 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbWhoisWeeklyAsyncWithHttpInfo($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
+    public function dbWhoisWeeklyAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbWhoisWeeklyRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbWhoisWeeklyRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1154,7 +1108,6 @@ class DatabasesWHOISApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime|null $date yyyy-MM-dd; omit for latest (optional)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1163,15 +1116,8 @@ class DatabasesWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbWhoisWeeklyRequest($apiKey, $date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
+    public function dbWhoisWeeklyRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbWhoisWeekly'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbWhoisWeekly'
-            );
-        }
 
 
 
@@ -1182,15 +1128,6 @@ class DatabasesWHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,

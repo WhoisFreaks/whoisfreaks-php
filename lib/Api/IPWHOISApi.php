@@ -128,7 +128,6 @@ class IPWHOISApi
      *
      * IP WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip ip (required)
      * @param  string|null $format format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipWhois'] to see the possible values for this operation
@@ -137,9 +136,9 @@ class IPWHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\IpWhoisResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function ipWhois($apiKey, $ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
+    public function ipWhois($ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
     {
-        list($response) = $this->ipWhoisWithHttpInfo($apiKey, $ip, $format, $contentType);
+        list($response) = $this->ipWhoisWithHttpInfo($ip, $format, $contentType);
         return $response;
     }
 
@@ -148,7 +147,6 @@ class IPWHOISApi
      *
      * IP WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipWhois'] to see the possible values for this operation
@@ -157,9 +155,9 @@ class IPWHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\IpWhoisResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function ipWhoisWithHttpInfo($apiKey, $ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
+    public function ipWhoisWithHttpInfo($ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
     {
-        $request = $this->ipWhoisRequest($apiKey, $ip, $format, $contentType);
+        $request = $this->ipWhoisRequest($ip, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -277,7 +275,6 @@ class IPWHOISApi
      *
      * IP WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipWhois'] to see the possible values for this operation
@@ -285,9 +282,9 @@ class IPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function ipWhoisAsync($apiKey, $ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
+    public function ipWhoisAsync($ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
     {
-        return $this->ipWhoisAsyncWithHttpInfo($apiKey, $ip, $format, $contentType)
+        return $this->ipWhoisAsyncWithHttpInfo($ip, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -300,7 +297,6 @@ class IPWHOISApi
      *
      * IP WHOIS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipWhois'] to see the possible values for this operation
@@ -308,10 +304,10 @@ class IPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function ipWhoisAsyncWithHttpInfo($apiKey, $ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
+    public function ipWhoisAsyncWithHttpInfo($ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
     {
         $returnType = '\WhoisFreaks\Model\IpWhoisResponse';
-        $request = $this->ipWhoisRequest($apiKey, $ip, $format, $contentType);
+        $request = $this->ipWhoisRequest($ip, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -352,7 +348,6 @@ class IPWHOISApi
     /**
      * Create request for operation 'ipWhois'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['ipWhois'] to see the possible values for this operation
@@ -360,15 +355,8 @@ class IPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function ipWhoisRequest($apiKey, $ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
+    public function ipWhoisRequest($ip, $format = 'json', string $contentType = self::contentTypes['ipWhois'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling ipWhois'
-            );
-        }
 
         // verify the required parameter 'ip' is set
         if ($ip === null || (is_array($ip) && count($ip) === 0)) {
@@ -386,15 +374,6 @@ class IPWHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $ip,

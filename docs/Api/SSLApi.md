@@ -10,7 +10,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `sslLookup()`
 
 ```php
-sslLookup($apiKey, $domainName, $chain, $sslRaw, $format): \WhoisFreaks\Model\SslResponse
+sslLookup($domainName, $chain, $sslRaw, $format): \WhoisFreaks\Model\SslResponse
 ```
 
 SSL Certificate Lookup
@@ -36,14 +36,13 @@ $apiInstance = new WhoisFreaks\Api\SSLApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $domainName = 'domainName_example'; // string
 $chain = false; // bool
 $sslRaw = false; // bool
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->sslLookup($apiKey, $domainName, $chain, $sslRaw, $format);
+    $result = $apiInstance->sslLookup($domainName, $chain, $sslRaw, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SSLApi->sslLookup: ', $e->getMessage(), PHP_EOL;
@@ -54,7 +53,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **domainName** | **string**|  | |
 | **chain** | **bool**|  | [optional] [default to false] |
 | **sslRaw** | **bool**|  | [optional] [default to false] |

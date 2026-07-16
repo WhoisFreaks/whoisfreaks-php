@@ -135,7 +135,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -145,9 +144,9 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpWhois($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
+    public function dbIpWhois($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
     {
-        list($response) = $this->dbIpWhoisWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpWhoisWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -160,7 +159,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -170,9 +168,9 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpWhoisWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
+    public function dbIpWhoisWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
     {
-        $request = $this->dbIpWhoisRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpWhoisRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -294,7 +292,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -303,9 +300,9 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpWhoisAsync($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
+    public function dbIpWhoisAsync($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
     {
-        return $this->dbIpWhoisAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbIpWhoisAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -322,7 +319,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -331,10 +327,10 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpWhoisAsyncWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
+    public function dbIpWhoisAsyncWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbIpWhoisRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpWhoisRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -379,7 +375,6 @@ class DatabasesIPWHOISApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -388,15 +383,8 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpWhoisRequest($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
+    public function dbIpWhoisRequest($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhois'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpWhois'
-            );
-        }
 
         // verify the required parameter 'date' is set
         if ($date === null || (is_array($date) && count($date) === 0)) {
@@ -413,15 +401,6 @@ class DatabasesIPWHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -527,7 +506,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpWhoisStatus'] to see the possible values for this operation
@@ -536,9 +514,9 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpWhoisStatus($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
+    public function dbIpWhoisStatus(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
     {
-        list($response) = $this->dbIpWhoisStatusWithHttpInfo($apiKey, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpWhoisStatusWithHttpInfo($hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -551,7 +529,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpWhoisStatus'] to see the possible values for this operation
@@ -560,9 +537,9 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpWhoisStatusWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
+    public function dbIpWhoisStatusWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
     {
-        $request = $this->dbIpWhoisStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpWhoisStatusRequest($hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -684,7 +661,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpWhoisStatus'] to see the possible values for this operation
@@ -692,9 +668,9 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpWhoisStatusAsync($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
+    public function dbIpWhoisStatusAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
     {
-        return $this->dbIpWhoisStatusAsyncWithHttpInfo($apiKey, $hostIndex, $variables, $contentType)
+        return $this->dbIpWhoisStatusAsyncWithHttpInfo($hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -711,7 +687,6 @@ class DatabasesIPWHOISApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpWhoisStatus'] to see the possible values for this operation
@@ -719,10 +694,10 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpWhoisStatusAsyncWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
+    public function dbIpWhoisStatusAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
     {
         $returnType = '\WhoisFreaks\Model\SnapshotStatus';
-        $request = $this->dbIpWhoisStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpWhoisStatusRequest($hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -767,7 +742,6 @@ class DatabasesIPWHOISApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpWhoisStatus'] to see the possible values for this operation
@@ -775,15 +749,8 @@ class DatabasesIPWHOISApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpWhoisStatusRequest($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
+    public function dbIpWhoisStatusRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpWhoisStatus'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpWhoisStatus'
-            );
-        }
 
 
         $resourcePath = '/v3.3/status/snapshot/ip/whois';
@@ -793,15 +760,6 @@ class DatabasesIPWHOISApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 

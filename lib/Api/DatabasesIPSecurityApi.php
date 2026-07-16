@@ -135,7 +135,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -145,9 +144,9 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpSecurity($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
+    public function dbIpSecurity($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
     {
-        list($response) = $this->dbIpSecurityWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpSecurityWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -160,7 +159,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -170,9 +168,9 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpSecurityWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
+    public function dbIpSecurityWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
     {
-        $request = $this->dbIpSecurityRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpSecurityRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -294,7 +292,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -303,9 +300,9 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpSecurityAsync($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
+    public function dbIpSecurityAsync($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
     {
-        return $this->dbIpSecurityAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbIpSecurityAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -322,7 +319,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -331,10 +327,10 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpSecurityAsyncWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
+    public function dbIpSecurityAsyncWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbIpSecurityRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpSecurityRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -379,7 +375,6 @@ class DatabasesIPSecurityApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -388,15 +383,8 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpSecurityRequest($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
+    public function dbIpSecurityRequest($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurity'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpSecurity'
-            );
-        }
 
         // verify the required parameter 'date' is set
         if ($date === null || (is_array($date) && count($date) === 0)) {
@@ -413,15 +401,6 @@ class DatabasesIPSecurityApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -527,7 +506,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpSecurityStatus'] to see the possible values for this operation
@@ -536,9 +514,9 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpSecurityStatus($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
+    public function dbIpSecurityStatus(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
     {
-        list($response) = $this->dbIpSecurityStatusWithHttpInfo($apiKey, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpSecurityStatusWithHttpInfo($hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -551,7 +529,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpSecurityStatus'] to see the possible values for this operation
@@ -560,9 +537,9 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpSecurityStatusWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
+    public function dbIpSecurityStatusWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
     {
-        $request = $this->dbIpSecurityStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpSecurityStatusRequest($hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -684,7 +661,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpSecurityStatus'] to see the possible values for this operation
@@ -692,9 +668,9 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpSecurityStatusAsync($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
+    public function dbIpSecurityStatusAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
     {
-        return $this->dbIpSecurityStatusAsyncWithHttpInfo($apiKey, $hostIndex, $variables, $contentType)
+        return $this->dbIpSecurityStatusAsyncWithHttpInfo($hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -711,7 +687,6 @@ class DatabasesIPSecurityApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpSecurityStatus'] to see the possible values for this operation
@@ -719,10 +694,10 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpSecurityStatusAsyncWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
+    public function dbIpSecurityStatusAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
     {
         $returnType = '\WhoisFreaks\Model\SnapshotStatus';
-        $request = $this->dbIpSecurityStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpSecurityStatusRequest($hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -767,7 +742,6 @@ class DatabasesIPSecurityApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpSecurityStatus'] to see the possible values for this operation
@@ -775,15 +749,8 @@ class DatabasesIPSecurityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpSecurityStatusRequest($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
+    public function dbIpSecurityStatusRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpSecurityStatus'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpSecurityStatus'
-            );
-        }
 
 
         $resourcePath = '/v3.3/status/snapshot/ip/security';
@@ -793,15 +760,6 @@ class DatabasesIPSecurityApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 

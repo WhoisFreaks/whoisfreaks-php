@@ -128,7 +128,6 @@ class TyposquattingApi
      *
      * Typosquatting Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string|null $keyword keyword (optional)
      * @param  string|null $pattern pattern (optional)
      * @param  string|null $pageToken pageToken (optional)
@@ -138,9 +137,9 @@ class TyposquattingApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\TyposquattingResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function typosquatting($apiKey, $keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
+    public function typosquatting($keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
     {
-        list($response) = $this->typosquattingWithHttpInfo($apiKey, $keyword, $pattern, $pageToken, $contentType);
+        list($response) = $this->typosquattingWithHttpInfo($keyword, $pattern, $pageToken, $contentType);
         return $response;
     }
 
@@ -149,7 +148,6 @@ class TyposquattingApi
      *
      * Typosquatting Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string|null $keyword (optional)
      * @param  string|null $pattern (optional)
      * @param  string|null $pageToken (optional)
@@ -159,9 +157,9 @@ class TyposquattingApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\TyposquattingResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function typosquattingWithHttpInfo($apiKey, $keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
+    public function typosquattingWithHttpInfo($keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
     {
-        $request = $this->typosquattingRequest($apiKey, $keyword, $pattern, $pageToken, $contentType);
+        $request = $this->typosquattingRequest($keyword, $pattern, $pageToken, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -347,7 +345,6 @@ class TyposquattingApi
      *
      * Typosquatting Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string|null $keyword (optional)
      * @param  string|null $pattern (optional)
      * @param  string|null $pageToken (optional)
@@ -356,9 +353,9 @@ class TyposquattingApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function typosquattingAsync($apiKey, $keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
+    public function typosquattingAsync($keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
     {
-        return $this->typosquattingAsyncWithHttpInfo($apiKey, $keyword, $pattern, $pageToken, $contentType)
+        return $this->typosquattingAsyncWithHttpInfo($keyword, $pattern, $pageToken, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -371,7 +368,6 @@ class TyposquattingApi
      *
      * Typosquatting Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string|null $keyword (optional)
      * @param  string|null $pattern (optional)
      * @param  string|null $pageToken (optional)
@@ -380,10 +376,10 @@ class TyposquattingApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function typosquattingAsyncWithHttpInfo($apiKey, $keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
+    public function typosquattingAsyncWithHttpInfo($keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
     {
         $returnType = '\WhoisFreaks\Model\TyposquattingResponse';
-        $request = $this->typosquattingRequest($apiKey, $keyword, $pattern, $pageToken, $contentType);
+        $request = $this->typosquattingRequest($keyword, $pattern, $pageToken, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -424,7 +420,6 @@ class TyposquattingApi
     /**
      * Create request for operation 'typosquatting'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string|null $keyword (optional)
      * @param  string|null $pattern (optional)
      * @param  string|null $pageToken (optional)
@@ -433,15 +428,8 @@ class TyposquattingApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function typosquattingRequest($apiKey, $keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
+    public function typosquattingRequest($keyword = null, $pattern = null, $pageToken = null, string $contentType = self::contentTypes['typosquatting'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling typosquatting'
-            );
-        }
 
 
 
@@ -454,15 +442,6 @@ class TyposquattingApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $keyword,

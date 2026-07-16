@@ -13,7 +13,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `dnsBulk()`
 
 ```php
-dnsBulk($apiKey, $type, $dnsBulkRequest, $format): \WhoisFreaks\Model\BulkDnsResponse
+dnsBulk($type, $dnsBulkRequest, $format): \WhoisFreaks\Model\BulkDnsResponse
 ```
 
 Bulk DNS Lookup
@@ -39,13 +39,12 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $type = 'all'; // string
 $dnsBulkRequest = new \WhoisFreaks\Model\DnsBulkRequest(); // \WhoisFreaks\Model\DnsBulkRequest
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->dnsBulk($apiKey, $type, $dnsBulkRequest, $format);
+    $result = $apiInstance->dnsBulk($type, $dnsBulkRequest, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DNSApi->dnsBulk: ', $e->getMessage(), PHP_EOL;
@@ -56,7 +55,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **type** | **string**|  | [default to &#39;all&#39;] |
 | **dnsBulkRequest** | [**\WhoisFreaks\Model\DnsBulkRequest**](../Model/DnsBulkRequest.md)|  | |
 | **format** | **string**|  | [optional] [default to &#39;json&#39;] |
@@ -81,7 +79,7 @@ try {
 ## `dnsHistorical()`
 
 ```php
-dnsHistorical($apiKey, $domainName, $type, $page, $format): \WhoisFreaks\Model\HistoricalDnsResponse
+dnsHistorical($domainName, $type, $page, $format): \WhoisFreaks\Model\HistoricalDnsResponse
 ```
 
 Historical DNS Lookup
@@ -107,14 +105,13 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $domainName = 'domainName_example'; // string
 $type = 'all'; // string
 $page = 1; // int
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->dnsHistorical($apiKey, $domainName, $type, $page, $format);
+    $result = $apiInstance->dnsHistorical($domainName, $type, $page, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DNSApi->dnsHistorical: ', $e->getMessage(), PHP_EOL;
@@ -125,7 +122,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **domainName** | **string**|  | |
 | **type** | **string**|  | [default to &#39;all&#39;] |
 | **page** | **int**|  | [optional] [default to 1] |
@@ -151,7 +147,7 @@ try {
 ## `dnsLive()`
 
 ```php
-dnsLive($apiKey, $type, $domainName, $ipAddress, $format): \WhoisFreaks\Model\DnsResponse
+dnsLive($type, $domainName, $ipAddress, $format): \WhoisFreaks\Model\DnsResponse
 ```
 
 Live DNS Lookup
@@ -177,14 +173,13 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $type = 'all'; // string | all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
 $domainName = 'domainName_example'; // string
 $ipAddress = 'ipAddress_example'; // string | Use for PTR lookups
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->dnsLive($apiKey, $type, $domainName, $ipAddress, $format);
+    $result = $apiInstance->dnsLive($type, $domainName, $ipAddress, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DNSApi->dnsLive: ', $e->getMessage(), PHP_EOL;
@@ -195,7 +190,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **type** | **string**| all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME | [default to &#39;all&#39;] |
 | **domainName** | **string**|  | [optional] |
 | **ipAddress** | **string**| Use for PTR lookups | [optional] |
@@ -221,7 +215,7 @@ try {
 ## `dnsReverse()`
 
 ```php
-dnsReverse($apiKey, $value, $type, $exact, $page, $format): \WhoisFreaks\Model\ReverseDnsResponse
+dnsReverse($value, $type, $exact, $page, $format): \WhoisFreaks\Model\ReverseDnsResponse
 ```
 
 Reverse DNS Lookup
@@ -247,7 +241,6 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $value = 'value_example'; // string | IP, CIDR, or record value
 $type = 'type_example'; // string
 $exact = true; // bool
@@ -255,7 +248,7 @@ $page = 1; // int
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->dnsReverse($apiKey, $value, $type, $exact, $page, $format);
+    $result = $apiInstance->dnsReverse($value, $type, $exact, $page, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DNSApi->dnsReverse: ', $e->getMessage(), PHP_EOL;
@@ -266,7 +259,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **value** | **string**| IP, CIDR, or record value | |
 | **type** | **string**|  | |
 | **exact** | **bool**|  | [optional] [default to true] |

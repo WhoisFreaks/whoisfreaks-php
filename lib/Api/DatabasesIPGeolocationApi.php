@@ -141,7 +141,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -151,9 +150,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpCity($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
+    public function dbIpCity($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
     {
-        list($response) = $this->dbIpCityWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpCityWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -166,7 +165,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -176,9 +174,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpCityWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
+    public function dbIpCityWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
     {
-        $request = $this->dbIpCityRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCityRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -300,7 +298,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -309,9 +306,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCityAsync($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
+    public function dbIpCityAsync($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
     {
-        return $this->dbIpCityAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbIpCityAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -328,7 +325,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -337,10 +333,10 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCityAsyncWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
+    public function dbIpCityAsyncWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbIpCityRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCityRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -385,7 +381,6 @@ class DatabasesIPGeolocationApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -394,15 +389,8 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpCityRequest($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
+    public function dbIpCityRequest($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCity'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpCity'
-            );
-        }
 
         // verify the required parameter 'date' is set
         if ($date === null || (is_array($date) && count($date) === 0)) {
@@ -419,15 +407,6 @@ class DatabasesIPGeolocationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -533,7 +512,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCityStatus'] to see the possible values for this operation
@@ -542,9 +520,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpCityStatus($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
+    public function dbIpCityStatus(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
     {
-        list($response) = $this->dbIpCityStatusWithHttpInfo($apiKey, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpCityStatusWithHttpInfo($hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -557,7 +535,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCityStatus'] to see the possible values for this operation
@@ -566,9 +543,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpCityStatusWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
+    public function dbIpCityStatusWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
     {
-        $request = $this->dbIpCityStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCityStatusRequest($hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -690,7 +667,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCityStatus'] to see the possible values for this operation
@@ -698,9 +674,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCityStatusAsync($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
+    public function dbIpCityStatusAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
     {
-        return $this->dbIpCityStatusAsyncWithHttpInfo($apiKey, $hostIndex, $variables, $contentType)
+        return $this->dbIpCityStatusAsyncWithHttpInfo($hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -717,7 +693,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCityStatus'] to see the possible values for this operation
@@ -725,10 +700,10 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCityStatusAsyncWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
+    public function dbIpCityStatusAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
     {
         $returnType = '\WhoisFreaks\Model\SnapshotStatus';
-        $request = $this->dbIpCityStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCityStatusRequest($hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -773,7 +748,6 @@ class DatabasesIPGeolocationApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCityStatus'] to see the possible values for this operation
@@ -781,15 +755,8 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpCityStatusRequest($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
+    public function dbIpCityStatusRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCityStatus'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpCityStatus'
-            );
-        }
 
 
         $resourcePath = '/v3.3/status/snapshot/ip/city';
@@ -799,15 +766,6 @@ class DatabasesIPGeolocationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 
@@ -904,7 +862,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -914,9 +871,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpCountry($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
+    public function dbIpCountry($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
     {
-        list($response) = $this->dbIpCountryWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpCountryWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -929,7 +886,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -939,9 +895,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpCountryWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
+    public function dbIpCountryWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
     {
-        $request = $this->dbIpCountryRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCountryRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1063,7 +1019,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1072,9 +1027,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCountryAsync($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
+    public function dbIpCountryAsync($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
     {
-        return $this->dbIpCountryAsyncWithHttpInfo($apiKey, $date, $hostIndex, $variables, $contentType)
+        return $this->dbIpCountryAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1091,7 +1046,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1100,10 +1054,10 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCountryAsyncWithHttpInfo($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
+    public function dbIpCountryAsyncWithHttpInfo($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->dbIpCountryRequest($apiKey, $date, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCountryRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1148,7 +1102,6 @@ class DatabasesIPGeolocationApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \DateTime $date (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
@@ -1157,15 +1110,8 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpCountryRequest($apiKey, $date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
+    public function dbIpCountryRequest($date, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountry'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpCountry'
-            );
-        }
 
         // verify the required parameter 'date' is set
         if ($date === null || (is_array($date) && count($date) === 0)) {
@@ -1182,15 +1128,6 @@ class DatabasesIPGeolocationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $date,
@@ -1296,7 +1233,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCountryStatus'] to see the possible values for this operation
@@ -1305,9 +1241,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dbIpCountryStatus($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
+    public function dbIpCountryStatus(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
     {
-        list($response) = $this->dbIpCountryStatusWithHttpInfo($apiKey, $hostIndex, $variables, $contentType);
+        list($response) = $this->dbIpCountryStatusWithHttpInfo($hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1320,7 +1256,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCountryStatus'] to see the possible values for this operation
@@ -1329,9 +1264,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\SnapshotStatus|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dbIpCountryStatusWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
+    public function dbIpCountryStatusWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
     {
-        $request = $this->dbIpCountryStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCountryStatusRequest($hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1453,7 +1388,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCountryStatus'] to see the possible values for this operation
@@ -1461,9 +1395,9 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCountryStatusAsync($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
+    public function dbIpCountryStatusAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
     {
-        return $this->dbIpCountryStatusAsyncWithHttpInfo($apiKey, $hostIndex, $variables, $contentType)
+        return $this->dbIpCountryStatusAsyncWithHttpInfo($hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1480,7 +1414,6 @@ class DatabasesIPGeolocationApi
      * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCountryStatus'] to see the possible values for this operation
@@ -1488,10 +1421,10 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dbIpCountryStatusAsyncWithHttpInfo($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
+    public function dbIpCountryStatusAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
     {
         $returnType = '\WhoisFreaks\Model\SnapshotStatus';
-        $request = $this->dbIpCountryStatusRequest($apiKey, $hostIndex, $variables, $contentType);
+        $request = $this->dbIpCountryStatusRequest($hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1536,7 +1469,6 @@ class DatabasesIPGeolocationApi
     * if needed, use the 'variables' parameter to pass variables to the host.
      * URL: https://files.whoisfreaks.com
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
      * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['dbIpCountryStatus'] to see the possible values for this operation
@@ -1544,15 +1476,8 @@ class DatabasesIPGeolocationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dbIpCountryStatusRequest($apiKey, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
+    public function dbIpCountryStatusRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['dbIpCountryStatus'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dbIpCountryStatus'
-            );
-        }
 
 
         $resourcePath = '/v3.3/status/snapshot/ip/country';
@@ -1562,15 +1487,6 @@ class DatabasesIPGeolocationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 

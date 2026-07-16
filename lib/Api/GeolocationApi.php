@@ -131,7 +131,6 @@ class GeolocationApi
      *
      * Bulk IP Geolocation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkGeolocation'] to see the possible values for this operation
      *
@@ -139,9 +138,9 @@ class GeolocationApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\GeolocationResponse[]|\WhoisFreaks\Model\ErrorResponse
      */
-    public function bulkGeolocation($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
+    public function bulkGeolocation($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
     {
-        list($response) = $this->bulkGeolocationWithHttpInfo($apiKey, $bulkGeolocationRequest, $contentType);
+        list($response) = $this->bulkGeolocationWithHttpInfo($bulkGeolocationRequest, $contentType);
         return $response;
     }
 
@@ -150,7 +149,6 @@ class GeolocationApi
      *
      * Bulk IP Geolocation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkGeolocation'] to see the possible values for this operation
      *
@@ -158,9 +156,9 @@ class GeolocationApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\GeolocationResponse[]|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function bulkGeolocationWithHttpInfo($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
+    public function bulkGeolocationWithHttpInfo($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
     {
-        $request = $this->bulkGeolocationRequest($apiKey, $bulkGeolocationRequest, $contentType);
+        $request = $this->bulkGeolocationRequest($bulkGeolocationRequest, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -278,16 +276,15 @@ class GeolocationApi
      *
      * Bulk IP Geolocation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkGeolocation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkGeolocationAsync($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
+    public function bulkGeolocationAsync($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
     {
-        return $this->bulkGeolocationAsyncWithHttpInfo($apiKey, $bulkGeolocationRequest, $contentType)
+        return $this->bulkGeolocationAsyncWithHttpInfo($bulkGeolocationRequest, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -300,17 +297,16 @@ class GeolocationApi
      *
      * Bulk IP Geolocation
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkGeolocation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkGeolocationAsyncWithHttpInfo($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
+    public function bulkGeolocationAsyncWithHttpInfo($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
     {
         $returnType = '\WhoisFreaks\Model\GeolocationResponse[]';
-        $request = $this->bulkGeolocationRequest($apiKey, $bulkGeolocationRequest, $contentType);
+        $request = $this->bulkGeolocationRequest($bulkGeolocationRequest, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -351,22 +347,14 @@ class GeolocationApi
     /**
      * Create request for operation 'bulkGeolocation'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkGeolocationRequest $bulkGeolocationRequest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bulkGeolocation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function bulkGeolocationRequest($apiKey, $bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
+    public function bulkGeolocationRequest($bulkGeolocationRequest, string $contentType = self::contentTypes['bulkGeolocation'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling bulkGeolocation'
-            );
-        }
 
         // verify the required parameter 'bulkGeolocationRequest' is set
         if ($bulkGeolocationRequest === null || (is_array($bulkGeolocationRequest) && count($bulkGeolocationRequest) === 0)) {
@@ -383,15 +371,6 @@ class GeolocationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 
@@ -466,7 +445,6 @@ class GeolocationApi
      *
      * IP Geolocation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['geolocation'] to see the possible values for this operation
      *
@@ -474,9 +452,9 @@ class GeolocationApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\GeolocationResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function geolocation($apiKey, $ip, string $contentType = self::contentTypes['geolocation'][0])
+    public function geolocation($ip, string $contentType = self::contentTypes['geolocation'][0])
     {
-        list($response) = $this->geolocationWithHttpInfo($apiKey, $ip, $contentType);
+        list($response) = $this->geolocationWithHttpInfo($ip, $contentType);
         return $response;
     }
 
@@ -485,7 +463,6 @@ class GeolocationApi
      *
      * IP Geolocation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['geolocation'] to see the possible values for this operation
      *
@@ -493,9 +470,9 @@ class GeolocationApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\GeolocationResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function geolocationWithHttpInfo($apiKey, $ip, string $contentType = self::contentTypes['geolocation'][0])
+    public function geolocationWithHttpInfo($ip, string $contentType = self::contentTypes['geolocation'][0])
     {
-        $request = $this->geolocationRequest($apiKey, $ip, $contentType);
+        $request = $this->geolocationRequest($ip, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -613,16 +590,15 @@ class GeolocationApi
      *
      * IP Geolocation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['geolocation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function geolocationAsync($apiKey, $ip, string $contentType = self::contentTypes['geolocation'][0])
+    public function geolocationAsync($ip, string $contentType = self::contentTypes['geolocation'][0])
     {
-        return $this->geolocationAsyncWithHttpInfo($apiKey, $ip, $contentType)
+        return $this->geolocationAsyncWithHttpInfo($ip, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -635,17 +611,16 @@ class GeolocationApi
      *
      * IP Geolocation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['geolocation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function geolocationAsyncWithHttpInfo($apiKey, $ip, string $contentType = self::contentTypes['geolocation'][0])
+    public function geolocationAsyncWithHttpInfo($ip, string $contentType = self::contentTypes['geolocation'][0])
     {
         $returnType = '\WhoisFreaks\Model\GeolocationResponse';
-        $request = $this->geolocationRequest($apiKey, $ip, $contentType);
+        $request = $this->geolocationRequest($ip, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -686,22 +661,14 @@ class GeolocationApi
     /**
      * Create request for operation 'geolocation'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $ip (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['geolocation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function geolocationRequest($apiKey, $ip, string $contentType = self::contentTypes['geolocation'][0])
+    public function geolocationRequest($ip, string $contentType = self::contentTypes['geolocation'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling geolocation'
-            );
-        }
 
         // verify the required parameter 'ip' is set
         if ($ip === null || (is_array($ip) && count($ip) === 0)) {
@@ -718,15 +685,6 @@ class GeolocationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $ip,

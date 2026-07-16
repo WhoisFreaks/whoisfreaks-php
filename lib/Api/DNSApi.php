@@ -137,7 +137,6 @@ class DNSApi
      *
      * Bulk DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type type (required)
      * @param  \WhoisFreaks\Model\DnsBulkRequest $dnsBulkRequest dnsBulkRequest (required)
      * @param  string|null $format format (optional, default to 'json')
@@ -147,9 +146,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\BulkDnsResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dnsBulk($apiKey, $type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
+    public function dnsBulk($type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
     {
-        list($response) = $this->dnsBulkWithHttpInfo($apiKey, $type, $dnsBulkRequest, $format, $contentType);
+        list($response) = $this->dnsBulkWithHttpInfo($type, $dnsBulkRequest, $format, $contentType);
         return $response;
     }
 
@@ -158,7 +157,6 @@ class DNSApi
      *
      * Bulk DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type (required)
      * @param  \WhoisFreaks\Model\DnsBulkRequest $dnsBulkRequest (required)
      * @param  string|null $format (optional, default to 'json')
@@ -168,9 +166,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\BulkDnsResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dnsBulkWithHttpInfo($apiKey, $type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
+    public function dnsBulkWithHttpInfo($type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
     {
-        $request = $this->dnsBulkRequest($apiKey, $type, $dnsBulkRequest, $format, $contentType);
+        $request = $this->dnsBulkRequest($type, $dnsBulkRequest, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -288,7 +286,6 @@ class DNSApi
      *
      * Bulk DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type (required)
      * @param  \WhoisFreaks\Model\DnsBulkRequest $dnsBulkRequest (required)
      * @param  string|null $format (optional, default to 'json')
@@ -297,9 +294,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsBulkAsync($apiKey, $type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
+    public function dnsBulkAsync($type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
     {
-        return $this->dnsBulkAsyncWithHttpInfo($apiKey, $type, $dnsBulkRequest, $format, $contentType)
+        return $this->dnsBulkAsyncWithHttpInfo($type, $dnsBulkRequest, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -312,7 +309,6 @@ class DNSApi
      *
      * Bulk DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type (required)
      * @param  \WhoisFreaks\Model\DnsBulkRequest $dnsBulkRequest (required)
      * @param  string|null $format (optional, default to 'json')
@@ -321,10 +317,10 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsBulkAsyncWithHttpInfo($apiKey, $type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
+    public function dnsBulkAsyncWithHttpInfo($type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
     {
         $returnType = '\WhoisFreaks\Model\BulkDnsResponse';
-        $request = $this->dnsBulkRequest($apiKey, $type, $dnsBulkRequest, $format, $contentType);
+        $request = $this->dnsBulkRequest($type, $dnsBulkRequest, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -365,7 +361,6 @@ class DNSApi
     /**
      * Create request for operation 'dnsBulk'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type (required)
      * @param  \WhoisFreaks\Model\DnsBulkRequest $dnsBulkRequest (required)
      * @param  string|null $format (optional, default to 'json')
@@ -374,15 +369,8 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dnsBulkRequest($apiKey, $type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
+    public function dnsBulkRequest($type, $dnsBulkRequest, $format = 'json', string $contentType = self::contentTypes['dnsBulk'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dnsBulk'
-            );
-        }
 
         // verify the required parameter 'type' is set
         if ($type === null || (is_array($type) && count($type) === 0)) {
@@ -407,15 +395,6 @@ class DNSApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $type,
@@ -508,7 +487,6 @@ class DNSApi
      *
      * Historical DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName domainName (required)
      * @param  string $type type (required)
      * @param  int|null $page page (optional, default to 1)
@@ -519,9 +497,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\HistoricalDnsResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dnsHistorical($apiKey, $domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
+    public function dnsHistorical($domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
     {
-        list($response) = $this->dnsHistoricalWithHttpInfo($apiKey, $domainName, $type, $page, $format, $contentType);
+        list($response) = $this->dnsHistoricalWithHttpInfo($domainName, $type, $page, $format, $contentType);
         return $response;
     }
 
@@ -530,7 +508,6 @@ class DNSApi
      *
      * Historical DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string $type (required)
      * @param  int|null $page (optional, default to 1)
@@ -541,9 +518,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\HistoricalDnsResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dnsHistoricalWithHttpInfo($apiKey, $domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
+    public function dnsHistoricalWithHttpInfo($domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
     {
-        $request = $this->dnsHistoricalRequest($apiKey, $domainName, $type, $page, $format, $contentType);
+        $request = $this->dnsHistoricalRequest($domainName, $type, $page, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -661,7 +638,6 @@ class DNSApi
      *
      * Historical DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string $type (required)
      * @param  int|null $page (optional, default to 1)
@@ -671,9 +647,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsHistoricalAsync($apiKey, $domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
+    public function dnsHistoricalAsync($domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
     {
-        return $this->dnsHistoricalAsyncWithHttpInfo($apiKey, $domainName, $type, $page, $format, $contentType)
+        return $this->dnsHistoricalAsyncWithHttpInfo($domainName, $type, $page, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -686,7 +662,6 @@ class DNSApi
      *
      * Historical DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string $type (required)
      * @param  int|null $page (optional, default to 1)
@@ -696,10 +671,10 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsHistoricalAsyncWithHttpInfo($apiKey, $domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
+    public function dnsHistoricalAsyncWithHttpInfo($domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
     {
         $returnType = '\WhoisFreaks\Model\HistoricalDnsResponse';
-        $request = $this->dnsHistoricalRequest($apiKey, $domainName, $type, $page, $format, $contentType);
+        $request = $this->dnsHistoricalRequest($domainName, $type, $page, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -740,7 +715,6 @@ class DNSApi
     /**
      * Create request for operation 'dnsHistorical'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName (required)
      * @param  string $type (required)
      * @param  int|null $page (optional, default to 1)
@@ -750,15 +724,8 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dnsHistoricalRequest($apiKey, $domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
+    public function dnsHistoricalRequest($domainName, $type, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsHistorical'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dnsHistorical'
-            );
-        }
 
         // verify the required parameter 'domainName' is set
         if ($domainName === null || (is_array($domainName) && count($domainName) === 0)) {
@@ -784,15 +751,6 @@ class DNSApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domainName,
@@ -896,7 +854,6 @@ class DNSApi
      *
      * Live DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME (required)
      * @param  string|null $domainName domainName (optional)
      * @param  string|null $ipAddress Use for PTR lookups (optional)
@@ -907,9 +864,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\DnsResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dnsLive($apiKey, $type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
+    public function dnsLive($type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
     {
-        list($response) = $this->dnsLiveWithHttpInfo($apiKey, $type, $domainName, $ipAddress, $format, $contentType);
+        list($response) = $this->dnsLiveWithHttpInfo($type, $domainName, $ipAddress, $format, $contentType);
         return $response;
     }
 
@@ -918,7 +875,6 @@ class DNSApi
      *
      * Live DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME (required)
      * @param  string|null $domainName (optional)
      * @param  string|null $ipAddress Use for PTR lookups (optional)
@@ -929,9 +885,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\DnsResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dnsLiveWithHttpInfo($apiKey, $type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
+    public function dnsLiveWithHttpInfo($type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
     {
-        $request = $this->dnsLiveRequest($apiKey, $type, $domainName, $ipAddress, $format, $contentType);
+        $request = $this->dnsLiveRequest($type, $domainName, $ipAddress, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1117,7 +1073,6 @@ class DNSApi
      *
      * Live DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME (required)
      * @param  string|null $domainName (optional)
      * @param  string|null $ipAddress Use for PTR lookups (optional)
@@ -1127,9 +1082,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsLiveAsync($apiKey, $type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
+    public function dnsLiveAsync($type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
     {
-        return $this->dnsLiveAsyncWithHttpInfo($apiKey, $type, $domainName, $ipAddress, $format, $contentType)
+        return $this->dnsLiveAsyncWithHttpInfo($type, $domainName, $ipAddress, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1142,7 +1097,6 @@ class DNSApi
      *
      * Live DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME (required)
      * @param  string|null $domainName (optional)
      * @param  string|null $ipAddress Use for PTR lookups (optional)
@@ -1152,10 +1106,10 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsLiveAsyncWithHttpInfo($apiKey, $type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
+    public function dnsLiveAsyncWithHttpInfo($type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
     {
         $returnType = '\WhoisFreaks\Model\DnsResponse';
-        $request = $this->dnsLiveRequest($apiKey, $type, $domainName, $ipAddress, $format, $contentType);
+        $request = $this->dnsLiveRequest($type, $domainName, $ipAddress, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1196,7 +1150,6 @@ class DNSApi
     /**
      * Create request for operation 'dnsLive'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $type all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME (required)
      * @param  string|null $domainName (optional)
      * @param  string|null $ipAddress Use for PTR lookups (optional)
@@ -1206,15 +1159,8 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dnsLiveRequest($apiKey, $type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
+    public function dnsLiveRequest($type, $domainName = null, $ipAddress = null, $format = 'json', string $contentType = self::contentTypes['dnsLive'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dnsLive'
-            );
-        }
 
         // verify the required parameter 'type' is set
         if ($type === null || (is_array($type) && count($type) === 0)) {
@@ -1234,15 +1180,6 @@ class DNSApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domainName,
@@ -1346,7 +1283,6 @@ class DNSApi
      *
      * Reverse DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $value IP, CIDR, or record value (required)
      * @param  string $type type (required)
      * @param  bool|null $exact exact (optional, default to true)
@@ -1358,9 +1294,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\ReverseDnsResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function dnsReverse($apiKey, $value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
+    public function dnsReverse($value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
     {
-        list($response) = $this->dnsReverseWithHttpInfo($apiKey, $value, $type, $exact, $page, $format, $contentType);
+        list($response) = $this->dnsReverseWithHttpInfo($value, $type, $exact, $page, $format, $contentType);
         return $response;
     }
 
@@ -1369,7 +1305,6 @@ class DNSApi
      *
      * Reverse DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $value IP, CIDR, or record value (required)
      * @param  string $type (required)
      * @param  bool|null $exact (optional, default to true)
@@ -1381,9 +1316,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\ReverseDnsResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function dnsReverseWithHttpInfo($apiKey, $value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
+    public function dnsReverseWithHttpInfo($value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
     {
-        $request = $this->dnsReverseRequest($apiKey, $value, $type, $exact, $page, $format, $contentType);
+        $request = $this->dnsReverseRequest($value, $type, $exact, $page, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1501,7 +1436,6 @@ class DNSApi
      *
      * Reverse DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $value IP, CIDR, or record value (required)
      * @param  string $type (required)
      * @param  bool|null $exact (optional, default to true)
@@ -1512,9 +1446,9 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsReverseAsync($apiKey, $value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
+    public function dnsReverseAsync($value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
     {
-        return $this->dnsReverseAsyncWithHttpInfo($apiKey, $value, $type, $exact, $page, $format, $contentType)
+        return $this->dnsReverseAsyncWithHttpInfo($value, $type, $exact, $page, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1527,7 +1461,6 @@ class DNSApi
      *
      * Reverse DNS Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $value IP, CIDR, or record value (required)
      * @param  string $type (required)
      * @param  bool|null $exact (optional, default to true)
@@ -1538,10 +1471,10 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function dnsReverseAsyncWithHttpInfo($apiKey, $value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
+    public function dnsReverseAsyncWithHttpInfo($value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
     {
         $returnType = '\WhoisFreaks\Model\ReverseDnsResponse';
-        $request = $this->dnsReverseRequest($apiKey, $value, $type, $exact, $page, $format, $contentType);
+        $request = $this->dnsReverseRequest($value, $type, $exact, $page, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1582,7 +1515,6 @@ class DNSApi
     /**
      * Create request for operation 'dnsReverse'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $value IP, CIDR, or record value (required)
      * @param  string $type (required)
      * @param  bool|null $exact (optional, default to true)
@@ -1593,15 +1525,8 @@ class DNSApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function dnsReverseRequest($apiKey, $value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
+    public function dnsReverseRequest($value, $type, $exact = true, $page = 1, $format = 'json', string $contentType = self::contentTypes['dnsReverse'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling dnsReverse'
-            );
-        }
 
         // verify the required parameter 'value' is set
         if ($value === null || (is_array($value) && count($value) === 0)) {
@@ -1628,15 +1553,6 @@ class DNSApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $value,

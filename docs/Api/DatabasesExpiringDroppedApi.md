@@ -14,7 +14,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `dbDropped()`
 
 ```php
-dbDropped($apiKey, $whois, $date): \SplFileObject
+dbDropped($whois, $date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -41,7 +41,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesExpiringDroppedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $whois = True; // bool
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
@@ -50,7 +49,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbDropped($apiKey, $whois, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbDropped($whois, $date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesExpiringDroppedApi->dbDropped: ', $e->getMessage(), PHP_EOL;
@@ -61,7 +60,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **whois** | **bool**|  | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
@@ -87,7 +85,7 @@ try {
 ## `dbDroppedBacklinks()`
 
 ```php
-dbDroppedBacklinks($apiKey, $whois, $date): \SplFileObject
+dbDroppedBacklinks($whois, $date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -114,7 +112,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesExpiringDroppedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $whois = True; // bool
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
@@ -123,7 +120,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbDroppedBacklinks($apiKey, $whois, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbDroppedBacklinks($whois, $date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesExpiringDroppedApi->dbDroppedBacklinks: ', $e->getMessage(), PHP_EOL;
@@ -134,7 +131,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **whois** | **bool**|  | [optional] |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
@@ -160,7 +156,7 @@ try {
 ## `dbDroppedJson()`
 
 ```php
-dbDroppedJson($apiKey, $date, $tlds): string[]
+dbDroppedJson($date, $tlds): string[]
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -187,7 +183,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesExpiringDroppedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 $tlds = 'tlds_example'; // string
 
@@ -196,7 +191,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbDroppedJson($apiKey, $date, $tlds, $hostIndex, $variables);
+    $result = $apiInstance->dbDroppedJson($date, $tlds, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesExpiringDroppedApi->dbDroppedJson: ', $e->getMessage(), PHP_EOL;
@@ -207,7 +202,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | **tlds** | **string**|  | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
@@ -233,7 +227,7 @@ try {
 ## `dbExpired()`
 
 ```php
-dbExpired($apiKey, $whois, $date): \SplFileObject
+dbExpired($whois, $date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -260,7 +254,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesExpiringDroppedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $whois = True; // bool
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
@@ -269,7 +262,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbExpired($apiKey, $whois, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbExpired($whois, $date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesExpiringDroppedApi->dbExpired: ', $e->getMessage(), PHP_EOL;
@@ -280,7 +273,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **whois** | **bool**|  | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
@@ -306,7 +298,7 @@ try {
 ## `dbExpiredCleaned()`
 
 ```php
-dbExpiredCleaned($apiKey, $date): \SplFileObject
+dbExpiredCleaned($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -333,7 +325,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesExpiringDroppedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
@@ -341,7 +332,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbExpiredCleaned($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbExpiredCleaned($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesExpiringDroppedApi->dbExpiredCleaned: ', $e->getMessage(), PHP_EOL;
@@ -352,7 +343,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**| yyyy-MM-dd; omit for latest | [optional] |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |

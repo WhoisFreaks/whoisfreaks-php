@@ -128,7 +128,6 @@ class DomainReputationApi
      *
      * Domain Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName The domain name to assess (required)
      * @param  string|null $format format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['domainReputation'] to see the possible values for this operation
@@ -137,9 +136,9 @@ class DomainReputationApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\DomainReputationResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function domainReputation($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
+    public function domainReputation($domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
     {
-        list($response) = $this->domainReputationWithHttpInfo($apiKey, $domainName, $format, $contentType);
+        list($response) = $this->domainReputationWithHttpInfo($domainName, $format, $contentType);
         return $response;
     }
 
@@ -148,7 +147,6 @@ class DomainReputationApi
      *
      * Domain Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName The domain name to assess (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['domainReputation'] to see the possible values for this operation
@@ -157,9 +155,9 @@ class DomainReputationApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\DomainReputationResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function domainReputationWithHttpInfo($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
+    public function domainReputationWithHttpInfo($domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
     {
-        $request = $this->domainReputationRequest($apiKey, $domainName, $format, $contentType);
+        $request = $this->domainReputationRequest($domainName, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -415,7 +413,6 @@ class DomainReputationApi
      *
      * Domain Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName The domain name to assess (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['domainReputation'] to see the possible values for this operation
@@ -423,9 +420,9 @@ class DomainReputationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function domainReputationAsync($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
+    public function domainReputationAsync($domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
     {
-        return $this->domainReputationAsyncWithHttpInfo($apiKey, $domainName, $format, $contentType)
+        return $this->domainReputationAsyncWithHttpInfo($domainName, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -438,7 +435,6 @@ class DomainReputationApi
      *
      * Domain Reputation Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName The domain name to assess (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['domainReputation'] to see the possible values for this operation
@@ -446,10 +442,10 @@ class DomainReputationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function domainReputationAsyncWithHttpInfo($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
+    public function domainReputationAsyncWithHttpInfo($domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
     {
         $returnType = '\WhoisFreaks\Model\DomainReputationResponse';
-        $request = $this->domainReputationRequest($apiKey, $domainName, $format, $contentType);
+        $request = $this->domainReputationRequest($domainName, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -490,7 +486,6 @@ class DomainReputationApi
     /**
      * Create request for operation 'domainReputation'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domainName The domain name to assess (required)
      * @param  string|null $format (optional, default to 'json')
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['domainReputation'] to see the possible values for this operation
@@ -498,15 +493,8 @@ class DomainReputationApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function domainReputationRequest($apiKey, $domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
+    public function domainReputationRequest($domainName, $format = 'json', string $contentType = self::contentTypes['domainReputation'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling domainReputation'
-            );
-        }
 
         // verify the required parameter 'domainName' is set
         if ($domainName === null || (is_array($domainName) && count($domainName) === 0)) {
@@ -524,15 +512,6 @@ class DomainReputationApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domainName,

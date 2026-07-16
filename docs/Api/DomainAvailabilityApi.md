@@ -11,7 +11,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `bulkDomainAvailabilityV2()`
 
 ```php
-bulkDomainAvailabilityV2($apiKey, $bulkDomainAvailabilityRequest, $domain, $format): \WhoisFreaks\Model\BulkDomainAvailabilityResponse
+bulkDomainAvailabilityV2($bulkDomainAvailabilityRequest, $domain, $format): \WhoisFreaks\Model\BulkDomainAvailabilityResponse
 ```
 
 Bulk Domain Availability Check
@@ -37,13 +37,12 @@ $apiInstance = new WhoisFreaks\Api\DomainAvailabilityApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $bulkDomainAvailabilityRequest = new \WhoisFreaks\Model\BulkDomainAvailabilityRequest(); // \WhoisFreaks\Model\BulkDomainAvailabilityRequest
 $domain = google.com; // string | Required for TLD-mode bulk check (base domain).
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->bulkDomainAvailabilityV2($apiKey, $bulkDomainAvailabilityRequest, $domain, $format);
+    $result = $apiInstance->bulkDomainAvailabilityV2($bulkDomainAvailabilityRequest, $domain, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DomainAvailabilityApi->bulkDomainAvailabilityV2: ', $e->getMessage(), PHP_EOL;
@@ -54,7 +53,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **bulkDomainAvailabilityRequest** | [**\WhoisFreaks\Model\BulkDomainAvailabilityRequest**](../Model/BulkDomainAvailabilityRequest.md)|  | |
 | **domain** | **string**| Required for TLD-mode bulk check (base domain). | [optional] |
 | **format** | **string**|  | [optional] [default to &#39;json&#39;] |
@@ -79,7 +77,7 @@ try {
 ## `domainAvailabilityV2()`
 
 ```php
-domainAvailabilityV2($apiKey, $domain, $sug, $count, $format): \WhoisFreaks\Model\DomainAvailabilityResponse
+domainAvailabilityV2($domain, $sug, $count, $format): \WhoisFreaks\Model\DomainAvailabilityResponse
 ```
 
 Domain Availability Check with Suggestions
@@ -105,14 +103,13 @@ $apiInstance = new WhoisFreaks\Api\DomainAvailabilityApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $domain = google.com; // string | The domain name to check
 $sug = false; // bool | Whether to return TLD suggestions alongside the queried domain.
 $count = 5; // int | Number of TLD suggestions to return when sug=true. Maximum is 100.
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->domainAvailabilityV2($apiKey, $domain, $sug, $count, $format);
+    $result = $apiInstance->domainAvailabilityV2($domain, $sug, $count, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DomainAvailabilityApi->domainAvailabilityV2: ', $e->getMessage(), PHP_EOL;
@@ -123,7 +120,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **domain** | **string**| The domain name to check | |
 | **sug** | **bool**| Whether to return TLD suggestions alongside the queried domain. | [optional] [default to false] |
 | **count** | **int**| Number of TLD suggestions to return when sug&#x3D;true. Maximum is 100. | [optional] [default to 5] |

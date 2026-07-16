@@ -10,7 +10,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `subdomains()`
 
 ```php
-subdomains($apiKey, $domain, $after, $before, $status, $page, $format): \WhoisFreaks\Model\SubdomainsResponse
+subdomains($domain, $after, $before, $status, $page, $format): \WhoisFreaks\Model\SubdomainsResponse
 ```
 
 Subdomains Lookup
@@ -36,7 +36,6 @@ $apiInstance = new WhoisFreaks\Api\SubdomainsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $domain = 'domain_example'; // string
 $after = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
 $before = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
@@ -45,7 +44,7 @@ $page = 1; // int
 $format = 'json'; // string
 
 try {
-    $result = $apiInstance->subdomains($apiKey, $domain, $after, $before, $status, $page, $format);
+    $result = $apiInstance->subdomains($domain, $after, $before, $status, $page, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SubdomainsApi->subdomains: ', $e->getMessage(), PHP_EOL;
@@ -56,7 +55,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **domain** | **string**|  | |
 | **after** | **\DateTime**|  | [optional] |
 | **before** | **\DateTime**|  | [optional] |

@@ -11,7 +11,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `dbAsnWhois()`
 
 ```php
-dbAsnWhois($apiKey, $date): \SplFileObject
+dbAsnWhois($date): \SplFileObject
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -38,7 +38,6 @@ $apiInstance = new WhoisFreaks\Api\DatabasesASNWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
 
 $hostIndex = 0;
@@ -46,7 +45,7 @@ $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbAsnWhois($apiKey, $date, $hostIndex, $variables);
+    $result = $apiInstance->dbAsnWhois($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesASNWHOISApi->dbAsnWhois: ', $e->getMessage(), PHP_EOL;
@@ -57,7 +56,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **date** | **\DateTime**|  | |
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
@@ -82,7 +80,7 @@ try {
 ## `dbAsnWhoisStatus()`
 
 ```php
-dbAsnWhoisStatus($apiKey): \WhoisFreaks\Model\SnapshotStatus
+dbAsnWhoisStatus(): \WhoisFreaks\Model\SnapshotStatus
 ```
 ### URI(s):
 - https://files.whoisfreaks.com 
@@ -109,14 +107,13 @@ $apiInstance = new WhoisFreaks\Api\DatabasesASNWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 
 $hostIndex = 0;
 $variables = [
 ];
 
 try {
-    $result = $apiInstance->dbAsnWhoisStatus($apiKey, $hostIndex, $variables);
+    $result = $apiInstance->dbAsnWhoisStatus($hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesASNWHOISApi->dbAsnWhoisStatus: ', $e->getMessage(), PHP_EOL;
@@ -125,9 +122,7 @@ try {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
+This endpoint does not need any parameter.
 | hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
 | variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 

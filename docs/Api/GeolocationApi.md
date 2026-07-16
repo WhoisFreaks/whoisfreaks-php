@@ -11,7 +11,7 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ## `bulkGeolocation()`
 
 ```php
-bulkGeolocation($apiKey, $bulkGeolocationRequest): \WhoisFreaks\Model\GeolocationResponse[]
+bulkGeolocation($bulkGeolocationRequest): \WhoisFreaks\Model\GeolocationResponse[]
 ```
 
 Bulk IP Geolocation
@@ -37,11 +37,10 @@ $apiInstance = new WhoisFreaks\Api\GeolocationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $bulkGeolocationRequest = new \WhoisFreaks\Model\BulkGeolocationRequest(); // \WhoisFreaks\Model\BulkGeolocationRequest
 
 try {
-    $result = $apiInstance->bulkGeolocation($apiKey, $bulkGeolocationRequest);
+    $result = $apiInstance->bulkGeolocation($bulkGeolocationRequest);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling GeolocationApi->bulkGeolocation: ', $e->getMessage(), PHP_EOL;
@@ -52,7 +51,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **bulkGeolocationRequest** | [**\WhoisFreaks\Model\BulkGeolocationRequest**](../Model/BulkGeolocationRequest.md)|  | |
 
 ### Return type
@@ -75,7 +73,7 @@ try {
 ## `geolocation()`
 
 ```php
-geolocation($apiKey, $ip): \WhoisFreaks\Model\GeolocationResponse
+geolocation($ip): \WhoisFreaks\Model\GeolocationResponse
 ```
 
 IP Geolocation Lookup
@@ -101,11 +99,10 @@ $apiInstance = new WhoisFreaks\Api\GeolocationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$apiKey = 'apiKey_example'; // string | Your WHOISFreaks API key
 $ip = 'ip_example'; // string
 
 try {
-    $result = $apiInstance->geolocation($apiKey, $ip);
+    $result = $apiInstance->geolocation($ip);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling GeolocationApi->geolocation: ', $e->getMessage(), PHP_EOL;
@@ -116,7 +113,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **apiKey** | **string**| Your WHOISFreaks API key | |
 | **ip** | **string**|  | |
 
 ### Return type

@@ -128,7 +128,6 @@ class SubdomainsApi
      *
      * Subdomains Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain domain (required)
      * @param  \DateTime|null $after after (optional)
      * @param  \DateTime|null $before before (optional)
@@ -141,9 +140,9 @@ class SubdomainsApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\SubdomainsResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function subdomains($apiKey, $domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
+    public function subdomains($domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
     {
-        list($response) = $this->subdomainsWithHttpInfo($apiKey, $domain, $after, $before, $status, $page, $format, $contentType);
+        list($response) = $this->subdomainsWithHttpInfo($domain, $after, $before, $status, $page, $format, $contentType);
         return $response;
     }
 
@@ -152,7 +151,6 @@ class SubdomainsApi
      *
      * Subdomains Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain (required)
      * @param  \DateTime|null $after (optional)
      * @param  \DateTime|null $before (optional)
@@ -165,9 +163,9 @@ class SubdomainsApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\SubdomainsResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function subdomainsWithHttpInfo($apiKey, $domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
+    public function subdomainsWithHttpInfo($domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
     {
-        $request = $this->subdomainsRequest($apiKey, $domain, $after, $before, $status, $page, $format, $contentType);
+        $request = $this->subdomainsRequest($domain, $after, $before, $status, $page, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -285,7 +283,6 @@ class SubdomainsApi
      *
      * Subdomains Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain (required)
      * @param  \DateTime|null $after (optional)
      * @param  \DateTime|null $before (optional)
@@ -297,9 +294,9 @@ class SubdomainsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function subdomainsAsync($apiKey, $domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
+    public function subdomainsAsync($domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
     {
-        return $this->subdomainsAsyncWithHttpInfo($apiKey, $domain, $after, $before, $status, $page, $format, $contentType)
+        return $this->subdomainsAsyncWithHttpInfo($domain, $after, $before, $status, $page, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -312,7 +309,6 @@ class SubdomainsApi
      *
      * Subdomains Lookup
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain (required)
      * @param  \DateTime|null $after (optional)
      * @param  \DateTime|null $before (optional)
@@ -324,10 +320,10 @@ class SubdomainsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function subdomainsAsyncWithHttpInfo($apiKey, $domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
+    public function subdomainsAsyncWithHttpInfo($domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
     {
         $returnType = '\WhoisFreaks\Model\SubdomainsResponse';
-        $request = $this->subdomainsRequest($apiKey, $domain, $after, $before, $status, $page, $format, $contentType);
+        $request = $this->subdomainsRequest($domain, $after, $before, $status, $page, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -368,7 +364,6 @@ class SubdomainsApi
     /**
      * Create request for operation 'subdomains'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain (required)
      * @param  \DateTime|null $after (optional)
      * @param  \DateTime|null $before (optional)
@@ -380,15 +375,8 @@ class SubdomainsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function subdomainsRequest($apiKey, $domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
+    public function subdomainsRequest($domain, $after = null, $before = null, $status = null, $page = 1, $format = 'json', string $contentType = self::contentTypes['subdomains'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling subdomains'
-            );
-        }
 
         // verify the required parameter 'domain' is set
         if ($domain === null || (is_array($domain) && count($domain) === 0)) {
@@ -410,15 +398,6 @@ class SubdomainsApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domain,

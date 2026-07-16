@@ -131,7 +131,6 @@ class DomainAvailabilityApi
      *
      * Bulk Domain Availability Check
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkDomainAvailabilityRequest $bulkDomainAvailabilityRequest bulkDomainAvailabilityRequest (required)
      * @param  string|null $domain Required for TLD-mode bulk check (base domain). (optional)
      * @param  string|null $format format (optional, default to 'json')
@@ -141,9 +140,9 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\BulkDomainAvailabilityResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function bulkDomainAvailabilityV2($apiKey, $bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
+    public function bulkDomainAvailabilityV2($bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
     {
-        list($response) = $this->bulkDomainAvailabilityV2WithHttpInfo($apiKey, $bulkDomainAvailabilityRequest, $domain, $format, $contentType);
+        list($response) = $this->bulkDomainAvailabilityV2WithHttpInfo($bulkDomainAvailabilityRequest, $domain, $format, $contentType);
         return $response;
     }
 
@@ -152,7 +151,6 @@ class DomainAvailabilityApi
      *
      * Bulk Domain Availability Check
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkDomainAvailabilityRequest $bulkDomainAvailabilityRequest (required)
      * @param  string|null $domain Required for TLD-mode bulk check (base domain). (optional)
      * @param  string|null $format (optional, default to 'json')
@@ -162,9 +160,9 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\BulkDomainAvailabilityResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function bulkDomainAvailabilityV2WithHttpInfo($apiKey, $bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
+    public function bulkDomainAvailabilityV2WithHttpInfo($bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
     {
-        $request = $this->bulkDomainAvailabilityV2Request($apiKey, $bulkDomainAvailabilityRequest, $domain, $format, $contentType);
+        $request = $this->bulkDomainAvailabilityV2Request($bulkDomainAvailabilityRequest, $domain, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -385,7 +383,6 @@ class DomainAvailabilityApi
      *
      * Bulk Domain Availability Check
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkDomainAvailabilityRequest $bulkDomainAvailabilityRequest (required)
      * @param  string|null $domain Required for TLD-mode bulk check (base domain). (optional)
      * @param  string|null $format (optional, default to 'json')
@@ -394,9 +391,9 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkDomainAvailabilityV2Async($apiKey, $bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
+    public function bulkDomainAvailabilityV2Async($bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
     {
-        return $this->bulkDomainAvailabilityV2AsyncWithHttpInfo($apiKey, $bulkDomainAvailabilityRequest, $domain, $format, $contentType)
+        return $this->bulkDomainAvailabilityV2AsyncWithHttpInfo($bulkDomainAvailabilityRequest, $domain, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -409,7 +406,6 @@ class DomainAvailabilityApi
      *
      * Bulk Domain Availability Check
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkDomainAvailabilityRequest $bulkDomainAvailabilityRequest (required)
      * @param  string|null $domain Required for TLD-mode bulk check (base domain). (optional)
      * @param  string|null $format (optional, default to 'json')
@@ -418,10 +414,10 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bulkDomainAvailabilityV2AsyncWithHttpInfo($apiKey, $bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
+    public function bulkDomainAvailabilityV2AsyncWithHttpInfo($bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
     {
         $returnType = '\WhoisFreaks\Model\BulkDomainAvailabilityResponse';
-        $request = $this->bulkDomainAvailabilityV2Request($apiKey, $bulkDomainAvailabilityRequest, $domain, $format, $contentType);
+        $request = $this->bulkDomainAvailabilityV2Request($bulkDomainAvailabilityRequest, $domain, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -462,7 +458,6 @@ class DomainAvailabilityApi
     /**
      * Create request for operation 'bulkDomainAvailabilityV2'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  \WhoisFreaks\Model\BulkDomainAvailabilityRequest $bulkDomainAvailabilityRequest (required)
      * @param  string|null $domain Required for TLD-mode bulk check (base domain). (optional)
      * @param  string|null $format (optional, default to 'json')
@@ -471,15 +466,8 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function bulkDomainAvailabilityV2Request($apiKey, $bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
+    public function bulkDomainAvailabilityV2Request($bulkDomainAvailabilityRequest, $domain = null, $format = 'json', string $contentType = self::contentTypes['bulkDomainAvailabilityV2'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling bulkDomainAvailabilityV2'
-            );
-        }
 
         // verify the required parameter 'bulkDomainAvailabilityRequest' is set
         if ($bulkDomainAvailabilityRequest === null || (is_array($bulkDomainAvailabilityRequest) && count($bulkDomainAvailabilityRequest) === 0)) {
@@ -498,15 +486,6 @@ class DomainAvailabilityApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domain,
@@ -599,7 +578,6 @@ class DomainAvailabilityApi
      *
      * Domain Availability Check with Suggestions
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain The domain name to check (required)
      * @param  bool|null $sug Whether to return TLD suggestions alongside the queried domain. (optional, default to false)
      * @param  int|null $count Number of TLD suggestions to return when sug&#x3D;true. Maximum is 100. (optional, default to 5)
@@ -610,9 +588,9 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\DomainAvailabilityResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function domainAvailabilityV2($apiKey, $domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
+    public function domainAvailabilityV2($domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
     {
-        list($response) = $this->domainAvailabilityV2WithHttpInfo($apiKey, $domain, $sug, $count, $format, $contentType);
+        list($response) = $this->domainAvailabilityV2WithHttpInfo($domain, $sug, $count, $format, $contentType);
         return $response;
     }
 
@@ -621,7 +599,6 @@ class DomainAvailabilityApi
      *
      * Domain Availability Check with Suggestions
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain The domain name to check (required)
      * @param  bool|null $sug Whether to return TLD suggestions alongside the queried domain. (optional, default to false)
      * @param  int|null $count Number of TLD suggestions to return when sug&#x3D;true. Maximum is 100. (optional, default to 5)
@@ -632,9 +609,9 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\DomainAvailabilityResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function domainAvailabilityV2WithHttpInfo($apiKey, $domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
+    public function domainAvailabilityV2WithHttpInfo($domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
     {
-        $request = $this->domainAvailabilityV2Request($apiKey, $domain, $sug, $count, $format, $contentType);
+        $request = $this->domainAvailabilityV2Request($domain, $sug, $count, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -855,7 +832,6 @@ class DomainAvailabilityApi
      *
      * Domain Availability Check with Suggestions
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain The domain name to check (required)
      * @param  bool|null $sug Whether to return TLD suggestions alongside the queried domain. (optional, default to false)
      * @param  int|null $count Number of TLD suggestions to return when sug&#x3D;true. Maximum is 100. (optional, default to 5)
@@ -865,9 +841,9 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function domainAvailabilityV2Async($apiKey, $domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
+    public function domainAvailabilityV2Async($domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
     {
-        return $this->domainAvailabilityV2AsyncWithHttpInfo($apiKey, $domain, $sug, $count, $format, $contentType)
+        return $this->domainAvailabilityV2AsyncWithHttpInfo($domain, $sug, $count, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -880,7 +856,6 @@ class DomainAvailabilityApi
      *
      * Domain Availability Check with Suggestions
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain The domain name to check (required)
      * @param  bool|null $sug Whether to return TLD suggestions alongside the queried domain. (optional, default to false)
      * @param  int|null $count Number of TLD suggestions to return when sug&#x3D;true. Maximum is 100. (optional, default to 5)
@@ -890,10 +865,10 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function domainAvailabilityV2AsyncWithHttpInfo($apiKey, $domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
+    public function domainAvailabilityV2AsyncWithHttpInfo($domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
     {
         $returnType = '\WhoisFreaks\Model\DomainAvailabilityResponse';
-        $request = $this->domainAvailabilityV2Request($apiKey, $domain, $sug, $count, $format, $contentType);
+        $request = $this->domainAvailabilityV2Request($domain, $sug, $count, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -934,7 +909,6 @@ class DomainAvailabilityApi
     /**
      * Create request for operation 'domainAvailabilityV2'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $domain The domain name to check (required)
      * @param  bool|null $sug Whether to return TLD suggestions alongside the queried domain. (optional, default to false)
      * @param  int|null $count Number of TLD suggestions to return when sug&#x3D;true. Maximum is 100. (optional, default to 5)
@@ -944,15 +918,8 @@ class DomainAvailabilityApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function domainAvailabilityV2Request($apiKey, $domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
+    public function domainAvailabilityV2Request($domain, $sug = false, $count = 5, $format = 'json', string $contentType = self::contentTypes['domainAvailabilityV2'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling domainAvailabilityV2'
-            );
-        }
 
         // verify the required parameter 'domain' is set
         if ($domain === null || (is_array($domain) && count($domain) === 0)) {
@@ -978,15 +945,6 @@ class DomainAvailabilityApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $domain,

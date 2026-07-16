@@ -134,16 +134,15 @@ class AccountApi
      *
      * Account Usage
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['accountUsage'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\AccountUsageResponse|\WhoisFreaks\Model\ErrorResponse
      */
-    public function accountUsage($apiKey, string $contentType = self::contentTypes['accountUsage'][0])
+    public function accountUsage(string $contentType = self::contentTypes['accountUsage'][0])
     {
-        list($response) = $this->accountUsageWithHttpInfo($apiKey, $contentType);
+        list($response) = $this->accountUsageWithHttpInfo($contentType);
         return $response;
     }
 
@@ -152,16 +151,15 @@ class AccountApi
      *
      * Account Usage
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['accountUsage'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\AccountUsageResponse|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function accountUsageWithHttpInfo($apiKey, string $contentType = self::contentTypes['accountUsage'][0])
+    public function accountUsageWithHttpInfo(string $contentType = self::contentTypes['accountUsage'][0])
     {
-        $request = $this->accountUsageRequest($apiKey, $contentType);
+        $request = $this->accountUsageRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -279,15 +277,14 @@ class AccountApi
      *
      * Account Usage
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['accountUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function accountUsageAsync($apiKey, string $contentType = self::contentTypes['accountUsage'][0])
+    public function accountUsageAsync(string $contentType = self::contentTypes['accountUsage'][0])
     {
-        return $this->accountUsageAsyncWithHttpInfo($apiKey, $contentType)
+        return $this->accountUsageAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -300,16 +297,15 @@ class AccountApi
      *
      * Account Usage
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['accountUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function accountUsageAsyncWithHttpInfo($apiKey, string $contentType = self::contentTypes['accountUsage'][0])
+    public function accountUsageAsyncWithHttpInfo(string $contentType = self::contentTypes['accountUsage'][0])
     {
         $returnType = '\WhoisFreaks\Model\AccountUsageResponse';
-        $request = $this->accountUsageRequest($apiKey, $contentType);
+        $request = $this->accountUsageRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -350,21 +346,13 @@ class AccountApi
     /**
      * Create request for operation 'accountUsage'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['accountUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function accountUsageRequest($apiKey, string $contentType = self::contentTypes['accountUsage'][0])
+    public function accountUsageRequest(string $contentType = self::contentTypes['accountUsage'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling accountUsage'
-            );
-        }
 
 
         $resourcePath = '/v1.0/whoisapi/usage';
@@ -374,15 +362,6 @@ class AccountApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 
@@ -828,16 +807,15 @@ class AccountApi
      *
      * Rotate API Key
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['rotateApiKey'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return string|string
      */
-    public function rotateApiKey($apiKey, string $contentType = self::contentTypes['rotateApiKey'][0])
+    public function rotateApiKey(string $contentType = self::contentTypes['rotateApiKey'][0])
     {
-        list($response) = $this->rotateApiKeyWithHttpInfo($apiKey, $contentType);
+        list($response) = $this->rotateApiKeyWithHttpInfo($contentType);
         return $response;
     }
 
@@ -846,16 +824,15 @@ class AccountApi
      *
      * Rotate API Key
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['rotateApiKey'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of string|string, HTTP status code, HTTP response headers (array of strings)
      */
-    public function rotateApiKeyWithHttpInfo($apiKey, string $contentType = self::contentTypes['rotateApiKey'][0])
+    public function rotateApiKeyWithHttpInfo(string $contentType = self::contentTypes['rotateApiKey'][0])
     {
-        $request = $this->rotateApiKeyRequest($apiKey, $contentType);
+        $request = $this->rotateApiKeyRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1006,15 +983,14 @@ class AccountApi
      *
      * Rotate API Key
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['rotateApiKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function rotateApiKeyAsync($apiKey, string $contentType = self::contentTypes['rotateApiKey'][0])
+    public function rotateApiKeyAsync(string $contentType = self::contentTypes['rotateApiKey'][0])
     {
-        return $this->rotateApiKeyAsyncWithHttpInfo($apiKey, $contentType)
+        return $this->rotateApiKeyAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1027,16 +1003,15 @@ class AccountApi
      *
      * Rotate API Key
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['rotateApiKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function rotateApiKeyAsyncWithHttpInfo($apiKey, string $contentType = self::contentTypes['rotateApiKey'][0])
+    public function rotateApiKeyAsyncWithHttpInfo(string $contentType = self::contentTypes['rotateApiKey'][0])
     {
         $returnType = 'string';
-        $request = $this->rotateApiKeyRequest($apiKey, $contentType);
+        $request = $this->rotateApiKeyRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1077,21 +1052,13 @@ class AccountApi
     /**
      * Create request for operation 'rotateApiKey'
      *
-     * @param  string $apiKey Your WHOISFreaks API key (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['rotateApiKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function rotateApiKeyRequest($apiKey, string $contentType = self::contentTypes['rotateApiKey'][0])
+    public function rotateApiKeyRequest(string $contentType = self::contentTypes['rotateApiKey'][0])
     {
-
-        // verify the required parameter 'apiKey' is set
-        if ($apiKey === null || (is_array($apiKey) && count($apiKey) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $apiKey when calling rotateApiKey'
-            );
-        }
 
 
         $resourcePath = '/v1.0/api-key/rotate';
@@ -1101,15 +1068,6 @@ class AccountApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $apiKey,
-            'apiKey', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            true // required
-        ) ?? []);
 
 
 
