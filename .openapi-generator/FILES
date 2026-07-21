@@ -15,6 +15,7 @@ docs/Api/DatabasesIPSecurityApi.md
 docs/Api/DatabasesIPWHOISApi.md
 docs/Api/DatabasesNewlyRegisteredApi.md
 docs/Api/DatabasesSubdomainsApi.md
+docs/Api/DatabasesThreatFeedApi.md
 docs/Api/DatabasesWHOISApi.md
 docs/Api/DomainAvailabilityApi.md
 docs/Api/DomainReputationApi.md
@@ -94,6 +95,7 @@ docs/Model/SslResponse.md
 docs/Model/SslUnitInfo.md
 docs/Model/Subdomain.md
 docs/Model/SubdomainsResponse.md
+docs/Model/ThreatFeedStatus.md
 docs/Model/ThreatSource.md
 docs/Model/TrustSignals.md
 docs/Model/TyposquattingDomain.md
@@ -117,6 +119,7 @@ lib/Api/DatabasesIPSecurityApi.php
 lib/Api/DatabasesIPWHOISApi.php
 lib/Api/DatabasesNewlyRegisteredApi.php
 lib/Api/DatabasesSubdomainsApi.php
+lib/Api/DatabasesThreatFeedApi.php
 lib/Api/DatabasesWHOISApi.php
 lib/Api/DomainAvailabilityApi.php
 lib/Api/DomainReputationApi.php
@@ -200,6 +203,7 @@ lib/Model/SslResponse.php
 lib/Model/SslUnitInfo.php
 lib/Model/Subdomain.php
 lib/Model/SubdomainsResponse.php
+lib/Model/ThreatFeedStatus.php
 lib/Model/ThreatSource.php
 lib/Model/TrustSignals.php
 lib/Model/TyposquattingDomain.php
@@ -224,6 +228,7 @@ test/Api/DatabasesIPSecurityApiTest.php
 test/Api/DatabasesIPWHOISApiTest.php
 test/Api/DatabasesNewlyRegisteredApiTest.php
 test/Api/DatabasesSubdomainsApiTest.php
+test/Api/DatabasesThreatFeedApiTest.php
 test/Api/DatabasesWHOISApiTest.php
 test/Api/DomainAvailabilityApiTest.php
 test/Api/DomainReputationApiTest.php
@@ -303,6 +308,7 @@ test/Model/SslResponseTest.php
 test/Model/SslUnitInfoTest.php
 test/Model/SubdomainTest.php
 test/Model/SubdomainsResponseTest.php
+test/Model/ThreatFeedStatusTest.php
 test/Model/ThreatSourceTest.php
 test/Model/TrustSignalsTest.php
 test/Model/TyposquattingDomainTest.php

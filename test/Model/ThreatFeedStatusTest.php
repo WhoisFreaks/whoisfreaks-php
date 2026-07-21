@@ -1,6 +1,6 @@
 <?php
 /**
- * DatabaseFileStatusTest
+ * ThreatFeedStatusTest
  *
  * PHP version 7.4
  *
@@ -32,15 +32,15 @@ namespace WhoisFreaks\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * DatabaseFileStatusTest Class Doc Comment
+ * ThreatFeedStatusTest Class Doc Comment
  *
  * @category    Class
- * @description DatabaseFileStatus
+ * @description ThreatFeedStatus
  * @package     WhoisFreaks
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class DatabaseFileStatusTest extends TestCase
+class ThreatFeedStatusTest extends TestCase
 {
 
     /**
@@ -72,72 +72,36 @@ class DatabaseFileStatusTest extends TestCase
     }
 
     /**
-     * Test "DatabaseFileStatus"
+     * Test "ThreatFeedStatus"
      */
-    public function testDatabaseFileStatus()
+    public function testThreatFeedStatus()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "newly"
+     * Test attribute "phishing"
      */
-    public function testPropertyNewly()
+    public function testPropertyPhishing()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "expired"
+     * Test attribute "malware"
      */
-    public function testPropertyExpired()
+    public function testPropertyMalware()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "cleanedExpired"
+     * Test attribute "spam"
      */
-    public function testPropertyCleanedExpired()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "dropped"
-     */
-    public function testPropertyDropped()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "droppedWithBacklinks"
-     */
-    public function testPropertyDroppedWithBacklinks()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "threatFeed"
-     */
-    public function testPropertyThreatFeed()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "databaseUpdates"
-     */
-    public function testPropertyDatabaseUpdates()
+    public function testPropertySpam()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

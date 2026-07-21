@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **cleanedExpired** | [**\WhoisFreaks\Model\DateRangeStatus**](DateRangeStatus.md) |  | [optional]
 **dropped** | [**\WhoisFreaks\Model\DateRangeStatus**](DateRangeStatus.md) |  | [optional]
 **droppedWithBacklinks** | [**\WhoisFreaks\Model\DateRangeStatus**](DateRangeStatus.md) |  | [optional]
+**threatFeed** | [**\WhoisFreaks\Model\ThreatFeedStatus**](ThreatFeedStatus.md) |  | [optional]
 **databaseUpdates** | [**\WhoisFreaks\Model\DatabaseUpdates**](DatabaseUpdates.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -713,7 +713,7 @@ class AccountApi
     {
 
 
-        $resourcePath = '/v3.3/status';
+        $resourcePath = '/v3.4/status';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

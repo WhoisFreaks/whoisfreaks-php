@@ -1,6 +1,6 @@
 <?php
 /**
- * DatabaseFileStatus
+ * ThreatFeedStatus
  *
  * PHP version 7.4
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \WhoisFreaks\ObjectSerializer;
 
 /**
- * DatabaseFileStatus Class Doc Comment
+ * ThreatFeedStatus Class Doc Comment
  *
  * @category Class
  * @package  WhoisFreaks
@@ -41,7 +41,7 @@ use \WhoisFreaks\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializable
+class ThreatFeedStatus implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'DatabaseFileStatus';
+    protected static $openAPIModelName = 'ThreatFeedStatus';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,13 +58,9 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'newly' => '\WhoisFreaks\Model\NewlyStatus',
-        'expired' => '\WhoisFreaks\Model\DateRangeStatus',
-        'cleanedExpired' => '\WhoisFreaks\Model\DateRangeStatus',
-        'dropped' => '\WhoisFreaks\Model\DateRangeStatus',
-        'droppedWithBacklinks' => '\WhoisFreaks\Model\DateRangeStatus',
-        'threatFeed' => '\WhoisFreaks\Model\ThreatFeedStatus',
-        'databaseUpdates' => '\WhoisFreaks\Model\DatabaseUpdates'
+        'phishing' => '\WhoisFreaks\Model\DateRangeStatus',
+        'malware' => '\WhoisFreaks\Model\DateRangeStatus',
+        'spam' => '\WhoisFreaks\Model\DateRangeStatus'
     ];
 
     /**
@@ -75,13 +71,9 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'newly' => null,
-        'expired' => null,
-        'cleanedExpired' => null,
-        'dropped' => null,
-        'droppedWithBacklinks' => null,
-        'threatFeed' => null,
-        'databaseUpdates' => null
+        'phishing' => null,
+        'malware' => null,
+        'spam' => null
     ];
 
     /**
@@ -90,13 +82,9 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'newly' => false,
-        'expired' => false,
-        'cleanedExpired' => false,
-        'dropped' => false,
-        'droppedWithBacklinks' => false,
-        'threatFeed' => false,
-        'databaseUpdates' => false
+        'phishing' => false,
+        'malware' => false,
+        'spam' => false
     ];
 
     /**
@@ -185,13 +173,9 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'newly' => 'newly',
-        'expired' => 'expired',
-        'cleanedExpired' => 'cleaned_expired',
-        'dropped' => 'dropped',
-        'droppedWithBacklinks' => 'dropped_with_backlinks',
-        'threatFeed' => 'threat_feed',
-        'databaseUpdates' => 'database_updates'
+        'phishing' => 'phishing',
+        'malware' => 'malware',
+        'spam' => 'spam'
     ];
 
     /**
@@ -200,13 +184,9 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'newly' => 'setNewly',
-        'expired' => 'setExpired',
-        'cleanedExpired' => 'setCleanedExpired',
-        'dropped' => 'setDropped',
-        'droppedWithBacklinks' => 'setDroppedWithBacklinks',
-        'threatFeed' => 'setThreatFeed',
-        'databaseUpdates' => 'setDatabaseUpdates'
+        'phishing' => 'setPhishing',
+        'malware' => 'setMalware',
+        'spam' => 'setSpam'
     ];
 
     /**
@@ -215,13 +195,9 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'newly' => 'getNewly',
-        'expired' => 'getExpired',
-        'cleanedExpired' => 'getCleanedExpired',
-        'dropped' => 'getDropped',
-        'droppedWithBacklinks' => 'getDroppedWithBacklinks',
-        'threatFeed' => 'getThreatFeed',
-        'databaseUpdates' => 'getDatabaseUpdates'
+        'phishing' => 'getPhishing',
+        'malware' => 'getMalware',
+        'spam' => 'getSpam'
     ];
 
     /**
@@ -281,13 +257,9 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('newly', $data ?? [], null);
-        $this->setIfExists('expired', $data ?? [], null);
-        $this->setIfExists('cleanedExpired', $data ?? [], null);
-        $this->setIfExists('dropped', $data ?? [], null);
-        $this->setIfExists('droppedWithBacklinks', $data ?? [], null);
-        $this->setIfExists('threatFeed', $data ?? [], null);
-        $this->setIfExists('databaseUpdates', $data ?? [], null);
+        $this->setIfExists('phishing', $data ?? [], null);
+        $this->setIfExists('malware', $data ?? [], null);
+        $this->setIfExists('spam', $data ?? [], null);
     }
 
     /**
@@ -333,190 +305,82 @@ class DatabaseFileStatus implements ModelInterface, ArrayAccess, \JsonSerializab
 
 
     /**
-     * Gets newly
-     *
-     * @return \WhoisFreaks\Model\NewlyStatus|null
-     */
-    public function getNewly()
-    {
-        return $this->container['newly'];
-    }
-
-    /**
-     * Sets newly
-     *
-     * @param \WhoisFreaks\Model\NewlyStatus|null $newly newly
-     *
-     * @return self
-     */
-    public function setNewly($newly)
-    {
-        if (is_null($newly)) {
-            throw new \InvalidArgumentException('non-nullable newly cannot be null');
-        }
-        $this->container['newly'] = $newly;
-
-        return $this;
-    }
-
-    /**
-     * Gets expired
+     * Gets phishing
      *
      * @return \WhoisFreaks\Model\DateRangeStatus|null
      */
-    public function getExpired()
+    public function getPhishing()
     {
-        return $this->container['expired'];
+        return $this->container['phishing'];
     }
 
     /**
-     * Sets expired
+     * Sets phishing
      *
-     * @param \WhoisFreaks\Model\DateRangeStatus|null $expired expired
+     * @param \WhoisFreaks\Model\DateRangeStatus|null $phishing phishing
      *
      * @return self
      */
-    public function setExpired($expired)
+    public function setPhishing($phishing)
     {
-        if (is_null($expired)) {
-            throw new \InvalidArgumentException('non-nullable expired cannot be null');
+        if (is_null($phishing)) {
+            throw new \InvalidArgumentException('non-nullable phishing cannot be null');
         }
-        $this->container['expired'] = $expired;
+        $this->container['phishing'] = $phishing;
 
         return $this;
     }
 
     /**
-     * Gets cleanedExpired
+     * Gets malware
      *
      * @return \WhoisFreaks\Model\DateRangeStatus|null
      */
-    public function getCleanedExpired()
+    public function getMalware()
     {
-        return $this->container['cleanedExpired'];
+        return $this->container['malware'];
     }
 
     /**
-     * Sets cleanedExpired
+     * Sets malware
      *
-     * @param \WhoisFreaks\Model\DateRangeStatus|null $cleanedExpired cleanedExpired
+     * @param \WhoisFreaks\Model\DateRangeStatus|null $malware malware
      *
      * @return self
      */
-    public function setCleanedExpired($cleanedExpired)
+    public function setMalware($malware)
     {
-        if (is_null($cleanedExpired)) {
-            throw new \InvalidArgumentException('non-nullable cleanedExpired cannot be null');
+        if (is_null($malware)) {
+            throw new \InvalidArgumentException('non-nullable malware cannot be null');
         }
-        $this->container['cleanedExpired'] = $cleanedExpired;
+        $this->container['malware'] = $malware;
 
         return $this;
     }
 
     /**
-     * Gets dropped
+     * Gets spam
      *
      * @return \WhoisFreaks\Model\DateRangeStatus|null
      */
-    public function getDropped()
+    public function getSpam()
     {
-        return $this->container['dropped'];
+        return $this->container['spam'];
     }
 
     /**
-     * Sets dropped
+     * Sets spam
      *
-     * @param \WhoisFreaks\Model\DateRangeStatus|null $dropped dropped
+     * @param \WhoisFreaks\Model\DateRangeStatus|null $spam spam
      *
      * @return self
      */
-    public function setDropped($dropped)
+    public function setSpam($spam)
     {
-        if (is_null($dropped)) {
-            throw new \InvalidArgumentException('non-nullable dropped cannot be null');
+        if (is_null($spam)) {
+            throw new \InvalidArgumentException('non-nullable spam cannot be null');
         }
-        $this->container['dropped'] = $dropped;
-
-        return $this;
-    }
-
-    /**
-     * Gets droppedWithBacklinks
-     *
-     * @return \WhoisFreaks\Model\DateRangeStatus|null
-     */
-    public function getDroppedWithBacklinks()
-    {
-        return $this->container['droppedWithBacklinks'];
-    }
-
-    /**
-     * Sets droppedWithBacklinks
-     *
-     * @param \WhoisFreaks\Model\DateRangeStatus|null $droppedWithBacklinks droppedWithBacklinks
-     *
-     * @return self
-     */
-    public function setDroppedWithBacklinks($droppedWithBacklinks)
-    {
-        if (is_null($droppedWithBacklinks)) {
-            throw new \InvalidArgumentException('non-nullable droppedWithBacklinks cannot be null');
-        }
-        $this->container['droppedWithBacklinks'] = $droppedWithBacklinks;
-
-        return $this;
-    }
-
-    /**
-     * Gets threatFeed
-     *
-     * @return \WhoisFreaks\Model\ThreatFeedStatus|null
-     */
-    public function getThreatFeed()
-    {
-        return $this->container['threatFeed'];
-    }
-
-    /**
-     * Sets threatFeed
-     *
-     * @param \WhoisFreaks\Model\ThreatFeedStatus|null $threatFeed threatFeed
-     *
-     * @return self
-     */
-    public function setThreatFeed($threatFeed)
-    {
-        if (is_null($threatFeed)) {
-            throw new \InvalidArgumentException('non-nullable threatFeed cannot be null');
-        }
-        $this->container['threatFeed'] = $threatFeed;
-
-        return $this;
-    }
-
-    /**
-     * Gets databaseUpdates
-     *
-     * @return \WhoisFreaks\Model\DatabaseUpdates|null
-     */
-    public function getDatabaseUpdates()
-    {
-        return $this->container['databaseUpdates'];
-    }
-
-    /**
-     * Sets databaseUpdates
-     *
-     * @param \WhoisFreaks\Model\DatabaseUpdates|null $databaseUpdates databaseUpdates
-     *
-     * @return self
-     */
-    public function setDatabaseUpdates($databaseUpdates)
-    {
-        if (is_null($databaseUpdates)) {
-            throw new \InvalidArgumentException('non-nullable databaseUpdates cannot be null');
-        }
-        $this->container['databaseUpdates'] = $databaseUpdates;
+        $this->container['spam'] = $spam;
 
         return $this;
     }
