@@ -12,7 +12,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -143,16 +143,22 @@ class DatabasesThreatFeedApi
      *
      * Download the daily malware threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalware'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \SplFileObject
+     * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function downloadThreatFeedMalware($date = null, string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
+    public function downloadThreatFeedMalware($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
     {
-        list($response) = $this->downloadThreatFeedMalwareWithHttpInfo($date, $contentType);
+        list($response) = $this->downloadThreatFeedMalwareWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -161,16 +167,22 @@ class DatabasesThreatFeedApi
      *
      * Download the daily malware threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalware'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function downloadThreatFeedMalwareWithHttpInfo($date = null, string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
+    public function downloadThreatFeedMalwareWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
     {
-        $request = $this->downloadThreatFeedMalwareRequest($date, $contentType);
+        $request = $this->downloadThreatFeedMalwareRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -223,6 +235,7 @@ class DatabasesThreatFeedApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -276,6 +289,7 @@ class DatabasesThreatFeedApi
                     );
                     $e->setResponseObject($data);
                     break;
+                
             }
             throw $e;
         }
@@ -286,15 +300,21 @@ class DatabasesThreatFeedApi
      *
      * Download the daily malware threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalware'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedMalwareAsync($date = null, string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
+    public function downloadThreatFeedMalwareAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
     {
-        return $this->downloadThreatFeedMalwareAsyncWithHttpInfo($date, $contentType)
+        return $this->downloadThreatFeedMalwareAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -307,16 +327,22 @@ class DatabasesThreatFeedApi
      *
      * Download the daily malware threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalware'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedMalwareAsyncWithHttpInfo($date = null, string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
+    public function downloadThreatFeedMalwareAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->downloadThreatFeedMalwareRequest($date, $contentType);
+        $request = $this->downloadThreatFeedMalwareRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -357,13 +383,19 @@ class DatabasesThreatFeedApi
     /**
      * Create request for operation 'downloadThreatFeedMalware'
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalware'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function downloadThreatFeedMalwareRequest($date = null, string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
+    public function downloadThreatFeedMalwareRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalware'][0])
     {
 
 
@@ -389,7 +421,7 @@ class DatabasesThreatFeedApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/octet-stream', ],
+            ['application/octet-stream', 'application/json', ],
             $contentType,
             $multipart
         );
@@ -436,7 +468,17 @@ class DatabasesThreatFeedApi
             $headers
         );
 
-        $operationHost = $this->config->getHost();
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsFordownloadThreatFeedMalware();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -447,19 +489,40 @@ class DatabasesThreatFeedApi
     }
 
     /**
+     * Returns an array of host settings for Operation downloadThreatFeedMalware
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsFordownloadThreatFeedMalware(): array
+    {
+        return [
+            [
+                "url" => "https://files.whoisfreaks.com",
+                "description" => "No description provided",
+            ]
+        ];
+    }
+
+    /**
      * Operation downloadThreatFeedMalwareSample
      *
      * Download a sample of the malware threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalwareSample'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \SplFileObject
+     * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function downloadThreatFeedMalwareSample(string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
+    public function downloadThreatFeedMalwareSample(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
     {
-        list($response) = $this->downloadThreatFeedMalwareSampleWithHttpInfo($contentType);
+        list($response) = $this->downloadThreatFeedMalwareSampleWithHttpInfo($hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -468,15 +531,21 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the malware threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalwareSample'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function downloadThreatFeedMalwareSampleWithHttpInfo(string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
+    public function downloadThreatFeedMalwareSampleWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
     {
-        $request = $this->downloadThreatFeedMalwareSampleRequest($contentType);
+        $request = $this->downloadThreatFeedMalwareSampleRequest($hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -529,6 +598,7 @@ class DatabasesThreatFeedApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -582,6 +652,7 @@ class DatabasesThreatFeedApi
                     );
                     $e->setResponseObject($data);
                     break;
+                
             }
             throw $e;
         }
@@ -592,14 +663,20 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the malware threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalwareSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedMalwareSampleAsync(string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
+    public function downloadThreatFeedMalwareSampleAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
     {
-        return $this->downloadThreatFeedMalwareSampleAsyncWithHttpInfo($contentType)
+        return $this->downloadThreatFeedMalwareSampleAsyncWithHttpInfo($hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -612,15 +689,21 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the malware threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalwareSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedMalwareSampleAsyncWithHttpInfo(string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
+    public function downloadThreatFeedMalwareSampleAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->downloadThreatFeedMalwareSampleRequest($contentType);
+        $request = $this->downloadThreatFeedMalwareSampleRequest($hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -661,12 +744,18 @@ class DatabasesThreatFeedApi
     /**
      * Create request for operation 'downloadThreatFeedMalwareSample'
      *
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedMalwareSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function downloadThreatFeedMalwareSampleRequest(string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
+    public function downloadThreatFeedMalwareSampleRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedMalwareSample'][0])
     {
 
 
@@ -682,7 +771,7 @@ class DatabasesThreatFeedApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/octet-stream', ],
+            ['application/octet-stream', 'application/json', ],
             $contentType,
             $multipart
         );
@@ -729,7 +818,17 @@ class DatabasesThreatFeedApi
             $headers
         );
 
-        $operationHost = $this->config->getHost();
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsFordownloadThreatFeedMalwareSample();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -740,20 +839,41 @@ class DatabasesThreatFeedApi
     }
 
     /**
+     * Returns an array of host settings for Operation downloadThreatFeedMalwareSample
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsFordownloadThreatFeedMalwareSample(): array
+    {
+        return [
+            [
+                "url" => "https://files.whoisfreaks.com",
+                "description" => "No description provided",
+            ]
+        ];
+    }
+
+    /**
      * Operation downloadThreatFeedPhishing
      *
      * Download the daily phishing threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishing'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \SplFileObject
+     * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function downloadThreatFeedPhishing($date = null, string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
+    public function downloadThreatFeedPhishing($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
     {
-        list($response) = $this->downloadThreatFeedPhishingWithHttpInfo($date, $contentType);
+        list($response) = $this->downloadThreatFeedPhishingWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -762,16 +882,22 @@ class DatabasesThreatFeedApi
      *
      * Download the daily phishing threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishing'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function downloadThreatFeedPhishingWithHttpInfo($date = null, string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
+    public function downloadThreatFeedPhishingWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
     {
-        $request = $this->downloadThreatFeedPhishingRequest($date, $contentType);
+        $request = $this->downloadThreatFeedPhishingRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -824,6 +950,7 @@ class DatabasesThreatFeedApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -877,6 +1004,7 @@ class DatabasesThreatFeedApi
                     );
                     $e->setResponseObject($data);
                     break;
+                
             }
             throw $e;
         }
@@ -887,15 +1015,21 @@ class DatabasesThreatFeedApi
      *
      * Download the daily phishing threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishing'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedPhishingAsync($date = null, string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
+    public function downloadThreatFeedPhishingAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
     {
-        return $this->downloadThreatFeedPhishingAsyncWithHttpInfo($date, $contentType)
+        return $this->downloadThreatFeedPhishingAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -908,16 +1042,22 @@ class DatabasesThreatFeedApi
      *
      * Download the daily phishing threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishing'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedPhishingAsyncWithHttpInfo($date = null, string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
+    public function downloadThreatFeedPhishingAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->downloadThreatFeedPhishingRequest($date, $contentType);
+        $request = $this->downloadThreatFeedPhishingRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -958,13 +1098,19 @@ class DatabasesThreatFeedApi
     /**
      * Create request for operation 'downloadThreatFeedPhishing'
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishing'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function downloadThreatFeedPhishingRequest($date = null, string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
+    public function downloadThreatFeedPhishingRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishing'][0])
     {
 
 
@@ -990,7 +1136,7 @@ class DatabasesThreatFeedApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/octet-stream', ],
+            ['application/octet-stream', 'application/json', ],
             $contentType,
             $multipart
         );
@@ -1037,7 +1183,17 @@ class DatabasesThreatFeedApi
             $headers
         );
 
-        $operationHost = $this->config->getHost();
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsFordownloadThreatFeedPhishing();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -1048,19 +1204,40 @@ class DatabasesThreatFeedApi
     }
 
     /**
+     * Returns an array of host settings for Operation downloadThreatFeedPhishing
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsFordownloadThreatFeedPhishing(): array
+    {
+        return [
+            [
+                "url" => "https://files.whoisfreaks.com",
+                "description" => "No description provided",
+            ]
+        ];
+    }
+
+    /**
      * Operation downloadThreatFeedPhishingSample
      *
      * Download a sample of the phishing threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishingSample'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \SplFileObject
+     * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function downloadThreatFeedPhishingSample(string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
+    public function downloadThreatFeedPhishingSample(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
     {
-        list($response) = $this->downloadThreatFeedPhishingSampleWithHttpInfo($contentType);
+        list($response) = $this->downloadThreatFeedPhishingSampleWithHttpInfo($hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1069,15 +1246,21 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the phishing threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishingSample'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function downloadThreatFeedPhishingSampleWithHttpInfo(string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
+    public function downloadThreatFeedPhishingSampleWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
     {
-        $request = $this->downloadThreatFeedPhishingSampleRequest($contentType);
+        $request = $this->downloadThreatFeedPhishingSampleRequest($hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1130,6 +1313,7 @@ class DatabasesThreatFeedApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -1183,6 +1367,7 @@ class DatabasesThreatFeedApi
                     );
                     $e->setResponseObject($data);
                     break;
+                
             }
             throw $e;
         }
@@ -1193,14 +1378,20 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the phishing threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishingSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedPhishingSampleAsync(string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
+    public function downloadThreatFeedPhishingSampleAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
     {
-        return $this->downloadThreatFeedPhishingSampleAsyncWithHttpInfo($contentType)
+        return $this->downloadThreatFeedPhishingSampleAsyncWithHttpInfo($hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1213,15 +1404,21 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the phishing threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishingSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedPhishingSampleAsyncWithHttpInfo(string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
+    public function downloadThreatFeedPhishingSampleAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->downloadThreatFeedPhishingSampleRequest($contentType);
+        $request = $this->downloadThreatFeedPhishingSampleRequest($hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1262,12 +1459,18 @@ class DatabasesThreatFeedApi
     /**
      * Create request for operation 'downloadThreatFeedPhishingSample'
      *
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedPhishingSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function downloadThreatFeedPhishingSampleRequest(string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
+    public function downloadThreatFeedPhishingSampleRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedPhishingSample'][0])
     {
 
 
@@ -1283,7 +1486,7 @@ class DatabasesThreatFeedApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/octet-stream', ],
+            ['application/octet-stream', 'application/json', ],
             $contentType,
             $multipart
         );
@@ -1330,7 +1533,17 @@ class DatabasesThreatFeedApi
             $headers
         );
 
-        $operationHost = $this->config->getHost();
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsFordownloadThreatFeedPhishingSample();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -1341,20 +1554,41 @@ class DatabasesThreatFeedApi
     }
 
     /**
+     * Returns an array of host settings for Operation downloadThreatFeedPhishingSample
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsFordownloadThreatFeedPhishingSample(): array
+    {
+        return [
+            [
+                "url" => "https://files.whoisfreaks.com",
+                "description" => "No description provided",
+            ]
+        ];
+    }
+
+    /**
      * Operation downloadThreatFeedSpam
      *
      * Download the daily spam threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpam'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \SplFileObject
+     * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function downloadThreatFeedSpam($date = null, string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
+    public function downloadThreatFeedSpam($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
     {
-        list($response) = $this->downloadThreatFeedSpamWithHttpInfo($date, $contentType);
+        list($response) = $this->downloadThreatFeedSpamWithHttpInfo($date, $hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1363,16 +1597,22 @@ class DatabasesThreatFeedApi
      *
      * Download the daily spam threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpam'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function downloadThreatFeedSpamWithHttpInfo($date = null, string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
+    public function downloadThreatFeedSpamWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
     {
-        $request = $this->downloadThreatFeedSpamRequest($date, $contentType);
+        $request = $this->downloadThreatFeedSpamRequest($date, $hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1425,6 +1665,7 @@ class DatabasesThreatFeedApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -1478,6 +1719,7 @@ class DatabasesThreatFeedApi
                     );
                     $e->setResponseObject($data);
                     break;
+                
             }
             throw $e;
         }
@@ -1488,15 +1730,21 @@ class DatabasesThreatFeedApi
      *
      * Download the daily spam threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpam'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedSpamAsync($date = null, string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
+    public function downloadThreatFeedSpamAsync($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
     {
-        return $this->downloadThreatFeedSpamAsyncWithHttpInfo($date, $contentType)
+        return $this->downloadThreatFeedSpamAsyncWithHttpInfo($date, $hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1509,16 +1757,22 @@ class DatabasesThreatFeedApi
      *
      * Download the daily spam threat feed (CSV)
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpam'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedSpamAsyncWithHttpInfo($date = null, string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
+    public function downloadThreatFeedSpamAsyncWithHttpInfo($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->downloadThreatFeedSpamRequest($date, $contentType);
+        $request = $this->downloadThreatFeedSpamRequest($date, $hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1559,13 +1813,19 @@ class DatabasesThreatFeedApi
     /**
      * Create request for operation 'downloadThreatFeedSpam'
      *
-     * @param  string|null $date Feed date (yyyy-MM-dd); defaults to latest available (optional)
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  string|null $date Feed date (yyyy-MM-dd); omit for the full dump of the feed (optional)
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpam'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function downloadThreatFeedSpamRequest($date = null, string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
+    public function downloadThreatFeedSpamRequest($date = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpam'][0])
     {
 
 
@@ -1591,7 +1851,7 @@ class DatabasesThreatFeedApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/octet-stream', ],
+            ['application/octet-stream', 'application/json', ],
             $contentType,
             $multipart
         );
@@ -1638,7 +1898,17 @@ class DatabasesThreatFeedApi
             $headers
         );
 
-        $operationHost = $this->config->getHost();
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsFordownloadThreatFeedSpam();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -1649,19 +1919,40 @@ class DatabasesThreatFeedApi
     }
 
     /**
+     * Returns an array of host settings for Operation downloadThreatFeedSpam
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsFordownloadThreatFeedSpam(): array
+    {
+        return [
+            [
+                "url" => "https://files.whoisfreaks.com",
+                "description" => "No description provided",
+            ]
+        ];
+    }
+
+    /**
      * Operation downloadThreatFeedSpamSample
      *
      * Download a sample of the spam threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpamSample'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \SplFileObject
+     * @return \SplFileObject|\WhoisFreaks\Model\ErrorResponse
      */
-    public function downloadThreatFeedSpamSample(string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
+    public function downloadThreatFeedSpamSample(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
     {
-        list($response) = $this->downloadThreatFeedSpamSampleWithHttpInfo($contentType);
+        list($response) = $this->downloadThreatFeedSpamSampleWithHttpInfo($hostIndex, $variables, $contentType);
         return $response;
     }
 
@@ -1670,15 +1961,21 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the spam threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpamSample'] to see the possible values for this operation
      *
      * @throws \WhoisFreaks\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\WhoisFreaks\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function downloadThreatFeedSpamSampleWithHttpInfo(string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
+    public function downloadThreatFeedSpamSampleWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
     {
-        $request = $this->downloadThreatFeedSpamSampleRequest($contentType);
+        $request = $this->downloadThreatFeedSpamSampleRequest($hostIndex, $variables, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1731,6 +2028,7 @@ class DatabasesThreatFeedApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -1784,6 +2082,7 @@ class DatabasesThreatFeedApi
                     );
                     $e->setResponseObject($data);
                     break;
+                
             }
             throw $e;
         }
@@ -1794,14 +2093,20 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the spam threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpamSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedSpamSampleAsync(string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
+    public function downloadThreatFeedSpamSampleAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
     {
-        return $this->downloadThreatFeedSpamSampleAsyncWithHttpInfo($contentType)
+        return $this->downloadThreatFeedSpamSampleAsyncWithHttpInfo($hostIndex, $variables, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1814,15 +2119,21 @@ class DatabasesThreatFeedApi
      *
      * Download a sample of the spam threat feed (CSV)
      *
+     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+     * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpamSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function downloadThreatFeedSpamSampleAsyncWithHttpInfo(string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
+    public function downloadThreatFeedSpamSampleAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->downloadThreatFeedSpamSampleRequest($contentType);
+        $request = $this->downloadThreatFeedSpamSampleRequest($hostIndex, $variables, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1863,12 +2174,18 @@ class DatabasesThreatFeedApi
     /**
      * Create request for operation 'downloadThreatFeedSpamSample'
      *
+    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
+    * if needed, use the 'variables' parameter to pass variables to the host.
+     * URL: https://files.whoisfreaks.com
+     *
+     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
+     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadThreatFeedSpamSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function downloadThreatFeedSpamSampleRequest(string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
+    public function downloadThreatFeedSpamSampleRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['downloadThreatFeedSpamSample'][0])
     {
 
 
@@ -1884,7 +2201,7 @@ class DatabasesThreatFeedApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/octet-stream', ],
+            ['application/octet-stream', 'application/json', ],
             $contentType,
             $multipart
         );
@@ -1931,7 +2248,17 @@ class DatabasesThreatFeedApi
             $headers
         );
 
-        $operationHost = $this->config->getHost();
+        # Preserve the original behavior of server indexing.
+        if ($hostIndex === null) {
+            $hostIndex = $this->hostIndex;
+        }
+
+        $hostSettings = $this->getHostSettingsFordownloadThreatFeedSpamSample();
+
+        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
+            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
+        }
+        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -1939,6 +2266,21 @@ class DatabasesThreatFeedApi
             $headers,
             $httpBody
         );
+    }
+
+    /**
+     * Returns an array of host settings for Operation downloadThreatFeedSpamSample
+     *
+     * @return array an array of host settings
+     */
+    protected function getHostSettingsFordownloadThreatFeedSpamSample(): array
+    {
+        return [
+            [
+                "url" => "https://files.whoisfreaks.com",
+                "description" => "No description provided",
+            ]
+        ];
     }
 
     /**

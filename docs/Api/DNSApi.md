@@ -39,7 +39,7 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$type = 'all'; // string
+$type = A,MX,TXT; // string
 $dnsBulkRequest = new \WhoisFreaks\Model\DnsBulkRequest(); // \WhoisFreaks\Model\DnsBulkRequest
 $format = 'json'; // string
 
@@ -105,8 +105,8 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$domainName = 'domainName_example'; // string
-$type = 'all'; // string
+$domainName = whoisfreaks.com; // string
+$type = A,MX,TXT; // string
 $page = 1; // int
 $format = 'json'; // string
 
@@ -173,9 +173,9 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$type = 'all'; // string | all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
-$domainName = 'domainName_example'; // string
-$ipAddress = 'ipAddress_example'; // string | Use for PTR lookups
+$type = A,MX,TXT; // string | all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
+$domainName = whoisfreaks.com; // string
+$ipAddress = 8.8.8.8; // string | Use for PTR lookups
 $format = 'json'; // string
 
 try {
@@ -241,7 +241,7 @@ $apiInstance = new WhoisFreaks\Api\DNSApi(
     new GuzzleHttp\Client(),
     $config
 );
-$value = 'value_example'; // string | IP, CIDR, or record value
+$value = 8.8.8.8; // string | IP, CIDR, or record value
 $type = 'type_example'; // string
 $exact = true; // bool
 $page = 1; // int

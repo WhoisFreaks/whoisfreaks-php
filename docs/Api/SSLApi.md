@@ -36,7 +36,7 @@ $apiInstance = new WhoisFreaks\Api\SSLApi(
     new GuzzleHttp\Client(),
     $config
 );
-$domainName = 'domainName_example'; // string
+$domainName = whoisfreaks.com; // string
 $chain = false; // bool
 $sslRaw = false; // bool
 $format = 'json'; // string

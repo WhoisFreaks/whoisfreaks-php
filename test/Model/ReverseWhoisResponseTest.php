@@ -13,7 +13,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * ReverseWhoisResponseTest Class Doc Comment
  *
  * @category    Class
- * @description Reverse WHOIS response. Pagination keys are capitalized (Total_Result/Total_Pages/Current_Page) as returned by the API.
+ * @description Reverse WHOIS response. Pagination keys (total_Result, total_Pages, current_Page) are spelled as the API returns them.
  * @package     WhoisFreaks
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

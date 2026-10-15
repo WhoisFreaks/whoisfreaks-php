@@ -12,7 +12,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -467,7 +467,6 @@ class WHOISApi
      * Historical WHOIS records for a domain
      *
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
-     * @param  int|null $page Page number (optional)
      * @param  string|null $format format (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistory'] to see the possible values for this operation
      *
@@ -475,9 +474,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return \WhoisFreaks\Model\WhoisHistoricalResponse
      */
-    public function whoisHistory($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistory($domainName, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
-        list($response) = $this->whoisHistoryWithHttpInfo($domainName, $page, $format, $contentType);
+        list($response) = $this->whoisHistoryWithHttpInfo($domainName, $format, $contentType);
         return $response;
     }
 
@@ -487,7 +486,6 @@ class WHOISApi
      * Historical WHOIS records for a domain
      *
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
-     * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistory'] to see the possible values for this operation
      *
@@ -495,9 +493,9 @@ class WHOISApi
      * @throws \InvalidArgumentException
      * @return array of \WhoisFreaks\Model\WhoisHistoricalResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function whoisHistoryWithHttpInfo($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryWithHttpInfo($domainName, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
-        $request = $this->whoisHistoryRequest($domainName, $page, $format, $contentType);
+        $request = $this->whoisHistoryRequest($domainName, $format, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -614,16 +612,15 @@ class WHOISApi
      * Historical WHOIS records for a domain
      *
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
-     * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistory'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisHistoryAsync($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryAsync($domainName, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
-        return $this->whoisHistoryAsyncWithHttpInfo($domainName, $page, $format, $contentType)
+        return $this->whoisHistoryAsyncWithHttpInfo($domainName, $format, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -637,17 +634,16 @@ class WHOISApi
      * Historical WHOIS records for a domain
      *
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
-     * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistory'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function whoisHistoryAsyncWithHttpInfo($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryAsyncWithHttpInfo($domainName, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
         $returnType = '\WhoisFreaks\Model\WhoisHistoricalResponse';
-        $request = $this->whoisHistoryRequest($domainName, $page, $format, $contentType);
+        $request = $this->whoisHistoryRequest($domainName, $format, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -689,14 +685,13 @@ class WHOISApi
      * Create request for operation 'whoisHistory'
      *
      * @param  string $domainName Domain to fetch historical WHOIS records for (required)
-     * @param  int|null $page Page number (optional)
      * @param  string|null $format (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['whoisHistory'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function whoisHistoryRequest($domainName, $page = null, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
+    public function whoisHistoryRequest($domainName, $format = null, string $contentType = self::contentTypes['whoisHistory'][0])
     {
 
         // verify the required parameter 'domainName' is set
@@ -705,7 +700,6 @@ class WHOISApi
                 'Missing the required parameter $domainName when calling whoisHistory'
             );
         }
-
 
 
 
@@ -724,15 +718,6 @@ class WHOISApi
             'form', // style
             true, // explode
             true // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $page,
-            'page', // param base name
-            'integer', // openApiType
-            'form', // style
-            true, // explode
-            false // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(

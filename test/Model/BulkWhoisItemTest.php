@@ -13,7 +13,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * BulkWhoisItemTest Class Doc Comment
  *
  * @category    Class
- * @description One bulk WHOIS result; success items also carry all WhoisResponse fields.
+ * @description One bulk WHOIS result. Successful items carry the same fields as a live WHOIS lookup.
  * @package     WhoisFreaks
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -102,6 +102,186 @@ class BulkWhoisItemTest extends TestCase
      * Test attribute "error"
      */
     public function testPropertyError()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "queryTime"
+     */
+    public function testPropertyQueryTime()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "whoisServer"
+     */
+    public function testPropertyWhoisServer()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "domainRegistered"
+     */
+    public function testPropertyDomainRegistered()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "secureDns"
+     */
+    public function testPropertySecureDns()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "domainHandle"
+     */
+    public function testPropertyDomainHandle()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "createDate"
+     */
+    public function testPropertyCreateDate()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "updateDate"
+     */
+    public function testPropertyUpdateDate()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "expiryDate"
+     */
+    public function testPropertyExpiryDate()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "domainRegistrar"
+     */
+    public function testPropertyDomainRegistrar()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "resellerContact"
+     */
+    public function testPropertyResellerContact()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "registrantContact"
+     */
+    public function testPropertyRegistrantContact()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "administrativeContact"
+     */
+    public function testPropertyAdministrativeContact()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "technicalContact"
+     */
+    public function testPropertyTechnicalContact()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "billingContact"
+     */
+    public function testPropertyBillingContact()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "eligibilityInfo"
+     */
+    public function testPropertyEligibilityInfo()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "abuseContact"
+     */
+    public function testPropertyAbuseContact()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "nameServers"
+     */
+    public function testPropertyNameServers()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "domainStatus"
+     */
+    public function testPropertyDomainStatus()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "whoisRawDomain"
+     */
+    public function testPropertyWhoisRawDomain()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "registryData"
+     */
+    public function testPropertyRegistryData()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

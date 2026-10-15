@@ -12,7 +12,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -73,7 +73,7 @@ class Configuration
      *
      * @var string
      */
-    protected $booleanFormatForQueryString = self::BOOLEAN_FORMAT_INT;
+    protected $booleanFormatForQueryString = self::BOOLEAN_FORMAT_STRING;
 
     /**
      * Username for HTTP basic authentication
@@ -101,7 +101,7 @@ class Configuration
      *
      * @var string
      */
-    protected $userAgent = 'OpenAPI-Generator/0.21.0/PHP';
+    protected $userAgent = 'OpenAPI-Generator/0.23.2/PHP';
 
     /**
      * Debug switch (default set to false)
@@ -434,7 +434,7 @@ class Configuration
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    The version of the OpenAPI document: 1.0.0' . PHP_EOL;
-        $report .= '    SDK Package Version: 0.21.0' . PHP_EOL;
+        $report .= '    SDK Package Version: 0.23.2' . PHP_EOL;
         $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . PHP_EOL;
 
         return $report;

@@ -13,7 +13,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -59,9 +59,13 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'type' => 'string',
+        'type' => 'int',
+        'dnsType' => 'string',
         'name' => 'string',
         'ttl' => 'int',
+        'rawText' => 'string',
+        'rRsetType' => 'int',
+        'singleName' => 'string',
         'address' => 'string',
         'priority' => 'int',
         'exchange' => 'string',
@@ -85,8 +89,12 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'type' => null,
+        'dnsType' => null,
         'name' => null,
         'ttl' => null,
+        'rawText' => null,
+        'rRsetType' => null,
+        'singleName' => null,
         'address' => null,
         'priority' => null,
         'exchange' => null,
@@ -94,7 +102,7 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
         'strings' => null,
         'host' => null,
         'admin' => null,
-        'serial' => null,
+        'serial' => 'int64',
         'refresh' => null,
         'retry' => null,
         'expire' => null,
@@ -108,8 +116,12 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'type' => false,
+        'dnsType' => false,
         'name' => false,
         'ttl' => false,
+        'rawText' => false,
+        'rRsetType' => false,
+        'singleName' => false,
         'address' => false,
         'priority' => false,
         'exchange' => false,
@@ -211,8 +223,12 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'type' => 'type',
+        'dnsType' => 'dnsType',
         'name' => 'name',
         'ttl' => 'ttl',
+        'rawText' => 'rawText',
+        'rRsetType' => 'rRsetType',
+        'singleName' => 'singleName',
         'address' => 'address',
         'priority' => 'priority',
         'exchange' => 'exchange',
@@ -234,8 +250,12 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'type' => 'setType',
+        'dnsType' => 'setDnsType',
         'name' => 'setName',
         'ttl' => 'setTtl',
+        'rawText' => 'setRawText',
+        'rRsetType' => 'setRRsetType',
+        'singleName' => 'setSingleName',
         'address' => 'setAddress',
         'priority' => 'setPriority',
         'exchange' => 'setExchange',
@@ -257,8 +277,12 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'type' => 'getType',
+        'dnsType' => 'getDnsType',
         'name' => 'getName',
         'ttl' => 'getTtl',
+        'rawText' => 'getRawText',
+        'rRsetType' => 'getRRsetType',
+        'singleName' => 'getSingleName',
         'address' => 'getAddress',
         'priority' => 'getPriority',
         'exchange' => 'getExchange',
@@ -331,8 +355,12 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('type', $data ?? [], null);
+        $this->setIfExists('dnsType', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('ttl', $data ?? [], null);
+        $this->setIfExists('rawText', $data ?? [], null);
+        $this->setIfExists('rRsetType', $data ?? [], null);
+        $this->setIfExists('singleName', $data ?? [], null);
         $this->setIfExists('address', $data ?? [], null);
         $this->setIfExists('priority', $data ?? [], null);
         $this->setIfExists('exchange', $data ?? [], null);
@@ -392,7 +420,7 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets type
      *
-     * @return string|null
+     * @return int|null
      */
     public function getType()
     {
@@ -402,7 +430,7 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets type
      *
-     * @param string|null $type type
+     * @param int|null $type Numeric DNS record type: 1 A, 2 NS, 5 CNAME, 6 SOA, 12 PTR, 15 MX, 16 TXT, 28 AAAA, 99 SPF.
      *
      * @return self
      */
@@ -412,6 +440,33 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable type cannot be null');
         }
         $this->container['type'] = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets dnsType
+     *
+     * @return string|null
+     */
+    public function getDnsType()
+    {
+        return $this->container['dnsType'];
+    }
+
+    /**
+     * Sets dnsType
+     *
+     * @param string|null $dnsType Record type name, e.g. A, MX, TXT
+     *
+     * @return self
+     */
+    public function setDnsType($dnsType)
+    {
+        if (is_null($dnsType)) {
+            throw new \InvalidArgumentException('non-nullable dnsType cannot be null');
+        }
+        $this->container['dnsType'] = $dnsType;
 
         return $this;
     }
@@ -466,6 +521,87 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable ttl cannot be null');
         }
         $this->container['ttl'] = $ttl;
+
+        return $this;
+    }
+
+    /**
+     * Gets rawText
+     *
+     * @return string|null
+     */
+    public function getRawText()
+    {
+        return $this->container['rawText'];
+    }
+
+    /**
+     * Sets rawText
+     *
+     * @param string|null $rawText The record in zone-file format
+     *
+     * @return self
+     */
+    public function setRawText($rawText)
+    {
+        if (is_null($rawText)) {
+            throw new \InvalidArgumentException('non-nullable rawText cannot be null');
+        }
+        $this->container['rawText'] = $rawText;
+
+        return $this;
+    }
+
+    /**
+     * Gets rRsetType
+     *
+     * @return int|null
+     */
+    public function getRRsetType()
+    {
+        return $this->container['rRsetType'];
+    }
+
+    /**
+     * Sets rRsetType
+     *
+     * @param int|null $rRsetType rRsetType
+     *
+     * @return self
+     */
+    public function setRRsetType($rRsetType)
+    {
+        if (is_null($rRsetType)) {
+            throw new \InvalidArgumentException('non-nullable rRsetType cannot be null');
+        }
+        $this->container['rRsetType'] = $rRsetType;
+
+        return $this;
+    }
+
+    /**
+     * Gets singleName
+     *
+     * @return string|null
+     */
+    public function getSingleName()
+    {
+        return $this->container['singleName'];
+    }
+
+    /**
+     * Sets singleName
+     *
+     * @param string|null $singleName Target host for NS, CNAME and PTR records
+     *
+     * @return self
+     */
+    public function setSingleName($singleName)
+    {
+        if (is_null($singleName)) {
+            throw new \InvalidArgumentException('non-nullable singleName cannot be null');
+        }
+        $this->container['singleName'] = $singleName;
 
         return $this;
     }
@@ -672,7 +808,7 @@ class DnsRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets serial
      *
-     * @param int|null $serial serial
+     * @param int|null $serial SOA serial; values above 2^31 are common, so it is 64-bit
      *
      * @return self
      */

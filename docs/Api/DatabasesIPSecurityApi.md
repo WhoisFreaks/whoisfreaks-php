@@ -38,7 +38,7 @@ $apiInstance = new WhoisFreaks\Api\DatabasesIPSecurityApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
+$date = 2026-10-01; // \DateTime
 
 $hostIndex = 0;
 $variables = [

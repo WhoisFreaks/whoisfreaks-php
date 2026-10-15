@@ -13,7 +13,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -36,7 +36,7 @@ use \WhoisFreaks\ObjectSerializer;
  * BulkWhoisItem Class Doc Comment
  *
  * @category Class
- * @description One bulk WHOIS result; success items also carry all WhoisResponse fields.
+ * @description One bulk WHOIS result. Successful items carry the same fields as a live WHOIS lookup.
  * @package  WhoisFreaks
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -61,7 +61,27 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'status' => 'bool',
         'domainName' => 'string',
-        'error' => 'string'
+        'error' => 'string',
+        'queryTime' => 'string',
+        'whoisServer' => 'string',
+        'domainRegistered' => 'string',
+        'secureDns' => 'bool',
+        'domainHandle' => 'string',
+        'createDate' => 'string',
+        'updateDate' => 'string',
+        'expiryDate' => 'string',
+        'domainRegistrar' => '\WhoisFreaks\Model\RegistrarInformation',
+        'resellerContact' => '\WhoisFreaks\Model\ResellerContact',
+        'registrantContact' => '\WhoisFreaks\Model\PersonalInformation',
+        'administrativeContact' => '\WhoisFreaks\Model\PersonalInformation',
+        'technicalContact' => '\WhoisFreaks\Model\PersonalInformation',
+        'billingContact' => '\WhoisFreaks\Model\PersonalInformation',
+        'eligibilityInfo' => '\WhoisFreaks\Model\EligibilityInfo',
+        'abuseContact' => '\WhoisFreaks\Model\RegistrarInformation',
+        'nameServers' => 'string[]',
+        'domainStatus' => 'string[]',
+        'whoisRawDomain' => 'string',
+        'registryData' => '\WhoisFreaks\Model\RegistryData'
     ];
 
     /**
@@ -74,7 +94,27 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'status' => null,
         'domainName' => null,
-        'error' => null
+        'error' => null,
+        'queryTime' => null,
+        'whoisServer' => null,
+        'domainRegistered' => null,
+        'secureDns' => null,
+        'domainHandle' => null,
+        'createDate' => null,
+        'updateDate' => null,
+        'expiryDate' => null,
+        'domainRegistrar' => null,
+        'resellerContact' => null,
+        'registrantContact' => null,
+        'administrativeContact' => null,
+        'technicalContact' => null,
+        'billingContact' => null,
+        'eligibilityInfo' => null,
+        'abuseContact' => null,
+        'nameServers' => null,
+        'domainStatus' => null,
+        'whoisRawDomain' => null,
+        'registryData' => null
     ];
 
     /**
@@ -85,7 +125,27 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'status' => false,
         'domainName' => false,
-        'error' => false
+        'error' => false,
+        'queryTime' => false,
+        'whoisServer' => false,
+        'domainRegistered' => false,
+        'secureDns' => false,
+        'domainHandle' => false,
+        'createDate' => false,
+        'updateDate' => false,
+        'expiryDate' => false,
+        'domainRegistrar' => false,
+        'resellerContact' => false,
+        'registrantContact' => false,
+        'administrativeContact' => false,
+        'technicalContact' => false,
+        'billingContact' => false,
+        'eligibilityInfo' => false,
+        'abuseContact' => false,
+        'nameServers' => false,
+        'domainStatus' => false,
+        'whoisRawDomain' => false,
+        'registryData' => false
     ];
 
     /**
@@ -176,7 +236,27 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'status' => 'status',
         'domainName' => 'domain_name',
-        'error' => 'error'
+        'error' => 'error',
+        'queryTime' => 'query_time',
+        'whoisServer' => 'whois_server',
+        'domainRegistered' => 'domain_registered',
+        'secureDns' => 'secure_dns',
+        'domainHandle' => 'domain_handle',
+        'createDate' => 'create_date',
+        'updateDate' => 'update_date',
+        'expiryDate' => 'expiry_date',
+        'domainRegistrar' => 'domain_registrar',
+        'resellerContact' => 'reseller_contact',
+        'registrantContact' => 'registrant_contact',
+        'administrativeContact' => 'administrative_contact',
+        'technicalContact' => 'technical_contact',
+        'billingContact' => 'billing_contact',
+        'eligibilityInfo' => 'eligibility_info',
+        'abuseContact' => 'abuse_contact',
+        'nameServers' => 'name_servers',
+        'domainStatus' => 'domain_status',
+        'whoisRawDomain' => 'whois_raw_domain',
+        'registryData' => 'registry_data'
     ];
 
     /**
@@ -187,7 +267,27 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'status' => 'setStatus',
         'domainName' => 'setDomainName',
-        'error' => 'setError'
+        'error' => 'setError',
+        'queryTime' => 'setQueryTime',
+        'whoisServer' => 'setWhoisServer',
+        'domainRegistered' => 'setDomainRegistered',
+        'secureDns' => 'setSecureDns',
+        'domainHandle' => 'setDomainHandle',
+        'createDate' => 'setCreateDate',
+        'updateDate' => 'setUpdateDate',
+        'expiryDate' => 'setExpiryDate',
+        'domainRegistrar' => 'setDomainRegistrar',
+        'resellerContact' => 'setResellerContact',
+        'registrantContact' => 'setRegistrantContact',
+        'administrativeContact' => 'setAdministrativeContact',
+        'technicalContact' => 'setTechnicalContact',
+        'billingContact' => 'setBillingContact',
+        'eligibilityInfo' => 'setEligibilityInfo',
+        'abuseContact' => 'setAbuseContact',
+        'nameServers' => 'setNameServers',
+        'domainStatus' => 'setDomainStatus',
+        'whoisRawDomain' => 'setWhoisRawDomain',
+        'registryData' => 'setRegistryData'
     ];
 
     /**
@@ -198,7 +298,27 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'status' => 'getStatus',
         'domainName' => 'getDomainName',
-        'error' => 'getError'
+        'error' => 'getError',
+        'queryTime' => 'getQueryTime',
+        'whoisServer' => 'getWhoisServer',
+        'domainRegistered' => 'getDomainRegistered',
+        'secureDns' => 'getSecureDns',
+        'domainHandle' => 'getDomainHandle',
+        'createDate' => 'getCreateDate',
+        'updateDate' => 'getUpdateDate',
+        'expiryDate' => 'getExpiryDate',
+        'domainRegistrar' => 'getDomainRegistrar',
+        'resellerContact' => 'getResellerContact',
+        'registrantContact' => 'getRegistrantContact',
+        'administrativeContact' => 'getAdministrativeContact',
+        'technicalContact' => 'getTechnicalContact',
+        'billingContact' => 'getBillingContact',
+        'eligibilityInfo' => 'getEligibilityInfo',
+        'abuseContact' => 'getAbuseContact',
+        'nameServers' => 'getNameServers',
+        'domainStatus' => 'getDomainStatus',
+        'whoisRawDomain' => 'getWhoisRawDomain',
+        'registryData' => 'getRegistryData'
     ];
 
     /**
@@ -261,6 +381,26 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('domainName', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
+        $this->setIfExists('queryTime', $data ?? [], null);
+        $this->setIfExists('whoisServer', $data ?? [], null);
+        $this->setIfExists('domainRegistered', $data ?? [], null);
+        $this->setIfExists('secureDns', $data ?? [], null);
+        $this->setIfExists('domainHandle', $data ?? [], null);
+        $this->setIfExists('createDate', $data ?? [], null);
+        $this->setIfExists('updateDate', $data ?? [], null);
+        $this->setIfExists('expiryDate', $data ?? [], null);
+        $this->setIfExists('domainRegistrar', $data ?? [], null);
+        $this->setIfExists('resellerContact', $data ?? [], null);
+        $this->setIfExists('registrantContact', $data ?? [], null);
+        $this->setIfExists('administrativeContact', $data ?? [], null);
+        $this->setIfExists('technicalContact', $data ?? [], null);
+        $this->setIfExists('billingContact', $data ?? [], null);
+        $this->setIfExists('eligibilityInfo', $data ?? [], null);
+        $this->setIfExists('abuseContact', $data ?? [], null);
+        $this->setIfExists('nameServers', $data ?? [], null);
+        $this->setIfExists('domainStatus', $data ?? [], null);
+        $this->setIfExists('whoisRawDomain', $data ?? [], null);
+        $this->setIfExists('registryData', $data ?? [], null);
     }
 
     /**
@@ -382,6 +522,546 @@ class BulkWhoisItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable error cannot be null');
         }
         $this->container['error'] = $error;
+
+        return $this;
+    }
+
+    /**
+     * Gets queryTime
+     *
+     * @return string|null
+     */
+    public function getQueryTime()
+    {
+        return $this->container['queryTime'];
+    }
+
+    /**
+     * Sets queryTime
+     *
+     * @param string|null $queryTime queryTime
+     *
+     * @return self
+     */
+    public function setQueryTime($queryTime)
+    {
+        if (is_null($queryTime)) {
+            throw new \InvalidArgumentException('non-nullable queryTime cannot be null');
+        }
+        $this->container['queryTime'] = $queryTime;
+
+        return $this;
+    }
+
+    /**
+     * Gets whoisServer
+     *
+     * @return string|null
+     */
+    public function getWhoisServer()
+    {
+        return $this->container['whoisServer'];
+    }
+
+    /**
+     * Sets whoisServer
+     *
+     * @param string|null $whoisServer whoisServer
+     *
+     * @return self
+     */
+    public function setWhoisServer($whoisServer)
+    {
+        if (is_null($whoisServer)) {
+            throw new \InvalidArgumentException('non-nullable whoisServer cannot be null');
+        }
+        $this->container['whoisServer'] = $whoisServer;
+
+        return $this;
+    }
+
+    /**
+     * Gets domainRegistered
+     *
+     * @return string|null
+     */
+    public function getDomainRegistered()
+    {
+        return $this->container['domainRegistered'];
+    }
+
+    /**
+     * Sets domainRegistered
+     *
+     * @param string|null $domainRegistered domainRegistered
+     *
+     * @return self
+     */
+    public function setDomainRegistered($domainRegistered)
+    {
+        if (is_null($domainRegistered)) {
+            throw new \InvalidArgumentException('non-nullable domainRegistered cannot be null');
+        }
+        $this->container['domainRegistered'] = $domainRegistered;
+
+        return $this;
+    }
+
+    /**
+     * Gets secureDns
+     *
+     * @return bool|null
+     */
+    public function getSecureDns()
+    {
+        return $this->container['secureDns'];
+    }
+
+    /**
+     * Sets secureDns
+     *
+     * @param bool|null $secureDns secureDns
+     *
+     * @return self
+     */
+    public function setSecureDns($secureDns)
+    {
+        if (is_null($secureDns)) {
+            throw new \InvalidArgumentException('non-nullable secureDns cannot be null');
+        }
+        $this->container['secureDns'] = $secureDns;
+
+        return $this;
+    }
+
+    /**
+     * Gets domainHandle
+     *
+     * @return string|null
+     */
+    public function getDomainHandle()
+    {
+        return $this->container['domainHandle'];
+    }
+
+    /**
+     * Sets domainHandle
+     *
+     * @param string|null $domainHandle domainHandle
+     *
+     * @return self
+     */
+    public function setDomainHandle($domainHandle)
+    {
+        if (is_null($domainHandle)) {
+            throw new \InvalidArgumentException('non-nullable domainHandle cannot be null');
+        }
+        $this->container['domainHandle'] = $domainHandle;
+
+        return $this;
+    }
+
+    /**
+     * Gets createDate
+     *
+     * @return string|null
+     */
+    public function getCreateDate()
+    {
+        return $this->container['createDate'];
+    }
+
+    /**
+     * Sets createDate
+     *
+     * @param string|null $createDate createDate
+     *
+     * @return self
+     */
+    public function setCreateDate($createDate)
+    {
+        if (is_null($createDate)) {
+            throw new \InvalidArgumentException('non-nullable createDate cannot be null');
+        }
+        $this->container['createDate'] = $createDate;
+
+        return $this;
+    }
+
+    /**
+     * Gets updateDate
+     *
+     * @return string|null
+     */
+    public function getUpdateDate()
+    {
+        return $this->container['updateDate'];
+    }
+
+    /**
+     * Sets updateDate
+     *
+     * @param string|null $updateDate updateDate
+     *
+     * @return self
+     */
+    public function setUpdateDate($updateDate)
+    {
+        if (is_null($updateDate)) {
+            throw new \InvalidArgumentException('non-nullable updateDate cannot be null');
+        }
+        $this->container['updateDate'] = $updateDate;
+
+        return $this;
+    }
+
+    /**
+     * Gets expiryDate
+     *
+     * @return string|null
+     */
+    public function getExpiryDate()
+    {
+        return $this->container['expiryDate'];
+    }
+
+    /**
+     * Sets expiryDate
+     *
+     * @param string|null $expiryDate expiryDate
+     *
+     * @return self
+     */
+    public function setExpiryDate($expiryDate)
+    {
+        if (is_null($expiryDate)) {
+            throw new \InvalidArgumentException('non-nullable expiryDate cannot be null');
+        }
+        $this->container['expiryDate'] = $expiryDate;
+
+        return $this;
+    }
+
+    /**
+     * Gets domainRegistrar
+     *
+     * @return \WhoisFreaks\Model\RegistrarInformation|null
+     */
+    public function getDomainRegistrar()
+    {
+        return $this->container['domainRegistrar'];
+    }
+
+    /**
+     * Sets domainRegistrar
+     *
+     * @param \WhoisFreaks\Model\RegistrarInformation|null $domainRegistrar domainRegistrar
+     *
+     * @return self
+     */
+    public function setDomainRegistrar($domainRegistrar)
+    {
+        if (is_null($domainRegistrar)) {
+            throw new \InvalidArgumentException('non-nullable domainRegistrar cannot be null');
+        }
+        $this->container['domainRegistrar'] = $domainRegistrar;
+
+        return $this;
+    }
+
+    /**
+     * Gets resellerContact
+     *
+     * @return \WhoisFreaks\Model\ResellerContact|null
+     */
+    public function getResellerContact()
+    {
+        return $this->container['resellerContact'];
+    }
+
+    /**
+     * Sets resellerContact
+     *
+     * @param \WhoisFreaks\Model\ResellerContact|null $resellerContact resellerContact
+     *
+     * @return self
+     */
+    public function setResellerContact($resellerContact)
+    {
+        if (is_null($resellerContact)) {
+            throw new \InvalidArgumentException('non-nullable resellerContact cannot be null');
+        }
+        $this->container['resellerContact'] = $resellerContact;
+
+        return $this;
+    }
+
+    /**
+     * Gets registrantContact
+     *
+     * @return \WhoisFreaks\Model\PersonalInformation|null
+     */
+    public function getRegistrantContact()
+    {
+        return $this->container['registrantContact'];
+    }
+
+    /**
+     * Sets registrantContact
+     *
+     * @param \WhoisFreaks\Model\PersonalInformation|null $registrantContact registrantContact
+     *
+     * @return self
+     */
+    public function setRegistrantContact($registrantContact)
+    {
+        if (is_null($registrantContact)) {
+            throw new \InvalidArgumentException('non-nullable registrantContact cannot be null');
+        }
+        $this->container['registrantContact'] = $registrantContact;
+
+        return $this;
+    }
+
+    /**
+     * Gets administrativeContact
+     *
+     * @return \WhoisFreaks\Model\PersonalInformation|null
+     */
+    public function getAdministrativeContact()
+    {
+        return $this->container['administrativeContact'];
+    }
+
+    /**
+     * Sets administrativeContact
+     *
+     * @param \WhoisFreaks\Model\PersonalInformation|null $administrativeContact administrativeContact
+     *
+     * @return self
+     */
+    public function setAdministrativeContact($administrativeContact)
+    {
+        if (is_null($administrativeContact)) {
+            throw new \InvalidArgumentException('non-nullable administrativeContact cannot be null');
+        }
+        $this->container['administrativeContact'] = $administrativeContact;
+
+        return $this;
+    }
+
+    /**
+     * Gets technicalContact
+     *
+     * @return \WhoisFreaks\Model\PersonalInformation|null
+     */
+    public function getTechnicalContact()
+    {
+        return $this->container['technicalContact'];
+    }
+
+    /**
+     * Sets technicalContact
+     *
+     * @param \WhoisFreaks\Model\PersonalInformation|null $technicalContact technicalContact
+     *
+     * @return self
+     */
+    public function setTechnicalContact($technicalContact)
+    {
+        if (is_null($technicalContact)) {
+            throw new \InvalidArgumentException('non-nullable technicalContact cannot be null');
+        }
+        $this->container['technicalContact'] = $technicalContact;
+
+        return $this;
+    }
+
+    /**
+     * Gets billingContact
+     *
+     * @return \WhoisFreaks\Model\PersonalInformation|null
+     */
+    public function getBillingContact()
+    {
+        return $this->container['billingContact'];
+    }
+
+    /**
+     * Sets billingContact
+     *
+     * @param \WhoisFreaks\Model\PersonalInformation|null $billingContact billingContact
+     *
+     * @return self
+     */
+    public function setBillingContact($billingContact)
+    {
+        if (is_null($billingContact)) {
+            throw new \InvalidArgumentException('non-nullable billingContact cannot be null');
+        }
+        $this->container['billingContact'] = $billingContact;
+
+        return $this;
+    }
+
+    /**
+     * Gets eligibilityInfo
+     *
+     * @return \WhoisFreaks\Model\EligibilityInfo|null
+     */
+    public function getEligibilityInfo()
+    {
+        return $this->container['eligibilityInfo'];
+    }
+
+    /**
+     * Sets eligibilityInfo
+     *
+     * @param \WhoisFreaks\Model\EligibilityInfo|null $eligibilityInfo eligibilityInfo
+     *
+     * @return self
+     */
+    public function setEligibilityInfo($eligibilityInfo)
+    {
+        if (is_null($eligibilityInfo)) {
+            throw new \InvalidArgumentException('non-nullable eligibilityInfo cannot be null');
+        }
+        $this->container['eligibilityInfo'] = $eligibilityInfo;
+
+        return $this;
+    }
+
+    /**
+     * Gets abuseContact
+     *
+     * @return \WhoisFreaks\Model\RegistrarInformation|null
+     */
+    public function getAbuseContact()
+    {
+        return $this->container['abuseContact'];
+    }
+
+    /**
+     * Sets abuseContact
+     *
+     * @param \WhoisFreaks\Model\RegistrarInformation|null $abuseContact abuseContact
+     *
+     * @return self
+     */
+    public function setAbuseContact($abuseContact)
+    {
+        if (is_null($abuseContact)) {
+            throw new \InvalidArgumentException('non-nullable abuseContact cannot be null');
+        }
+        $this->container['abuseContact'] = $abuseContact;
+
+        return $this;
+    }
+
+    /**
+     * Gets nameServers
+     *
+     * @return string[]|null
+     */
+    public function getNameServers()
+    {
+        return $this->container['nameServers'];
+    }
+
+    /**
+     * Sets nameServers
+     *
+     * @param string[]|null $nameServers nameServers
+     *
+     * @return self
+     */
+    public function setNameServers($nameServers)
+    {
+        if (is_null($nameServers)) {
+            throw new \InvalidArgumentException('non-nullable nameServers cannot be null');
+        }
+        $this->container['nameServers'] = $nameServers;
+
+        return $this;
+    }
+
+    /**
+     * Gets domainStatus
+     *
+     * @return string[]|null
+     */
+    public function getDomainStatus()
+    {
+        return $this->container['domainStatus'];
+    }
+
+    /**
+     * Sets domainStatus
+     *
+     * @param string[]|null $domainStatus domainStatus
+     *
+     * @return self
+     */
+    public function setDomainStatus($domainStatus)
+    {
+        if (is_null($domainStatus)) {
+            throw new \InvalidArgumentException('non-nullable domainStatus cannot be null');
+        }
+        $this->container['domainStatus'] = $domainStatus;
+
+        return $this;
+    }
+
+    /**
+     * Gets whoisRawDomain
+     *
+     * @return string|null
+     */
+    public function getWhoisRawDomain()
+    {
+        return $this->container['whoisRawDomain'];
+    }
+
+    /**
+     * Sets whoisRawDomain
+     *
+     * @param string|null $whoisRawDomain whoisRawDomain
+     *
+     * @return self
+     */
+    public function setWhoisRawDomain($whoisRawDomain)
+    {
+        if (is_null($whoisRawDomain)) {
+            throw new \InvalidArgumentException('non-nullable whoisRawDomain cannot be null');
+        }
+        $this->container['whoisRawDomain'] = $whoisRawDomain;
+
+        return $this;
+    }
+
+    /**
+     * Gets registryData
+     *
+     * @return \WhoisFreaks\Model\RegistryData|null
+     */
+    public function getRegistryData()
+    {
+        return $this->container['registryData'];
+    }
+
+    /**
+     * Sets registryData
+     *
+     * @param \WhoisFreaks\Model\RegistryData|null $registryData registryData
+     *
+     * @return self
+     */
+    public function setRegistryData($registryData)
+    {
+        if (is_null($registryData)) {
+            throw new \InvalidArgumentException('non-nullable registryData cannot be null');
+        }
+        $this->container['registryData'] = $registryData;
 
         return $this;
     }

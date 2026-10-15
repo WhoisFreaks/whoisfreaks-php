@@ -36,8 +36,8 @@ $apiInstance = new WhoisFreaks\Api\TyposquattingApi(
     new GuzzleHttp\Client(),
     $config
 );
-$keyword = 'keyword_example'; // string
-$pattern = 'pattern_example'; // string
+$keyword = whoisfreaks; // string
+$pattern = whois*; // string
 $pageToken = 'pageToken_example'; // string
 
 try {

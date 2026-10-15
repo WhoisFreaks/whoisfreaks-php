@@ -36,7 +36,7 @@ $apiInstance = new WhoisFreaks\Api\IPWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$ip = 'ip_example'; // string
+$ip = 8.8.8.8; // string
 $format = 'json'; // string
 
 try {

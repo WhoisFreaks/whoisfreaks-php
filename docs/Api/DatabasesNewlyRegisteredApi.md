@@ -43,9 +43,9 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$whois = True; // bool
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
-$tlds = 'tlds_example'; // string
+$whois = true; // bool
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
+$tlds = com,net; // string
 
 $hostIndex = 0;
 $variables = [
@@ -116,7 +116,7 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
 $variables = [
@@ -185,8 +185,8 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
-$tlds = 'tlds_example'; // string
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
+$tlds = com,net; // string
 
 $hostIndex = 0;
 $variables = [
@@ -256,7 +256,7 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
 $variables = [
@@ -325,9 +325,9 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$whois = True; // bool
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
-$tlds = 'tlds_example'; // string
+$whois = true; // bool
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
+$tlds = com,net; // string
 
 $hostIndex = 0;
 $variables = [
@@ -398,7 +398,7 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
 $variables = [
@@ -467,8 +467,8 @@ $apiInstance = new WhoisFreaks\Api\DatabasesNewlyRegisteredApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
-$tlds = 'tlds_example'; // string
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
+$tlds = com,net; // string
 
 $hostIndex = 0;
 $variables = [

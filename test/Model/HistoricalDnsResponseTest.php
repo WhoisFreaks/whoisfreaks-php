@@ -13,7 +13,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
  * HistoricalDnsResponseTest Class Doc Comment
  *
  * @category    Class
- * @description Note: &#39;currenPage&#39; spelling matches the API.
+ * @description HistoricalDnsResponse
  * @package     WhoisFreaks
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -90,9 +90,9 @@ class HistoricalDnsResponseTest extends TestCase
     }
 
     /**
-     * Test attribute "currenPage"
+     * Test attribute "currentPage"
      */
-    public function testPropertyCurrenPage()
+    public function testPropertyCurrentPage()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -108,9 +108,9 @@ class HistoricalDnsResponseTest extends TestCase
     }
 
     /**
-     * Test attribute "historicalDns"
+     * Test attribute "historicalDnsRecords"
      */
-    public function testPropertyHistoricalDns()
+    public function testPropertyHistoricalDnsRecords()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

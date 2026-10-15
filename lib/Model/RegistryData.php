@@ -13,7 +13,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -68,7 +68,7 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
         'domainRegistrar' => '\WhoisFreaks\Model\RegistrarInformation',
         'nameServers' => 'string[]',
         'domainStatus' => 'string[]',
-        'whoisRawDomain' => 'string'
+        'whoisRawRegistery' => 'string'
     ];
 
     /**
@@ -89,7 +89,7 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
         'domainRegistrar' => null,
         'nameServers' => null,
         'domainStatus' => null,
-        'whoisRawDomain' => null
+        'whoisRawRegistery' => null
     ];
 
     /**
@@ -108,7 +108,7 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
         'domainRegistrar' => false,
         'nameServers' => false,
         'domainStatus' => false,
-        'whoisRawDomain' => false
+        'whoisRawRegistery' => false
     ];
 
     /**
@@ -207,7 +207,7 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
         'domainRegistrar' => 'domain_registrar',
         'nameServers' => 'name_servers',
         'domainStatus' => 'domain_status',
-        'whoisRawDomain' => 'whois_raw_domain'
+        'whoisRawRegistery' => 'whois_raw_registery'
     ];
 
     /**
@@ -226,7 +226,7 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
         'domainRegistrar' => 'setDomainRegistrar',
         'nameServers' => 'setNameServers',
         'domainStatus' => 'setDomainStatus',
-        'whoisRawDomain' => 'setWhoisRawDomain'
+        'whoisRawRegistery' => 'setWhoisRawRegistery'
     ];
 
     /**
@@ -245,7 +245,7 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
         'domainRegistrar' => 'getDomainRegistrar',
         'nameServers' => 'getNameServers',
         'domainStatus' => 'getDomainStatus',
-        'whoisRawDomain' => 'getWhoisRawDomain'
+        'whoisRawRegistery' => 'getWhoisRawRegistery'
     ];
 
     /**
@@ -315,7 +315,7 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('domainRegistrar', $data ?? [], null);
         $this->setIfExists('nameServers', $data ?? [], null);
         $this->setIfExists('domainStatus', $data ?? [], null);
-        $this->setIfExists('whoisRawDomain', $data ?? [], null);
+        $this->setIfExists('whoisRawRegistery', $data ?? [], null);
     }
 
     /**
@@ -631,28 +631,28 @@ class RegistryData implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets whoisRawDomain
+     * Gets whoisRawRegistery
      *
      * @return string|null
      */
-    public function getWhoisRawDomain()
+    public function getWhoisRawRegistery()
     {
-        return $this->container['whoisRawDomain'];
+        return $this->container['whoisRawRegistery'];
     }
 
     /**
-     * Sets whoisRawDomain
+     * Sets whoisRawRegistery
      *
-     * @param string|null $whoisRawDomain whoisRawDomain
+     * @param string|null $whoisRawRegistery Raw registry WHOIS text (field name spelled as the API returns it)
      *
      * @return self
      */
-    public function setWhoisRawDomain($whoisRawDomain)
+    public function setWhoisRawRegistery($whoisRawRegistery)
     {
-        if (is_null($whoisRawDomain)) {
-            throw new \InvalidArgumentException('non-nullable whoisRawDomain cannot be null');
+        if (is_null($whoisRawRegistery)) {
+            throw new \InvalidArgumentException('non-nullable whoisRawRegistery cannot be null');
         }
-        $this->container['whoisRawDomain'] = $whoisRawDomain;
+        $this->container['whoisRawRegistery'] = $whoisRawRegistery;
 
         return $this;
     }

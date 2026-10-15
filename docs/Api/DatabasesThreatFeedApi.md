@@ -17,7 +17,8 @@ All URIs are relative to https://api.whoisfreaks.com, except if the operation de
 ```php
 downloadThreatFeedMalware($date): \SplFileObject
 ```
-
+### URI(s):
+- https://files.whoisfreaks.com 
 Download the daily malware threat feed (CSV)
 
 ### Example
@@ -39,10 +40,14 @@ $apiInstance = new WhoisFreaks\Api\DatabasesThreatFeedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = 'date_example'; // string | Feed date (yyyy-MM-dd); defaults to latest available
+$date = 2026-10-01; // string | Feed date (yyyy-MM-dd); omit for the full dump of the feed
+
+$hostIndex = 0;
+$variables = [
+];
 
 try {
-    $result = $apiInstance->downloadThreatFeedMalware($date);
+    $result = $apiInstance->downloadThreatFeedMalware($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesThreatFeedApi->downloadThreatFeedMalware: ', $e->getMessage(), PHP_EOL;
@@ -53,7 +58,9 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **date** | **string**| Feed date (yyyy-MM-dd); defaults to latest available | [optional] |
+| **date** | **string**| Feed date (yyyy-MM-dd); omit for the full dump of the feed | [optional] |
+| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
+| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -66,7 +73,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/octet-stream`
+- **Accept**: `application/octet-stream`, `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -77,7 +84,8 @@ try {
 ```php
 downloadThreatFeedMalwareSample(): \SplFileObject
 ```
-
+### URI(s):
+- https://files.whoisfreaks.com 
 Download a sample of the malware threat feed (CSV)
 
 ### Example
@@ -100,8 +108,12 @@ $apiInstance = new WhoisFreaks\Api\DatabasesThreatFeedApi(
     $config
 );
 
+$hostIndex = 0;
+$variables = [
+];
+
 try {
-    $result = $apiInstance->downloadThreatFeedMalwareSample();
+    $result = $apiInstance->downloadThreatFeedMalwareSample($hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesThreatFeedApi->downloadThreatFeedMalwareSample: ', $e->getMessage(), PHP_EOL;
@@ -111,6 +123,8 @@ try {
 ### Parameters
 
 This endpoint does not need any parameter.
+| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
+| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -123,7 +137,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/octet-stream`
+- **Accept**: `application/octet-stream`, `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -134,7 +148,8 @@ This endpoint does not need any parameter.
 ```php
 downloadThreatFeedPhishing($date): \SplFileObject
 ```
-
+### URI(s):
+- https://files.whoisfreaks.com 
 Download the daily phishing threat feed (CSV)
 
 ### Example
@@ -156,10 +171,14 @@ $apiInstance = new WhoisFreaks\Api\DatabasesThreatFeedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = 'date_example'; // string | Feed date (yyyy-MM-dd); defaults to latest available
+$date = 2026-10-01; // string | Feed date (yyyy-MM-dd); omit for the full dump of the feed
+
+$hostIndex = 0;
+$variables = [
+];
 
 try {
-    $result = $apiInstance->downloadThreatFeedPhishing($date);
+    $result = $apiInstance->downloadThreatFeedPhishing($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesThreatFeedApi->downloadThreatFeedPhishing: ', $e->getMessage(), PHP_EOL;
@@ -170,7 +189,9 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **date** | **string**| Feed date (yyyy-MM-dd); defaults to latest available | [optional] |
+| **date** | **string**| Feed date (yyyy-MM-dd); omit for the full dump of the feed | [optional] |
+| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
+| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -183,7 +204,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/octet-stream`
+- **Accept**: `application/octet-stream`, `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -194,7 +215,8 @@ try {
 ```php
 downloadThreatFeedPhishingSample(): \SplFileObject
 ```
-
+### URI(s):
+- https://files.whoisfreaks.com 
 Download a sample of the phishing threat feed (CSV)
 
 ### Example
@@ -217,8 +239,12 @@ $apiInstance = new WhoisFreaks\Api\DatabasesThreatFeedApi(
     $config
 );
 
+$hostIndex = 0;
+$variables = [
+];
+
 try {
-    $result = $apiInstance->downloadThreatFeedPhishingSample();
+    $result = $apiInstance->downloadThreatFeedPhishingSample($hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesThreatFeedApi->downloadThreatFeedPhishingSample: ', $e->getMessage(), PHP_EOL;
@@ -228,6 +254,8 @@ try {
 ### Parameters
 
 This endpoint does not need any parameter.
+| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
+| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -240,7 +268,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/octet-stream`
+- **Accept**: `application/octet-stream`, `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -251,7 +279,8 @@ This endpoint does not need any parameter.
 ```php
 downloadThreatFeedSpam($date): \SplFileObject
 ```
-
+### URI(s):
+- https://files.whoisfreaks.com 
 Download the daily spam threat feed (CSV)
 
 ### Example
@@ -273,10 +302,14 @@ $apiInstance = new WhoisFreaks\Api\DatabasesThreatFeedApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = 'date_example'; // string | Feed date (yyyy-MM-dd); defaults to latest available
+$date = 2026-10-01; // string | Feed date (yyyy-MM-dd); omit for the full dump of the feed
+
+$hostIndex = 0;
+$variables = [
+];
 
 try {
-    $result = $apiInstance->downloadThreatFeedSpam($date);
+    $result = $apiInstance->downloadThreatFeedSpam($date, $hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesThreatFeedApi->downloadThreatFeedSpam: ', $e->getMessage(), PHP_EOL;
@@ -287,7 +320,9 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **date** | **string**| Feed date (yyyy-MM-dd); defaults to latest available | [optional] |
+| **date** | **string**| Feed date (yyyy-MM-dd); omit for the full dump of the feed | [optional] |
+| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
+| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -300,7 +335,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/octet-stream`
+- **Accept**: `application/octet-stream`, `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -311,7 +346,8 @@ try {
 ```php
 downloadThreatFeedSpamSample(): \SplFileObject
 ```
-
+### URI(s):
+- https://files.whoisfreaks.com 
 Download a sample of the spam threat feed (CSV)
 
 ### Example
@@ -334,8 +370,12 @@ $apiInstance = new WhoisFreaks\Api\DatabasesThreatFeedApi(
     $config
 );
 
+$hostIndex = 0;
+$variables = [
+];
+
 try {
-    $result = $apiInstance->downloadThreatFeedSpamSample();
+    $result = $apiInstance->downloadThreatFeedSpamSample($hostIndex, $variables);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DatabasesThreatFeedApi->downloadThreatFeedSpamSample: ', $e->getMessage(), PHP_EOL;
@@ -345,6 +385,8 @@ try {
 ### Parameters
 
 This endpoint does not need any parameter.
+| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
+| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -357,7 +399,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/octet-stream`
+- **Accept**: `application/octet-stream`, `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

@@ -39,7 +39,7 @@ $apiInstance = new WhoisFreaks\Api\DatabasesWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
 $variables = [
@@ -108,7 +108,7 @@ $apiInstance = new WhoisFreaks\Api\DatabasesWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
 $variables = [
@@ -177,7 +177,7 @@ $apiInstance = new WhoisFreaks\Api\DatabasesWHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$date = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | yyyy-MM-dd; omit for latest
+$date = 2026-10-01; // \DateTime | yyyy-MM-dd; omit for latest
 
 $hostIndex = 0;
 $variables = [

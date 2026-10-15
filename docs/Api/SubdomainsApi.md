@@ -36,9 +36,9 @@ $apiInstance = new WhoisFreaks\Api\SubdomainsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$domain = 'domain_example'; // string
-$after = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
-$before = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime
+$domain = whoisfreaks.com; // string
+$after = 2026-01-01; // \DateTime
+$before = 2026-10-01; // \DateTime
 $status = 'status_example'; // string
 $page = 1; // int
 $format = 'json'; // string

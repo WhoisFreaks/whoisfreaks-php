@@ -78,7 +78,7 @@ ipReputation($ip): \WhoisFreaks\Model\IpReputationResponse
 
 IP Reputation Lookup
 
-Threat intel for IP — VPN, proxy, Tor, bots. 1 credit.
+Threat intel for IP: VPN, proxy, Tor, bots. 1 credit.
 
 ### Example
 
@@ -99,7 +99,7 @@ $apiInstance = new WhoisFreaks\Api\IPReputationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$ip = 'ip_example'; // string
+$ip = 8.8.8.8; // string
 
 try {
     $result = $apiInstance->ipReputation($ip);

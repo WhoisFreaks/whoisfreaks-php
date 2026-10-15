@@ -1,268 +1,262 @@
-# whoisfreaks
+# WhoisFreaks PHP SDK: WHOIS API Client for PHP
 
-Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting,
-IP Intelligence, Domain Reputation, and bulk database downloads.
+[![Packagist](https://img.shields.io/packagist/v/whoisfreaks/whoisfreaks-php.svg)](https://packagist.org/packages/whoisfreaks/whoisfreaks-php)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![API status](https://img.shields.io/badge/API%20status-live-brightgreen.svg)](https://status.whois.whoisfreaks.com/)
 
-## Authentication
-All requests require an `apiKey` query parameter.
+The official PHP client for the [WhoisFreaks WHOIS API](https://whoisfreaks.com/products/whois-api). Look up live WHOIS records for any domain across 1,529+ TLDs, pull WHOIS history back to 1986, search registrants with reverse WHOIS and run bulk WHOIS lookups from PHP code.
 
-## Resources
-- Docs: https://whoisfreaks.com/documentation
-- Billing: https://billing.whoisfreaks.com
-- Support: support@whoisfreaks.com
+The same package covers the [DNS lookup API](https://whoisfreaks.com/products/dns-checker-api), [domain availability API](https://whoisfreaks.com/products/domain-availability-api), [typosquatting API](https://whoisfreaks.com/products/domain-typosquats-api), [SSL certificate API](https://whoisfreaks.com/products/ssl-certificate-api), IP geolocation and IP reputation.
 
-
-For more information, please visit [https://whoisfreaks.com](https://whoisfreaks.com).
-
-## Installation & Usage
-
-### Requirements
-
-PHP 7.4 and later.
-Should also work with PHP 8.0.
-
-### Composer
-
-To install the bindings via [Composer](https://getcomposer.org/), add the following to `composer.json`:
+A live WHOIS lookup returns structured JSON like this (trimmed):
 
 ```json
 {
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
-    }
-  ],
-  "require": {
-    "GIT_USER_ID/GIT_REPO_ID": "*@dev"
-  }
+  "status": true,
+  "domain_name": "whoisfreaks.com",
+  "domain_registered": "yes",
+  "create_date": "2019-03-19",
+  "update_date": "2026-02-17",
+  "expiry_date": "2027-03-19",
+  "domain_registrar": {
+    "iana_id": "1068",
+    "registrar_name": "NAMECHEAP INC",
+    "normalized_name": "namecheap, inc.",
+    "website_url": "http://www.namecheap.com"
+  },
+  "registrant_contact": {
+    "city": "Lewes",
+    "state": "Delaware",
+    "zip_code": "19958",
+    "country_name": "United States",
+    "country_code": "US"
+  },
+  "name_servers": ["albert.ns.cloudflare.com", "sue.ns.cloudflare.com"],
+  "domain_status": ["clienttransferprohibited"]
 }
 ```
 
-Then run `composer install`
+## Contents
 
-### Manual Installation
+- [Installation](#installation)
+- [Get an API key](#get-an-api-key)
+- [WHOIS lookup](#whois-lookup)
+- [Normalized registrar, address and date fields](#normalized-registrar-address-and-date-fields)
+- [Bulk WHOIS lookup](#bulk-whois-lookup)
+- [WHOIS history](#whois-history)
+- [Reverse WHOIS](#reverse-whois)
+- [DNS lookup](#dns-lookup)
+- [Domain availability check](#domain-availability-check)
+- [Typosquatting detection](#typosquatting-detection)
+- [Error handling](#error-handling)
+- [All endpoints](#all-endpoints)
+- [Requirements](#requirements)
+- [Support](#support)
 
-Download the files and include `autoload.php`:
+## Installation
 
-```php
-<?php
-require_once('/path/to/whoisfreaks/vendor/autoload.php');
+```sh
+composer require whoisfreaks/whoisfreaks-php
 ```
 
-## Getting Started
+## Get an API key
 
-Please follow the [installation procedure](#installation--usage) and then run the following:
+Create a free account at [billing.whoisfreaks.com/signup](https://billing.whoisfreaks.com/signup). New accounts get 500 free credits with no credit card, usable across the live WHOIS, WHOIS history and reverse WHOIS APIs.
+
+Keep the key out of source control. The examples read it from an environment variable:
+
+```sh
+export WHOISFREAKS_API_KEY="your_api_key"
+```
+
+Every example below assumes this setup:
 
 ```php
 <?php
-require_once(__DIR__ . '/vendor/autoload.php');
+require __DIR__ . '/vendor/autoload.php';
 
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey('apiKey', getenv('WHOISFREAKS_API_KEY'));
+$http = new GuzzleHttp\Client();
+```
 
+## WHOIS lookup
 
-// Configure API key authorization: ApiKeyAuth
-$config = WhoisFreaks\Configuration::getDefaultConfiguration()->setApiKey('apiKey', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = WhoisFreaks\Configuration::getDefaultConfiguration()->setApiKeyPrefix('apiKey', 'Bearer');
+Each request queries WHOIS servers and RDAP live, so you get the current record rather than a cached copy. One lookup costs 1 credit.
 
+```php
+$whois = new WhoisFreaks\Api\WHOISApi($http, $config);
+$record = $whois->whoisLive('whoisfreaks.com');
 
-$apiInstance = new WhoisFreaks\Api\ASNWHOISApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$asn = as15169; // string
-$format = 'json'; // string
+echo $record->getCreateDate(), ' ', $record->getExpiryDate(), PHP_EOL; // 2019-03-19 2027-03-19
+echo $record->getDomainRegistrar()->getRegistrarName(), PHP_EOL;       // NAMECHEAP INC
+print_r($record->getNameServers());
+```
 
+## Normalized registrar, address and date fields
+
+Registries and registrars write the same facts in different formats. The API returns normalized fields so records from different TLDs line up without your own parsing code.
+
+| What you get | Field | Example |
+|---|---|---|
+| One registrar name, however the registry spells it | `domain_registrar.normalized_name` | `namecheap, inc.` for both "NAMECHEAP INC" and "NameCheap, Inc" |
+| A parsed and geocoded contact address | `registrant_contact.street`, `city`, `state`, `zip_code`, `country_name`, `country_code` | `Lewes`, `Delaware`, `19958`, `United States`, `US` |
+| One date format | `create_date`, `update_date`, `expiry_date` | `2019-03-19` |
+
+```php
+$registrant = $record->getRegistrantContact();
+
+echo $record->getDomainRegistrar()->getNormalizedName(), PHP_EOL;   // namecheap, inc.
+echo $registrant->getCity(), ' ', $registrant->getState(), PHP_EOL; // Lewes Delaware
+echo $registrant->getCountryCode(), PHP_EOL;                        // US
+```
+
+Use these fields to group a domain portfolio by registrar, filter registrants by country code or sort domains by expiry date across every TLD.
+
+## Bulk WHOIS lookup
+
+Look up to 100 domains in one call.
+
+```php
+$request = new WhoisFreaks\Model\BulkWhoisRequest([
+    'domainNames' => ['example.com', 'whoisfreaks.com', 'github.com'],
+]);
+$result = $whois->bulkWhois($request);
+```
+
+For larger jobs, the [Bulk WHOIS API](https://whoisfreaks.com/products/bulk-whois-api) accepts file uploads of up to 3M domains.
+
+## WHOIS history
+
+Get every recorded ownership change for a domain in one request. A new record is stored only when the WHOIS data changed, and history goes back to 1986.
+
+```php
+$history = $whois->whoisHistory('whoisfreaks.com');
+```
+
+## Reverse WHOIS
+
+Find every domain registered with a keyword, such as a company name or registrant email, across 4.5B+ WHOIS records.
+
+```php
+$matches = $whois->whoisReverse('whoisfreaks', 1);
+```
+
+## DNS lookup
+
+Pull live DNS records for a domain. Pass `all` or a comma-separated list of record types: `A`, `AAAA`, `MX`, `NS`, `TXT`, `SOA`, `SPF`, `CNAME`.
+
+```php
+$dns = new WhoisFreaks\Api\DNSApi($http, $config);
+$records = $dns->dnsLive('A,MX,TXT', 'whoisfreaks.com');
+```
+
+The same class also covers bulk DNS, historical DNS and reverse DNS lookups.
+
+## Domain availability check
+
+Check whether a domain is registered and, with suggestions turned on, get up to 100 available alternatives on other TLDs.
+
+```php
+$availability = new WhoisFreaks\Api\DomainAvailabilityApi($http, $config);
+$result = $availability->domainAvailabilityV2('whoisfreaks.io', true, 5);
+```
+
+## Typosquatting detection
+
+Find registered domains that look like typo variants of a brand name. Search by a brand `keyword`, or by a wildcard `pattern` such as `whois*` (up to 3 asterisks). Results come 100 domains per page with registration date, expiry date and drop status, across 1,529+ TLDs.
+
+```php
+$typosquatting = new WhoisFreaks\Api\TyposquattingApi($http, $config);
+$typos = $typosquatting->typosquatting('whoisfreaks');
+```
+
+To get the next page, pass the `nextPageToken` value from the response as `$pageToken`, along with the same keyword or pattern.
+
+## Error handling
+
+Failed requests raise `WhoisFreaks\ApiException` with the HTTP status code and response body.
+
+```php
 try {
-    $result = $apiInstance->asnWhois($asn, $format);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ASNWHOISApi->asnWhois: ', $e->getMessage(), PHP_EOL;
+    $record = $whois->whoisLive('whoisfreaks.com');
+} catch (WhoisFreaks\ApiException $e) {
+    echo $e->getCode(), ' ', $e->getResponseBody(), PHP_EOL;
 }
-
 ```
 
-## API Endpoints
+Live API uptime and incident history are on the [status page](https://status.whois.whoisfreaks.com/).
 
-All URIs are relative to *https://api.whoisfreaks.com*
+## All endpoints
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*ASNWHOISApi* | [**asnWhois**](docs/Api/ASNWHOISApi.md#asnwhois) | **GET** /v2.0/asn-whois | ASN WHOIS Lookup
-*AccountApi* | [**accountUsage**](docs/Api/AccountApi.md#accountusage) | **GET** /v1.0/whoisapi/usage | Account Usage
-*AccountApi* | [**databaseFileStatus**](docs/Api/AccountApi.md#databasefilestatus) | **GET** /v3.4/status | Database File Status (Public)
-*AccountApi* | [**rotateApiKey**](docs/Api/AccountApi.md#rotateapikey) | **GET** /v1.0/api-key/rotate | Rotate API Key
-*DNSApi* | [**dnsBulk**](docs/Api/DNSApi.md#dnsbulk) | **POST** /v2.0/dns/bulk/live | Bulk DNS Lookup
-*DNSApi* | [**dnsHistorical**](docs/Api/DNSApi.md#dnshistorical) | **GET** /v2.0/dns/historical | Historical DNS Lookup
-*DNSApi* | [**dnsLive**](docs/Api/DNSApi.md#dnslive) | **GET** /v2.0/dns/live | Live DNS Lookup
-*DNSApi* | [**dnsReverse**](docs/Api/DNSApi.md#dnsreverse) | **GET** /v2.1/dns/reverse | Reverse DNS Lookup
-*DatabasesASNWHOISApi* | [**dbAsnWhois**](docs/Api/DatabasesASNWHOISApi.md#dbasnwhois) | **GET** /v3.3/download/snapshot/asn/whois | ASN WHOIS Snapshot
-*DatabasesASNWHOISApi* | [**dbAsnWhoisStatus**](docs/Api/DatabasesASNWHOISApi.md#dbasnwhoisstatus) | **GET** /v3.3/status/snapshot/asn/whois | ASN WHOIS Snapshot Status
-*DatabasesDNSApi* | [**dbDnsDaily**](docs/Api/DatabasesDNSApi.md#dbdnsdaily) | **GET** /v3.2/download/dbupdate/daily/dns | DNS Database Daily
-*DatabasesDNSApi* | [**dbDnsMonthly**](docs/Api/DatabasesDNSApi.md#dbdnsmonthly) | **GET** /v3.2/download/dbupdate/monthly/dns | DNS Database Monthly
-*DatabasesDNSApi* | [**dbDnsWeekly**](docs/Api/DatabasesDNSApi.md#dbdnsweekly) | **GET** /v3.2/download/dbupdate/weekly/dns | DNS Database Weekly
-*DatabasesExpiringDroppedApi* | [**dbDropped**](docs/Api/DatabasesExpiringDroppedApi.md#dbdropped) | **GET** /v3.1/download/domainer/dropped | Dropped Domains
-*DatabasesExpiringDroppedApi* | [**dbDroppedBacklinks**](docs/Api/DatabasesExpiringDroppedApi.md#dbdroppedbacklinks) | **GET** /v3.3/download/domainer/dropped/backlinks | Dropped With Backlinks
-*DatabasesExpiringDroppedApi* | [**dbDroppedJson**](docs/Api/DatabasesExpiringDroppedApi.md#dbdroppedjson) | **GET** /v3.1/domains/dropped | Dropped Domains (JSON)
-*DatabasesExpiringDroppedApi* | [**dbExpired**](docs/Api/DatabasesExpiringDroppedApi.md#dbexpired) | **GET** /v3.1/download/domainer/expired | Expiring Domains
-*DatabasesExpiringDroppedApi* | [**dbExpiredCleaned**](docs/Api/DatabasesExpiringDroppedApi.md#dbexpiredcleaned) | **GET** /v3.1/download/domainer/expired/cleaned | Expiring Cleaned WHOIS
-*DatabasesIPGeolocationApi* | [**dbIpCity**](docs/Api/DatabasesIPGeolocationApi.md#dbipcity) | **GET** /v3.3/download/snapshot/ip/city | IP to City Snapshot
-*DatabasesIPGeolocationApi* | [**dbIpCityStatus**](docs/Api/DatabasesIPGeolocationApi.md#dbipcitystatus) | **GET** /v3.3/status/snapshot/ip/city | IP to City Snapshot Status
-*DatabasesIPGeolocationApi* | [**dbIpCountry**](docs/Api/DatabasesIPGeolocationApi.md#dbipcountry) | **GET** /v3.3/download/snapshot/ip/country | IP to Country Snapshot
-*DatabasesIPGeolocationApi* | [**dbIpCountryStatus**](docs/Api/DatabasesIPGeolocationApi.md#dbipcountrystatus) | **GET** /v3.3/status/snapshot/ip/country | IP to Country Snapshot Status
-*DatabasesIPSecurityApi* | [**dbIpSecurity**](docs/Api/DatabasesIPSecurityApi.md#dbipsecurity) | **GET** /v3.3/download/snapshot/ip/security | IP Security Snapshot
-*DatabasesIPSecurityApi* | [**dbIpSecurityStatus**](docs/Api/DatabasesIPSecurityApi.md#dbipsecuritystatus) | **GET** /v3.3/status/snapshot/ip/security | IP Security Snapshot Status
-*DatabasesIPWHOISApi* | [**dbIpWhois**](docs/Api/DatabasesIPWHOISApi.md#dbipwhois) | **GET** /v3.3/download/snapshot/ip/whois | IP WHOIS Snapshot
-*DatabasesIPWHOISApi* | [**dbIpWhoisStatus**](docs/Api/DatabasesIPWHOISApi.md#dbipwhoisstatus) | **GET** /v3.3/status/snapshot/ip/whois | IP WHOIS Snapshot Status
-*DatabasesNewlyRegisteredApi* | [**dbNewlyCctld**](docs/Api/DatabasesNewlyRegisteredApi.md#dbnewlycctld) | **GET** /v3.1/download/domainer/cctld | Newly Registered ccTLD (CSV)
-*DatabasesNewlyRegisteredApi* | [**dbNewlyCctldCleaned**](docs/Api/DatabasesNewlyRegisteredApi.md#dbnewlycctldcleaned) | **GET** /v3.1/download/domainer/cctld/cleaned | Newly Registered ccTLD Cleaned WHOIS (CSV)
-*DatabasesNewlyRegisteredApi* | [**dbNewlyCctldJson**](docs/Api/DatabasesNewlyRegisteredApi.md#dbnewlycctldjson) | **GET** /v3.1/domains/newly/cctld | Newly Registered ccTLD (JSON)
-*DatabasesNewlyRegisteredApi* | [**dbNewlyDns**](docs/Api/DatabasesNewlyRegisteredApi.md#dbnewlydns) | **GET** /v3.1/download/domainer/newly/dns | Newly Registered With DNS
-*DatabasesNewlyRegisteredApi* | [**dbNewlyGtld**](docs/Api/DatabasesNewlyRegisteredApi.md#dbnewlygtld) | **GET** /v3.1/download/domainer/gtld | Newly Registered gTLD (CSV)
-*DatabasesNewlyRegisteredApi* | [**dbNewlyGtldCleaned**](docs/Api/DatabasesNewlyRegisteredApi.md#dbnewlygtldcleaned) | **GET** /v3.1/download/domainer/gtld/cleaned | Newly Registered gTLD Cleaned WHOIS (CSV)
-*DatabasesNewlyRegisteredApi* | [**dbNewlyGtldJson**](docs/Api/DatabasesNewlyRegisteredApi.md#dbnewlygtldjson) | **GET** /v3.1/domains/newly/gtld | Newly Registered gTLD (JSON)
-*DatabasesSubdomainsApi* | [**dbSubdomainsDaily**](docs/Api/DatabasesSubdomainsApi.md#dbsubdomainsdaily) | **GET** /v3.2/download/dbupdate/daily/subdomains | Subdomains Daily
-*DatabasesSubdomainsApi* | [**dbSubdomainsMonthly**](docs/Api/DatabasesSubdomainsApi.md#dbsubdomainsmonthly) | **GET** /v3.2/download/dbupdate/monthly/subdomains | Subdomains Monthly
-*DatabasesSubdomainsApi* | [**dbSubdomainsWeekly**](docs/Api/DatabasesSubdomainsApi.md#dbsubdomainsweekly) | **GET** /v3.2/download/dbupdate/weekly/subdomains | Subdomains Weekly
-*DatabasesThreatFeedApi* | [**downloadThreatFeedMalware**](docs/Api/DatabasesThreatFeedApi.md#downloadthreatfeedmalware) | **GET** /v3.4/download/threat-feed/malware | Download the daily malware threat feed (CSV)
-*DatabasesThreatFeedApi* | [**downloadThreatFeedMalwareSample**](docs/Api/DatabasesThreatFeedApi.md#downloadthreatfeedmalwaresample) | **GET** /v3.4/download/threat-feed/malware/sample | Download a sample of the malware threat feed (CSV)
-*DatabasesThreatFeedApi* | [**downloadThreatFeedPhishing**](docs/Api/DatabasesThreatFeedApi.md#downloadthreatfeedphishing) | **GET** /v3.4/download/threat-feed/phishing | Download the daily phishing threat feed (CSV)
-*DatabasesThreatFeedApi* | [**downloadThreatFeedPhishingSample**](docs/Api/DatabasesThreatFeedApi.md#downloadthreatfeedphishingsample) | **GET** /v3.4/download/threat-feed/phishing/sample | Download a sample of the phishing threat feed (CSV)
-*DatabasesThreatFeedApi* | [**downloadThreatFeedSpam**](docs/Api/DatabasesThreatFeedApi.md#downloadthreatfeedspam) | **GET** /v3.4/download/threat-feed/spam | Download the daily spam threat feed (CSV)
-*DatabasesThreatFeedApi* | [**downloadThreatFeedSpamSample**](docs/Api/DatabasesThreatFeedApi.md#downloadthreatfeedspamsample) | **GET** /v3.4/download/threat-feed/spam/sample | Download a sample of the spam threat feed (CSV)
-*DatabasesWHOISApi* | [**dbWhoisDaily**](docs/Api/DatabasesWHOISApi.md#dbwhoisdaily) | **GET** /v3.3/download/dbupdate/daily/domains/whois | WHOIS Database Daily
-*DatabasesWHOISApi* | [**dbWhoisMonthly**](docs/Api/DatabasesWHOISApi.md#dbwhoismonthly) | **GET** /v3.3/download/dbupdate/monthly/domains/whois | WHOIS Database Monthly
-*DatabasesWHOISApi* | [**dbWhoisWeekly**](docs/Api/DatabasesWHOISApi.md#dbwhoisweekly) | **GET** /v3.3/download/dbupdate/weekly/domains/whois | WHOIS Database Weekly
-*DomainAvailabilityApi* | [**bulkDomainAvailabilityV2**](docs/Api/DomainAvailabilityApi.md#bulkdomainavailabilityv2) | **POST** /v2.0/domain/availability | Bulk Domain Availability Check
-*DomainAvailabilityApi* | [**domainAvailabilityV2**](docs/Api/DomainAvailabilityApi.md#domainavailabilityv2) | **GET** /v2.0/domain/availability | Domain Availability Check with Suggestions
-*DomainReputationApi* | [**domainReputation**](docs/Api/DomainReputationApi.md#domainreputation) | **GET** /v1/domain/security | Domain Reputation Lookup
-*GeolocationApi* | [**bulkGeolocation**](docs/Api/GeolocationApi.md#bulkgeolocation) | **POST** /v1.0/geolocation | Bulk IP Geolocation
-*GeolocationApi* | [**geolocation**](docs/Api/GeolocationApi.md#geolocation) | **GET** /v1.0/geolocation | IP Geolocation Lookup
-*IPReputationApi* | [**bulkIpReputation**](docs/Api/IPReputationApi.md#bulkipreputation) | **POST** /v1.0/security | Bulk IP Reputation
-*IPReputationApi* | [**ipReputation**](docs/Api/IPReputationApi.md#ipreputation) | **GET** /v1.0/security | IP Reputation Lookup
-*IPWHOISApi* | [**ipWhois**](docs/Api/IPWHOISApi.md#ipwhois) | **GET** /v1.0/ip-whois | IP WHOIS Lookup
-*SSLApi* | [**sslLookup**](docs/Api/SSLApi.md#ssllookup) | **GET** /v1.0/ssl/live | SSL Certificate Lookup
-*SubdomainsApi* | [**subdomains**](docs/Api/SubdomainsApi.md#subdomains) | **GET** /v1.0/subdomains | Subdomains Lookup
-*TyposquattingApi* | [**typosquatting**](docs/Api/TyposquattingApi.md#typosquatting) | **GET** /v3.0/domain/typos | Typosquatting Lookup
-*WHOISApi* | [**bulkWhois**](docs/Api/WHOISApi.md#bulkwhois) | **POST** /v2.0/bulkwhois/live | Bulk WHOIS Lookup
-*WHOISApi* | [**whoisHistory**](docs/Api/WHOISApi.md#whoishistory) | **GET** /v2.0/whois/history | Historical WHOIS records for a domain
-*WHOISApi* | [**whoisLive**](docs/Api/WHOISApi.md#whoislive) | **GET** /v2.0/whois/live | Live WHOIS Lookup
-*WHOISApi* | [**whoisReverse**](docs/Api/WHOISApi.md#whoisreverse) | **GET** /v2.0/whois/reverse | Reverse WHOIS lookup by keyword
+All URIs are relative to `https://api.whoisfreaks.com`. Each method links to its parameters and response model.
 
-## Models
+### WHOIS
 
-- [AccountUsageResponse](docs/Model/AccountUsageResponse.md)
-- [ApiCredits](docs/Model/ApiCredits.md)
-- [ApiSubscription](docs/Model/ApiSubscription.md)
-- [AsnInfo](docs/Model/AsnInfo.md)
-- [AsnPeer](docs/Model/AsnPeer.md)
-- [AsnWhoisResponse](docs/Model/AsnWhoisResponse.md)
-- [BulkDnsResponse](docs/Model/BulkDnsResponse.md)
-- [BulkDomainAvailabilityRequest](docs/Model/BulkDomainAvailabilityRequest.md)
-- [BulkDomainAvailabilityResponse](docs/Model/BulkDomainAvailabilityResponse.md)
-- [BulkGeolocationRequest](docs/Model/BulkGeolocationRequest.md)
-- [BulkWhoisItem](docs/Model/BulkWhoisItem.md)
-- [BulkWhoisRequest](docs/Model/BulkWhoisRequest.md)
-- [BulkWhoisResponse](docs/Model/BulkWhoisResponse.md)
-- [CountryMetadata](docs/Model/CountryMetadata.md)
-- [Currency](docs/Model/Currency.md)
-- [DatabaseFileStatus](docs/Model/DatabaseFileStatus.md)
-- [DatabaseUpdates](docs/Model/DatabaseUpdates.md)
-- [DateRangeStatus](docs/Model/DateRangeStatus.md)
-- [DgaFeatures](docs/Model/DgaFeatures.md)
-- [DgaScore](docs/Model/DgaScore.md)
-- [DnsBulkRequest](docs/Model/DnsBulkRequest.md)
-- [DnsRecord](docs/Model/DnsRecord.md)
-- [DnsResponse](docs/Model/DnsResponse.md)
-- [DomainAvailabilityItem](docs/Model/DomainAvailabilityItem.md)
-- [DomainAvailabilityResponse](docs/Model/DomainAvailabilityResponse.md)
-- [DomainReputationInput](docs/Model/DomainReputationInput.md)
-- [DomainReputationResponse](docs/Model/DomainReputationResponse.md)
-- [EligibilityInfo](docs/Model/EligibilityInfo.md)
-- [ErrorResponse](docs/Model/ErrorResponse.md)
-- [EvidenceSummary](docs/Model/EvidenceSummary.md)
-- [GeoAsn](docs/Model/GeoAsn.md)
-- [GeoCompany](docs/Model/GeoCompany.md)
-- [GeoNetwork](docs/Model/GeoNetwork.md)
-- [GeolocationResponse](docs/Model/GeolocationResponse.md)
-- [HistoricalDnsResponse](docs/Model/HistoricalDnsResponse.md)
-- [InetNum](docs/Model/InetNum.md)
-- [IpLocation](docs/Model/IpLocation.md)
-- [IpReputationResponse](docs/Model/IpReputationResponse.md)
-- [IpSecurity](docs/Model/IpSecurity.md)
-- [IpSecurityAsn](docs/Model/IpSecurityAsn.md)
-- [IpSecurityNetwork](docs/Model/IpSecurityNetwork.md)
-- [IpWhoisResponse](docs/Model/IpWhoisResponse.md)
-- [Irt](docs/Model/Irt.md)
-- [NewlyStatus](docs/Model/NewlyStatus.md)
-- [PersonalInformation](docs/Model/PersonalInformation.md)
-- [PivotMatch](docs/Model/PivotMatch.md)
-- [RegistrarInformation](docs/Model/RegistrarInformation.md)
-- [RegistryData](docs/Model/RegistryData.md)
-- [RelatedIoc](docs/Model/RelatedIoc.md)
-- [ReputationIndicators](docs/Model/ReputationIndicators.md)
-- [ReputationIntelligence](docs/Model/ReputationIntelligence.md)
-- [ReputationSignal](docs/Model/ReputationSignal.md)
-- [ReputationSignals](docs/Model/ReputationSignals.md)
-- [ResellerContact](docs/Model/ResellerContact.md)
-- [ReverseDnsResponse](docs/Model/ReverseDnsResponse.md)
-- [ReverseWhoisResponse](docs/Model/ReverseWhoisResponse.md)
-- [RiskCategory](docs/Model/RiskCategory.md)
-- [Route](docs/Model/Route.md)
-- [SnapshotStatus](docs/Model/SnapshotStatus.md)
-- [SslAlternateNames](docs/Model/SslAlternateNames.md)
-- [SslAuthorityInfo](docs/Model/SslAuthorityInfo.md)
-- [SslCertificate](docs/Model/SslCertificate.md)
-- [SslCertificatePolicy](docs/Model/SslCertificatePolicy.md)
-- [SslExtensionsInfo](docs/Model/SslExtensionsInfo.md)
-- [SslPublicKeyInfo](docs/Model/SslPublicKeyInfo.md)
-- [SslResponse](docs/Model/SslResponse.md)
-- [SslUnitInfo](docs/Model/SslUnitInfo.md)
-- [Subdomain](docs/Model/Subdomain.md)
-- [SubdomainsResponse](docs/Model/SubdomainsResponse.md)
-- [ThreatFeedStatus](docs/Model/ThreatFeedStatus.md)
-- [ThreatSource](docs/Model/ThreatSource.md)
-- [TrustSignals](docs/Model/TrustSignals.md)
-- [TyposquattingDomain](docs/Model/TyposquattingDomain.md)
-- [TyposquattingResponse](docs/Model/TyposquattingResponse.md)
-- [UpdateFrequencies](docs/Model/UpdateFrequencies.md)
-- [WhoisHistoricalItem](docs/Model/WhoisHistoricalItem.md)
-- [WhoisHistoricalResponse](docs/Model/WhoisHistoricalResponse.md)
-- [WhoisOrganization](docs/Model/WhoisOrganization.md)
-- [WhoisPerson](docs/Model/WhoisPerson.md)
-- [WhoisResponse](docs/Model/WhoisResponse.md)
-- [WhoisRole](docs/Model/WhoisRole.md)
+| Class | Method | HTTP request | Description |
+|---|---|---|---|
+| WHOISApi | [bulkWhois](docs/Api/WHOISApi.md#bulkwhois) | POST /v2.0/bulkwhois/live | Bulk WHOIS Lookup |
+| WHOISApi | [whoisHistory](docs/Api/WHOISApi.md#whoishistory) | GET /v2.0/whois/history | Historical WHOIS records for a domain |
+| WHOISApi | [whoisLive](docs/Api/WHOISApi.md#whoislive) | GET /v2.0/whois/live | Live WHOIS Lookup |
+| WHOISApi | [whoisReverse](docs/Api/WHOISApi.md#whoisreverse) | GET /v2.0/whois/reverse | Reverse WHOIS lookup by keyword |
+| ASNWHOISApi | [asnWhois](docs/Api/ASNWHOISApi.md#asnwhois) | GET /v2.0/asn-whois | ASN WHOIS Lookup |
+| IPWHOISApi | [ipWhois](docs/Api/IPWHOISApi.md#ipwhois) | GET /v1.0/ip-whois | IP WHOIS Lookup |
 
-## Authorization
+### DNS, SSL and subdomains
 
-Authentication schemes defined for the API:
-### ApiKeyAuth
+| Class | Method | HTTP request | Description |
+|---|---|---|---|
+| DNSApi | [dnsBulk](docs/Api/DNSApi.md#dnsbulk) | POST /v2.0/dns/bulk/live | Bulk DNS Lookup |
+| DNSApi | [dnsHistorical](docs/Api/DNSApi.md#dnshistorical) | GET /v2.0/dns/historical | Historical DNS Lookup |
+| DNSApi | [dnsLive](docs/Api/DNSApi.md#dnslive) | GET /v2.0/dns/live | Live DNS Lookup |
+| DNSApi | [dnsReverse](docs/Api/DNSApi.md#dnsreverse) | GET /v2.1/dns/reverse | Reverse DNS Lookup |
+| SSLApi | [sslLookup](docs/Api/SSLApi.md#ssllookup) | GET /v1.0/ssl/live | SSL Certificate Lookup |
+| SubdomainsApi | [subdomains](docs/Api/SubdomainsApi.md#subdomains) | GET /v1.0/subdomains | Subdomains Lookup |
 
-- **Type**: API key
-- **API key parameter name**: apiKey
-- **Location**: URL query string
+### Domain availability, typosquatting and reputation
 
+| Class | Method | HTTP request | Description |
+|---|---|---|---|
+| DomainAvailabilityApi | [bulkDomainAvailabilityV2](docs/Api/DomainAvailabilityApi.md#bulkdomainavailabilityv2) | POST /v2.0/domain/availability | Bulk Domain Availability Check |
+| DomainAvailabilityApi | [domainAvailabilityV2](docs/Api/DomainAvailabilityApi.md#domainavailabilityv2) | GET /v2.0/domain/availability | Domain Availability Check with Suggestions |
+| TyposquattingApi | [typosquatting](docs/Api/TyposquattingApi.md#typosquatting) | GET /v3.0/domain/typos | Typosquatting Lookup |
+| DomainReputationApi | [domainReputation](docs/Api/DomainReputationApi.md#domainreputation) | GET /v1/domain/security | Domain Reputation Lookup |
 
-## Tests
+### IP geolocation and reputation
 
-To run the tests, use:
+| Class | Method | HTTP request | Description |
+|---|---|---|---|
+| GeolocationApi | [bulkGeolocation](docs/Api/GeolocationApi.md#bulkgeolocation) | POST /v1.0/geolocation | Bulk IP Geolocation |
+| GeolocationApi | [geolocation](docs/Api/GeolocationApi.md#geolocation) | GET /v1.0/geolocation | IP Geolocation Lookup |
+| IPReputationApi | [bulkIpReputation](docs/Api/IPReputationApi.md#bulkipreputation) | POST /v1.0/security | Bulk IP Reputation |
+| IPReputationApi | [ipReputation](docs/Api/IPReputationApi.md#ipreputation) | GET /v1.0/security | IP Reputation Lookup |
 
-```bash
-composer install
-vendor/bin/phpunit
-```
+### Account
 
-## Author
+| Class | Method | HTTP request | Description |
+|---|---|---|---|
+| AccountApi | [accountUsage](docs/Api/AccountApi.md#accountusage) | GET /v1.0/whoisapi/usage | Account Usage |
+| AccountApi | [databaseFileStatus](docs/Api/AccountApi.md#databasefilestatus) | GET /v3.4/status | Database File Status (Public) |
+| AccountApi | [rotateApiKey](docs/Api/AccountApi.md#rotateapikey) | GET /v1.0/api-key/rotate | Rotate API Key |
 
-support@whoisfreaks.com
+### Database downloads
 
-## About this package
+WHOIS, DNS, subdomain, IP, newly registered, expiring and dropped domain databases, plus the phishing, malware and spam threat feeds, are available through the `Databases*` classes. See the [full method list](docs/) for every download and status endpoint.
 
-This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
+## Requirements
 
-- API version: `1.0.0`
-    - Package version: `0.21.0`
-    - Generator version: `7.11.0`
-- Build package: `org.openapitools.codegen.languages.PhpClientCodegen`
+PHP 7.4 or later, PHP 8 supported. Uses Guzzle 7 for HTTP.
+
+## Support
+
+- WHOIS API documentation: [whoisfreaks.com/documentation/whois-api](https://whoisfreaks.com/documentation/whois-api)
+- All API documentation: [whoisfreaks.com/documentation](https://whoisfreaks.com/documentation)
+- Product page: [WhoisFreaks WHOIS API](https://whoisfreaks.com/products/whois-api)
+- API status: [status.whois.whoisfreaks.com](https://status.whois.whoisfreaks.com/)
+- Email: support@whoisfreaks.com
+- Quick start: [WHOIS API examples](https://github.com/WhoisFreaks/whois-api)
+- Other languages: [Python](https://github.com/WhoisFreaks/whoisfreaks-python), [JavaScript](https://github.com/WhoisFreaks/whoisfreaks-javascript), [TypeScript](https://github.com/WhoisFreaks/whoisfreaks-typescript), [Java](https://github.com/WhoisFreaks/whoisfreaks-java), [Go](https://github.com/WhoisFreaks/whoisfreaks-go), [C#](https://github.com/WhoisFreaks/whoisfreaks-csharp), [Ruby](https://github.com/WhoisFreaks/whoisfreaks-ruby), [PHP](https://github.com/WhoisFreaks/whoisfreaks-php), [Swift](https://github.com/WhoisFreaks/whoisfreaks-swift), [Kotlin](https://github.com/WhoisFreaks/whoisfreaks-kotlin)
+
+## License
+
+MIT. See [LICENSE](LICENSE).

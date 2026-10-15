@@ -13,7 +13,7 @@
 /**
  * WhoisFreaks API
  *
- * Complete WhoisFreaks API — WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
+ * Complete WhoisFreaks API: WHOIS, DNS, SSL, Geolocation, Typosquatting, IP Intelligence, Domain Reputation, and bulk database downloads.  ## Authentication All requests require an `apiKey` query parameter.  ## Resources - Docs: https://whoisfreaks.com/documentation - Billing: https://billing.whoisfreaks.com - Support: support@whoisfreaks.com
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@whoisfreaks.com
@@ -36,7 +36,6 @@ use \WhoisFreaks\ObjectSerializer;
  * HistoricalDnsResponse Class Doc Comment
  *
  * @category Class
- * @description Note: &#39;currenPage&#39; spelling matches the API.
  * @package  WhoisFreaks
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -60,9 +59,9 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPITypes = [
         'totalPages' => 'int',
-        'currenPage' => 'int',
+        'currentPage' => 'int',
         'totalRecords' => 'int',
-        'historicalDns' => '\WhoisFreaks\Model\DnsResponse[]'
+        'historicalDnsRecords' => '\WhoisFreaks\Model\DnsResponse[]'
     ];
 
     /**
@@ -74,9 +73,9 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'totalPages' => null,
-        'currenPage' => null,
+        'currentPage' => null,
         'totalRecords' => null,
-        'historicalDns' => null
+        'historicalDnsRecords' => null
     ];
 
     /**
@@ -86,9 +85,9 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static array $openAPINullables = [
         'totalPages' => false,
-        'currenPage' => false,
+        'currentPage' => false,
         'totalRecords' => false,
-        'historicalDns' => false
+        'historicalDnsRecords' => false
     ];
 
     /**
@@ -178,9 +177,9 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $attributeMap = [
         'totalPages' => 'totalPages',
-        'currenPage' => 'currenPage',
+        'currentPage' => 'currentPage',
         'totalRecords' => 'totalRecords',
-        'historicalDns' => 'historicalDns'
+        'historicalDnsRecords' => 'historicalDnsRecords'
     ];
 
     /**
@@ -190,9 +189,9 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $setters = [
         'totalPages' => 'setTotalPages',
-        'currenPage' => 'setCurrenPage',
+        'currentPage' => 'setCurrentPage',
         'totalRecords' => 'setTotalRecords',
-        'historicalDns' => 'setHistoricalDns'
+        'historicalDnsRecords' => 'setHistoricalDnsRecords'
     ];
 
     /**
@@ -202,9 +201,9 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $getters = [
         'totalPages' => 'getTotalPages',
-        'currenPage' => 'getCurrenPage',
+        'currentPage' => 'getCurrentPage',
         'totalRecords' => 'getTotalRecords',
-        'historicalDns' => 'getHistoricalDns'
+        'historicalDnsRecords' => 'getHistoricalDnsRecords'
     ];
 
     /**
@@ -265,9 +264,9 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
     public function __construct(?array $data = null)
     {
         $this->setIfExists('totalPages', $data ?? [], null);
-        $this->setIfExists('currenPage', $data ?? [], null);
+        $this->setIfExists('currentPage', $data ?? [], null);
         $this->setIfExists('totalRecords', $data ?? [], null);
-        $this->setIfExists('historicalDns', $data ?? [], null);
+        $this->setIfExists('historicalDnsRecords', $data ?? [], null);
     }
 
     /**
@@ -340,28 +339,28 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
     }
 
     /**
-     * Gets currenPage
+     * Gets currentPage
      *
      * @return int|null
      */
-    public function getCurrenPage()
+    public function getCurrentPage()
     {
-        return $this->container['currenPage'];
+        return $this->container['currentPage'];
     }
 
     /**
-     * Sets currenPage
+     * Sets currentPage
      *
-     * @param int|null $currenPage currenPage
+     * @param int|null $currentPage currentPage
      *
      * @return self
      */
-    public function setCurrenPage($currenPage)
+    public function setCurrentPage($currentPage)
     {
-        if (is_null($currenPage)) {
-            throw new \InvalidArgumentException('non-nullable currenPage cannot be null');
+        if (is_null($currentPage)) {
+            throw new \InvalidArgumentException('non-nullable currentPage cannot be null');
         }
-        $this->container['currenPage'] = $currenPage;
+        $this->container['currentPage'] = $currentPage;
 
         return $this;
     }
@@ -394,28 +393,28 @@ class HistoricalDnsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
     }
 
     /**
-     * Gets historicalDns
+     * Gets historicalDnsRecords
      *
      * @return \WhoisFreaks\Model\DnsResponse[]|null
      */
-    public function getHistoricalDns()
+    public function getHistoricalDnsRecords()
     {
-        return $this->container['historicalDns'];
+        return $this->container['historicalDnsRecords'];
     }
 
     /**
-     * Sets historicalDns
+     * Sets historicalDnsRecords
      *
-     * @param \WhoisFreaks\Model\DnsResponse[]|null $historicalDns historicalDns
+     * @param \WhoisFreaks\Model\DnsResponse[]|null $historicalDnsRecords historicalDnsRecords
      *
      * @return self
      */
-    public function setHistoricalDns($historicalDns)
+    public function setHistoricalDnsRecords($historicalDnsRecords)
     {
-        if (is_null($historicalDns)) {
-            throw new \InvalidArgumentException('non-nullable historicalDns cannot be null');
+        if (is_null($historicalDnsRecords)) {
+            throw new \InvalidArgumentException('non-nullable historicalDnsRecords cannot be null');
         }
-        $this->container['historicalDns'] = $historicalDns;
+        $this->container['historicalDnsRecords'] = $historicalDnsRecords;
 
         return $this;
     }

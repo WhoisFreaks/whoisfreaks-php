@@ -77,10 +77,12 @@ try {
 ## `whoisHistory()`
 
 ```php
-whoisHistory($domainName, $page, $format): \WhoisFreaks\Model\WhoisHistoricalResponse
+whoisHistory($domainName, $format): \WhoisFreaks\Model\WhoisHistoricalResponse
 ```
 
 Historical WHOIS records for a domain
+
+Every WHOIS record captured for the domain since 1986, in one response (no pagination). Cost 2 credits.
 
 ### Example
 
@@ -101,12 +103,11 @@ $apiInstance = new WhoisFreaks\Api\WHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$domainName = 'domainName_example'; // string | Domain to fetch historical WHOIS records for
-$page = 56; // int | Page number
+$domainName = whoisfreaks.com; // string | Domain to fetch historical WHOIS records for
 $format = 'format_example'; // string
 
 try {
-    $result = $apiInstance->whoisHistory($domainName, $page, $format);
+    $result = $apiInstance->whoisHistory($domainName, $format);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling WHOISApi->whoisHistory: ', $e->getMessage(), PHP_EOL;
@@ -118,7 +119,6 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **domainName** | **string**| Domain to fetch historical WHOIS records for | |
-| **page** | **int**| Page number | [optional] |
 | **format** | **string**|  | [optional] |
 
 ### Return type
@@ -229,8 +229,8 @@ $apiInstance = new WhoisFreaks\Api\WHOISApi(
     new GuzzleHttp\Client(),
     $config
 );
-$keyword = 'keyword_example'; // string | Keyword to search across WHOIS records
-$page = 56; // int | Page number
+$keyword = whoisfreaks; // string | Keyword to search across WHOIS records
+$page = 1; // int | Page number
 $format = 'format_example'; // string
 
 try {
